@@ -1,0 +1,23 @@
+
+> thepainkillermd@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.3 (Turbopack)
+- Local:         http://localhost:58149
+- Network:       http://192.168.29.242:58149
+✓ Ready in 971ms
+✓ Running next.config.ts took 90ms
+
+ GET /pain-navigator 200 in 2.2s (next.js: 299ms, application-code: 1889ms)
+ GET /pain-navigator 200 in 69ms (next.js: 6ms, application-code: 63ms)
+ GET /pain-navigator 200 in 58ms (next.js: 5ms, application-code: 54ms)
+ GET /pain-navigator 200 in 76ms (next.js: 5ms, application-code: 72ms)
+✓ Compiled in 1373ms
+ GET /pain-navigator 200 in 149ms (next.js: 25ms, application-code: 124ms)
+ GET /pain-navigator 200 in 51ms (next.js: 5ms, application-code: 47ms)
+✓ Compiled in 169ms
+✓ Compiled in 173ms
+✓ Compiled in 3.3s
+ GET /pain-navigator 200 in 47ms (next.js: 20ms, application-code: 28ms)
+ GET /pain-navigator 200 in 49ms (next.js: 4ms, application-code: 45ms)
+ GET /pain-navigator 200 in 45ms (next.js: 5ms, application-code: 41ms)

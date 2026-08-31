@@ -1,0 +1,9 @@
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:53638
+- PID:          9540
+- Dir:          D:\cspython\thepainkillermd
+- Log:          .next\dev\logs\next-development.log
+
+You can access the existing server at http://localhost:53638,
+or run taskkill /PID 9540 /F to stop it and start a new one.

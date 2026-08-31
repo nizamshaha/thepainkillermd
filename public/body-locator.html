@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Body Pain Locator — THE PAINKILLER MD</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #1a1d23;
+            --body-fill: #e0e6ed;
+            --body-stroke: #9aa7b5;
+            --pain-color: #ff4d4d;
+            --pain-hover: #ff1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 { margin-top: 0; font-weight: 600; }
+
+        .instruction {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        svg { width: 100%; max-height: 450px; }
+
+        .pain-zone {
+            fill: var(--body-fill);
+            stroke: var(--body-stroke);
+            stroke-width: 1.5;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .pain-zone:hover {
+            fill: rgba(255, 77, 77, 0.4);
+            stroke: var(--pain-hover);
+        }
+
+        .pain-zone.active {
+            fill: var(--pain-color) !important;
+            stroke: #b30000;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        #pain-report {
+            margin-top: 25px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Where Does It Hurt?</h2>
+    <p class="instruction">Tap or click the specific body region where you feel discomfort.</p>
+
+    <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head & Neck -->
+        <path id="head-neck" class="pain-zone" d="M90,55 C90,35 110,35 110,55 C110,65 106,70 105,75 L105,85 L95,85 L95,75 C94,70 90,65 90,55 Z" />
+        <!-- Left Shoulder -->
+        <path id="left-shoulder" class="pain-zone" d="M95,85 L70,95 C65,97 60,105 60,115 L73,115 L85,95 Z" />
+        <!-- Right Shoulder -->
+        <path id="right-shoulder" class="pain-zone" d="M105,85 L130,95 C135,97 140,105 140,115 L127,115 L115,95 Z" />
+        <!-- Chest / Upper Torso -->
+        <path id="chest" class="pain-zone" d="M85,95 L115,95 L125,115 L125,145 L75,145 L75,115 Z" />
+        <!-- Abdomen / Lower Torso -->
+        <path id="abdomen" class="pain-zone" d="M75,145 L125,145 L120,195 L80,195 Z" />
+        <!-- Left Arm -->
+        <path id="left-arm" class="pain-zone" d="M60,115 C58,135 53,165 50,195 C48,205 58,205 60,195 C63,170 68,140 73,115 Z" />
+        <!-- Right Arm -->
+        <path id="right-arm" class="pain-zone" d="M140,115 C142,135 147,165 150,195 C152,205 142,205 140,195 C137,170 132,140 127,115 Z" />
+        <!-- Left Thigh/Leg -->
+        <path id="left-thigh" class="pain-zone" d="M80,195 L100,195 L100,290 L75,290 C72,250 76,215 80,195 Z" />
+        <!-- Right Thigh/Leg -->
+        <path id="right-thigh" class="pain-zone" d="M100,195 L120,195 C124,215 128,250 125,290 L100,290 Z" />
+        <!-- Left Shin/Foot -->
+        <path id="left-calf" class="pain-zone" d="M75,290 L100,290 L95,370 L65,375 C65,365 72,320 75,290 Z" />
+        <!-- Right Shin/Foot -->
+        <path id="right-calf" class="pain-zone" d="M100,290 L125,290 C128,320 135,365 135,375 L105,370 Z" />
+    </svg>
+
+    <div id="pain-report">No area selected</div>
+</div>
+
+<script>
+    document.querySelectorAll('.pain-zone').forEach(zone => {
+        zone.addEventListener('click', function() {
+            document.querySelectorAll('.pain-zone').forEach(z => z.classList.remove('active'));
+            this.classList.add('active');
+            const cleanName = this.id
+                .split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+            document.getElementById('pain-report').textContent = `Selected Area: ${cleanName}`;
+            console.log(`User logged pain in: ${this.id}`);
+        });
+    });
+</script>
+
+</body>
+</html>

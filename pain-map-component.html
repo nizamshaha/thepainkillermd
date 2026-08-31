@@ -1,0 +1,613 @@
+<title>Interactive Pain Body Map</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --primary-blue: #3b82f6;
+    --hover-blue: rgba(59, 130, 246, 0.15);
+    --active-red: #ef4444;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --bg-white: #ffffff;
+    --bg-gray: #f8fafc;
+  }
+
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --primary-blue: #60a5fa;
+      --hover-blue: rgba(96, 165, 250, 0.2);
+      --active-red: #f87171;
+      --text-dark: #f1f5f9;
+      --text-light: #94a3b8;
+      --border: #334155;
+      --bg-white: #1e293b;
+      --bg-gray: #0f172a;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --primary-blue: #60a5fa;
+    --hover-blue: rgba(96, 165, 250, 0.2);
+    --active-red: #f87171;
+    --text-dark: #f1f5f9;
+    --text-light: #94a3b8;
+    --border: #334155;
+    --bg-white: #1e293b;
+    --bg-gray: #0f172a;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-gray);
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    text-wrap: balance;
+  }
+
+  .header p {
+    font-size: 1.125rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .pain-map-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (max-width: 968px) {
+    .pain-map-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .body-container {
+    position: relative;
+    background: var(--bg-white);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .body-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1.4;
+  }
+
+  .body-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+  }
+
+  .body-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* Region hover zones (macro) */
+  .region-zone {
+    position: absolute;
+    pointer-events: all;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .region-zone::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0%;
+    height: 0%;
+    background: radial-gradient(circle, var(--hover-blue) 0%, transparent 70%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .region-zone:hover::before {
+    width: 180%;
+    height: 180%;
+    opacity: 1;
+  }
+
+  /* Pain point dots */
+  .pain-point {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    pointer-events: all;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .pain-point-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--primary-blue);
+    background: rgba(59, 130, 246, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hover state - glowing red */
+  .pain-point:hover .pain-point-inner,
+  .pain-point.highlighted .pain-point-inner {
+    border-color: var(--active-red);
+    background: var(--active-red);
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.2),
+                0 0 20px rgba(239, 68, 68, 0.4);
+    animation: pulse-red 1.5s ease-in-out infinite;
+  }
+
+  /* Active/selected state */
+  .pain-point.active .pain-point-inner {
+    border-color: var(--active-red);
+    background: var(--active-red);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.3);
+    animation: none;
+  }
+
+  @keyframes pulse-red {
+    0%, 100% {
+      box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.2),
+                  0 0 20px rgba(239, 68, 68, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 12px rgba(239, 68, 68, 0.1),
+                  0 0 30px rgba(239, 68, 68, 0.6);
+    }
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background: var(--bg-white);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 2rem;
+  }
+
+  .sidebar h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+  }
+
+  .pain-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pain-item {
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    background: var(--bg-gray);
+  }
+
+  .pain-item:hover {
+    border-color: var(--primary-blue);
+    background: var(--bg-white);
+  }
+
+  .pain-item.highlighted {
+    border-color: var(--active-red);
+    background: rgba(239, 68, 68, 0.05);
+    color: var(--active-red);
+  }
+
+  .pain-item.active {
+    border-color: var(--active-red);
+    background: var(--active-red);
+    color: white;
+  }
+
+  .selection-display {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(59, 130, 246, 0.05);
+    border: 2px solid var(--primary-blue);
+    border-radius: 0.75rem;
+  }
+
+  .selection-display h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--primary-blue);
+  }
+
+  .selection-display p {
+    font-size: 0.875rem;
+    color: var(--text-light);
+  }
+
+  .selection-display strong {
+    color: var(--text-dark);
+    font-weight: 600;
+  }
+
+  .reset-btn {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg-gray);
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-dark);
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    background: var(--bg-white);
+    border-color: var(--text-light);
+  }
+
+  .instructions {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    background: rgba(59, 130, 246, 0.05);
+    border-left: 4px solid var(--primary-blue);
+    border-radius: 0.5rem;
+  }
+
+  .instructions h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary-blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .instructions ul {
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--text-light);
+  }
+
+  .instructions li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .instructions li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary-blue);
+  }
+</style>
+
+<div class="container">
+  <div class="header">
+    <h1>Interactive Pain Body Map</h1>
+    <p>Select the area where you experience pain. Hover over regions to explore, click to select.</p>
+  </div>
+
+  <div class="pain-map-layout">
+    <!-- Body Map -->
+    <div class="body-container">
+      <div class="body-image-wrapper">
+        <!-- Body silhouette SVG placeholder -->
+        <svg class="body-image" viewBox="0 0 400 560" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#e2e8f0;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#cbd5e1;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+
+          <!-- Simple body silhouette -->
+          <!-- Head -->
+          <ellipse cx="200" cy="60" rx="35" ry="45" fill="url(#bodyGradient)" opacity="0.3"/>
+
+          <!-- Neck -->
+          <rect x="190" y="95" width="20" height="25" fill="url(#bodyGradient)" opacity="0.3"/>
+
+          <!-- Torso -->
+          <ellipse cx="200" cy="200" rx="70" ry="100" fill="url(#bodyGradient)" opacity="0.3"/>
+
+          <!-- Arms -->
+          <ellipse cx="140" cy="180" rx="18" ry="90" transform="rotate(-20 140 180)" fill="url(#bodyGradient)" opacity="0.3"/>
+          <ellipse cx="260" cy="180" rx="18" ry="90" transform="rotate(20 260 180)" fill="url(#bodyGradient)" opacity="0.3"/>
+
+          <!-- Legs -->
+          <ellipse cx="170" cy="380" rx="25" ry="130" fill="url(#bodyGradient)" opacity="0.3"/>
+          <ellipse cx="230" cy="380" rx="25" ry="130" fill="url(#bodyGradient)" opacity="0.3"/>
+
+          <!-- Guide text -->
+          <text x="200" y="540" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.5">
+            Hover and click on body regions
+          </text>
+        </svg>
+
+        <!-- Interactive overlay -->
+        <div class="body-overlay" id="bodyOverlay"></div>
+      </div>
+
+      <div class="instructions">
+        <h3>How to Use</h3>
+        <ul>
+          <li>Hover over body regions to see general areas</li>
+          <li>Hover over specific points to see them glow red</li>
+          <li>Click on a point to select your pain location</li>
+          <li>Use the sidebar to browse available pain areas</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Pain Areas</h2>
+      <div class="pain-list" id="painList"></div>
+
+      <div id="selectionDisplay" class="selection-display" hidden>
+        <h3>Selected Area</h3>
+        <p><strong id="selectedName"></strong></p>
+        <p id="selectedDescription"></p>
+        <button class="reset-btn" onclick="resetSelection()">Clear Selection</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Pain area data with precise percentage-based coordinates
+  const painAreas = [
+    {
+      id: 'headache',
+      name: 'Headache',
+      description: 'Pain in the head, temples, or forehead region',
+      region: { top: '5%', left: '42%', width: '16%', height: '12%' },
+      point: { top: '8%', left: '50%' }
+    },
+    {
+      id: 'neck',
+      name: 'Neck Pain',
+      description: 'Stiffness or pain in the cervical spine area',
+      region: { top: '17%', left: '45%', width: '10%', height: '6%' },
+      point: { top: '19%', left: '50%' }
+    },
+    {
+      id: 'left-shoulder',
+      name: 'Left Shoulder',
+      description: 'Pain in the left shoulder joint or surrounding muscles',
+      region: { top: '22%', left: '25%', width: '18%', height: '14%' },
+      point: { top: '27%', left: '32%' }
+    },
+    {
+      id: 'right-shoulder',
+      name: 'Right Shoulder',
+      description: 'Pain in the right shoulder joint or surrounding muscles',
+      region: { top: '22%', left: '57%', width: '18%', height: '14%' },
+      point: { top: '27%', left: '68%' }
+    },
+    {
+      id: 'upper-back',
+      name: 'Upper Back',
+      description: 'Pain between the shoulder blades',
+      region: { top: '28%', left: '42%', width: '16%', height: '12%' },
+      point: { top: '33%', left: '50%' }
+    },
+    {
+      id: 'lower-back',
+      name: 'Lower Back',
+      description: 'Pain in the lumbar spine region',
+      region: { top: '42%', left: '40%', width: '20%', height: '12%' },
+      point: { top: '47%', left: '50%' }
+    },
+    {
+      id: 'left-knee',
+      name: 'Left Knee',
+      description: 'Pain in the left knee joint',
+      region: { top: '62%', left: '38%', width: '10%', height: '10%' },
+      point: { top: '66%', left: '43%' }
+    },
+    {
+      id: 'right-knee',
+      name: 'Right Knee',
+      description: 'Pain in the right knee joint',
+      region: { top: '62%', left: '52%', width: '10%', height: '10%' },
+      point: { top: '66%', left: '57%' }
+    }
+  ];
+
+  let selectedArea = null;
+  let hoveredArea = null;
+
+  // Initialize the pain map
+  function init() {
+    const overlay = document.getElementById('bodyOverlay');
+    const painList = document.getElementById('painList');
+
+    // Create interactive elements for each pain area
+    painAreas.forEach(area => {
+      // Create region hover zone (macro)
+      const regionZone = document.createElement('div');
+      regionZone.className = 'region-zone';
+      regionZone.style.top = area.region.top;
+      regionZone.style.left = area.region.left;
+      regionZone.style.width = area.region.width;
+      regionZone.style.height = area.region.height;
+      regionZone.dataset.areaId = area.id;
+
+      // Create pain point (micro)
+      const painPoint = document.createElement('div');
+      painPoint.className = 'pain-point';
+      painPoint.style.top = area.point.top;
+      painPoint.style.left = area.point.left;
+      painPoint.dataset.areaId = area.id;
+
+      const pointInner = document.createElement('div');
+      pointInner.className = 'pain-point-inner';
+      painPoint.appendChild(pointInner);
+
+      // Event listeners for pain point
+      painPoint.addEventListener('mouseenter', () => highlightArea(area.id));
+      painPoint.addEventListener('mouseleave', () => unhighlightArea(area.id));
+      painPoint.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectArea(area.id);
+      });
+
+      overlay.appendChild(regionZone);
+      overlay.appendChild(painPoint);
+
+      // Create sidebar item
+      const painItem = document.createElement('div');
+      painItem.className = 'pain-item';
+      painItem.textContent = area.name;
+      painItem.dataset.areaId = area.id;
+
+      painItem.addEventListener('mouseenter', () => highlightArea(area.id));
+      painItem.addEventListener('mouseleave', () => unhighlightArea(area.id));
+      painItem.addEventListener('click', () => selectArea(area.id));
+
+      painList.appendChild(painItem);
+    });
+  }
+
+  function highlightArea(areaId) {
+    if (selectedArea === areaId) return;
+
+    hoveredArea = areaId;
+
+    // Highlight the pain point
+    const painPoint = document.querySelector(`.pain-point[data-area-id="${areaId}"]`);
+    if (painPoint) painPoint.classList.add('highlighted');
+
+    // Highlight the sidebar item
+    const painItem = document.querySelector(`.pain-item[data-area-id="${areaId}"]`);
+    if (painItem) painItem.classList.add('highlighted');
+  }
+
+  function unhighlightArea(areaId) {
+    if (selectedArea === areaId) return;
+
+    hoveredArea = null;
+
+    // Remove highlight from pain point
+    const painPoint = document.querySelector(`.pain-point[data-area-id="${areaId}"]`);
+    if (painPoint) painPoint.classList.remove('highlighted');
+
+    // Remove highlight from sidebar item
+    const painItem = document.querySelector(`.pain-item[data-area-id="${areaId}"]`);
+    if (painItem) painItem.classList.remove('highlighted');
+  }
+
+  function selectArea(areaId) {
+    // Clear previous selection
+    if (selectedArea) {
+      const prevPoint = document.querySelector(`.pain-point[data-area-id="${selectedArea}"]`);
+      const prevItem = document.querySelector(`.pain-item[data-area-id="${selectedArea}"]`);
+      if (prevPoint) prevPoint.classList.remove('active', 'highlighted');
+      if (prevItem) prevItem.classList.remove('active', 'highlighted');
+    }
+
+    selectedArea = areaId;
+
+    // Apply active state
+    const painPoint = document.querySelector(`.pain-point[data-area-id="${areaId}"]`);
+    const painItem = document.querySelector(`.pain-item[data-area-id="${areaId}"]`);
+
+    if (painPoint) {
+      painPoint.classList.add('active');
+      painPoint.classList.remove('highlighted');
+    }
+    if (painItem) {
+      painItem.classList.add('active');
+      painItem.classList.remove('highlighted');
+    }
+
+    // Update selection display
+    const area = painAreas.find(a => a.id === areaId);
+    if (area) {
+      document.getElementById('selectedName').textContent = area.name;
+      document.getElementById('selectedDescription').textContent = area.description;
+      document.getElementById('selectionDisplay').hidden = false;
+    }
+
+    // Callback for parent application
+    if (typeof onSelectPainArea === 'function') {
+      onSelectPainArea(areaId);
+    }
+
+    console.log('Pain area selected:', areaId);
+  }
+
+  function resetSelection() {
+    if (selectedArea) {
+      const painPoint = document.querySelector(`.pain-point[data-area-id="${selectedArea}"]`);
+      const painItem = document.querySelector(`.pain-item[data-area-id="${selectedArea}"]`);
+      if (painPoint) painPoint.classList.remove('active');
+      if (painItem) painItem.classList.remove('active');
+    }
+
+    selectedArea = null;
+    document.getElementById('selectionDisplay').hidden = true;
+  }
+
+  // Define callback function for demonstration
+  function onSelectPainArea(areaId) {
+    console.log('Callback triggered with area:', areaId);
+    // This would be replaced with actual application logic
+  }
+
+  // Initialize on page load
+  init();
+</script>

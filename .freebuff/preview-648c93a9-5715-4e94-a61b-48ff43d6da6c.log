@@ -1,0 +1,10 @@
+
+> thepainkillermd@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.3 (Turbopack)
+- Local:         http://localhost:52732
+- Network:       http://192.168.29.242:52732
+✓ Ready in 689ms
+✓ Running next.config.ts took 67ms
+ GET /
