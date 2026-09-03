@@ -5,6 +5,8 @@ import { allPainAreas } from "@/data/painAreasFull";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { useT } from "@/lib/useT";
 import ContentDiscovery from "@/components/ui/ContentDiscovery";
+import ExerciseLibrary from "@/components/medical/ExerciseLibrary";
+import HomeRemedies from "@/components/medical/HomeRemedies";
 
 export default function PainAreaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -12,7 +14,33 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
   const area = allPainAreas.find((a) => a.slug === slug);
   if (!area) return <div className="p-8 text-center">Pain area not found</div>;
 
+  // JSON-LD schema for this pain area
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    name: `${area.name} — Causes, Symptoms & Treatment`,
+    description: area.description,
+    url: `https://thepainkillermd.in/pain/${area.slug}`,
+    medicalAudience: { "@type": "PatientAudience" },
+    about: {
+      "@type": "MedicalCondition",
+      name: area.name,
+      description: area.description,
+    },
+    author: {
+      "@type": "Physician",
+      name: "Dr. Shahnawaz F Shah",
+      jobTitle: "Interventional Spine & Pain Physician",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "THE PAINKILLER MD",
+      url: "https://thepainkillermd.in",
+    },
+  };
+
   return (
+    <>
     <>
       <Breadcrumbs items={[
         { label: t("nav.painNavigator"), href: "/pain-navigator" },
@@ -102,6 +130,12 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
           </section>
         )}
 
+        {/* Home Remedies */}
+        <HomeRemedies areaId={area.id} areaName={area.name} />
+
+        {/* Exercise Library */}
+        <ExerciseLibrary areaId={area.id} areaName={area.name} />
+
         <ContentDiscovery
           title="You May Also Want to Understand"
           items={[
@@ -128,6 +162,13 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
           This information is for educational purposes and does not constitute medical advice. Always consult a qualified healthcare professional.
         </div>
       </div>
+
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+    </>
     </>
   );
 }

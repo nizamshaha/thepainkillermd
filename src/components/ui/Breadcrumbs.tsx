@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useT } from "@/lib/useT";
 
 interface BreadcrumbItem {
   label: string;
@@ -6,6 +7,7 @@ interface BreadcrumbItem {
 }
 
 export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+  const t = useT();
   const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -28,7 +30,7 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
       />
       <ol className="flex items-center gap-1.5 text-sm text-[var(--color-text-muted)] flex-wrap">
         <li>
-          <Link href="/" className="hover:text-[var(--color-clinical-600)] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-[var(--color-clinical-600)] transition-colors">{t("breadcrumb.home")}</Link>
         </li>
         {items.map((item, i) => (
           <li key={i} className="flex items-center gap-1.5">

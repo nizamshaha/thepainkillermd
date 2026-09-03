@@ -1,6 +1,7 @@
 "use client";
 
 import type { PainArea } from "@/data/painAreas";
+import { useT } from "@/lib/useT";
 
 interface Props {
   areas: PainArea[];
@@ -9,12 +10,13 @@ interface Props {
 }
 
 export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }: Props) {
+  const t = useT();
   const area = areas[0]; // Primary area for detail view
 
   return (
     <div className="max-w-3xl mx-auto">
       <button onClick={onBack} className="flex items-center gap-2 text-sm text-[var(--color-clinical-600)] font-medium mb-6 hover:text-[var(--color-clinical-700)]">
-        ← Back to body map
+        ← {t("painNav.bodyMap")}
       </button>
 
       {/* Selected areas badge */}
@@ -41,7 +43,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
       </Section>
 
       {/* Common Possible Causes */}
-      <Section title="Common Possible Causes" accent="text-[var(--color-pathway-nociceptive)]">
+      <Section title={t("painDetail.causes")} accent="text-[var(--color-pathway-nociceptive)]">
         <p className="text-sm text-[var(--color-text-muted)] italic mb-2">Some common possible causes include:</p>
         <ul className="space-y-1.5">
           {area.commonCauses.map((c, i) => (
@@ -54,7 +56,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
       </Section>
 
       {/* Common Symptoms */}
-      <Section title="Common Symptoms">
+      <Section title={t("painDetail.symptoms")}>
         <ul className="space-y-1.5">
           {area.symptoms.map((s, i) => (
             <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -66,7 +68,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
       </Section>
 
       {/* What Makes It Worse */}
-      <Section title="Common Aggravating Factors">
+      <Section title={t("painDetail.aggravating")}>
         <ul className="space-y-1.5">
           {area.aggravatingFactors.map((a, i) => (
             <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -78,7 +80,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
       </Section>
 
       {/* Self-Care */}
-      <Section title="What Can You Try at Home?" accent="text-[var(--color-medical-700)]">
+      <Section title={t("painDetail.selfCare")} accent="text-[var(--color-medical-700)]">
         <ul className="space-y-1.5">
           {area.selfCare.map((s, i) => (
             <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -108,7 +110,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
       </div>
 
       {/* When to Consult */}
-      <Section title="When to See a Doctor">
+      <Section title={t("painDetail.whenToConsult")}>
         <ul className="space-y-1.5">
           {area.whenToConsult.map((w, i) => (
             <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -120,7 +122,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
       </Section>
 
       {/* How a Pain Physician May Help */}
-      <Section title="How a Pain Physician May Help">
+      <Section title={t("painDetail.physician")}>
         <p className="text-[var(--color-text-secondary)] mb-3">
           A pain physician can provide a comprehensive assessment including:
         </p>
@@ -144,7 +146,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
 
       {/* FAQ */}
       {area.faq.length > 0 && (
-        <Section title="Frequently Asked Questions">
+        <Section title={t("painDetail.faq")}>
           <div className="space-y-3">
             {area.faq.map((f, i) => (
               <div key={i} className="p-4 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
@@ -158,18 +160,18 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
 
       {/* CTA */}
       <div className="mt-10 p-8 rounded-xl bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white text-center">
-        <h3 className="text-xl font-bold mb-2">Need Help With Your Pain?</h3>
+        <h3 className="text-xl font-bold mb-2">{t("painDetail.cta.title")}</h3>
         <p className="text-white/80 mb-1">Dr Shahnawaz F Shah</p>
         <p className="text-sm text-white/60 mb-6">Interventional Spine &amp; Pain Physician</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <a href="/clinic#book" className="px-6 py-3 rounded-full bg-white text-[var(--color-primary-900)] font-semibold hover:bg-[var(--color-surface-100)] transition-colors">
-            Book an Appointment
+            {t("painDetail.cta.appointment")}
           </a>
           <a href="/clinic" className="px-6 py-3 rounded-full border-2 border-white/30 text-white font-semibold hover:bg-white/10 transition-colors">
-            Contact the Clinic
+            {t("painDetail.cta.contact")}
           </a>
           <button onClick={onStartQuestionnaire} className="px-6 py-3 rounded-full border-2 border-white/30 text-white font-semibold hover:bg-white/10 transition-colors">
-            Explore More Information →
+            {t("painDetail.cta.explore")} →
           </button>
         </div>
       </div>

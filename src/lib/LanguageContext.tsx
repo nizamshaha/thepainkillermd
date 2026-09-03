@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
 import type { Locale } from "@/lib/types";
 
 interface LanguageContextType {
@@ -11,15 +11,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType>({ locale: "en", setLocale: () => {} });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("tpm-locale") as Locale | null;
-      if (saved && ["en", "hi", "mr", "gu"].includes(saved)) {
-        return saved;
-      }
+  const [locale, setLocaleState] = useState<Locale>("en");
+
+  // Load saved locale after hydration to avoid SSR mismatch
+  useEffect(() => {
+    const saved = localStorage.getItem("tpm-locale") as Locale | null;
+    if (saved && ["en", "hi", "mr", "gu"].includes(saved)) {
+      setLocaleState(saved);
     }
-    return "en";
-  });
+  }, []);
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l);

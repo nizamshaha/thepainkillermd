@@ -1,11 +1,13 @@
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
+"use client";
 
-export const metadata = { title: "Medical Disclaimer" };
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import { useT } from "@/lib/useT";
 
 export default function DisclaimerPage() {
+  const t = useT();
   return (
     <>
-      <Breadcrumbs items={[{ label: "Medical Disclaimer" }]} />
+      <Breadcrumbs items={[{ label: t("breadcrumb.disclaimer") }]} />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Medical Disclaimer</h1>
         <div className="prose prose-stone max-w-none text-[var(--color-text-secondary)] space-y-4 leading-relaxed">

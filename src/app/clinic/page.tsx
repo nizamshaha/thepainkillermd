@@ -67,10 +67,10 @@ export default function ClinicPage() {
           <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">📞 {t("clinic.contact")}</h3>
             <div className="space-y-2">
-              <a href="tel:+919999999999" className="flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] transition-colors">
+              <a href="tel:+919769682366" className="flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] transition-colors">
                 📞 Phone: Available upon request
               </a>
-              <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] transition-colors">
+              <a href="https://wa.me/919769682366" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] transition-colors">
                 💬 WhatsApp: Available upon request
               </a>
             </div>
@@ -83,10 +83,10 @@ export default function ClinicPage() {
             Schedule a consultation with Dr. Shahnawaz F Shah for personalized pain evaluation and treatment planning.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+919999999999" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[var(--color-primary-900)] font-semibold hover:bg-[var(--color-surface-100)] transition-colors">
+            <a href="tel:+919769682366" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[var(--color-primary-900)] font-semibold hover:bg-[var(--color-surface-100)] transition-colors">
               📞 {t("cta.call")}
             </a>
-            <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors">
+            <a href="https://wa.me/919769682366" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors">
               💬 {t("cta.whatsapp")}
             </a>
           </div>

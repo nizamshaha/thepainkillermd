@@ -1,6 +1,7 @@
 "use client";
 
 import type { PainArea } from "@/data/painAreas";
+import { useT } from "@/lib/useT";
 
 interface Props {
   areas: PainArea[];
@@ -24,10 +25,11 @@ const characterLabels: Record<string, string> = {
 };
 
 export default function PainResults({ areas, answers, showRedFlags, onRestart }: Props) {
+  const t = useT();
   const area = areas[0];
-  const duration = durationLabels[answers.duration as string] || "Not specified";
-  const character = characterLabels[answers.character as string] || "Not specified";
-  const intensity = (answers.intensity as number) ?? "Not specified";
+  const duration = durationLabels[answers.duration as string] || t("result.notSpecified");
+  const character = characterLabels[answers.character as string] || t("result.notSpecified");
+  const intensity = (answers.intensity as number) ?? t("result.notSpecified");
   const sensory = (answers.sensory as string[]) || [];
   const hasNumbness = sensory.includes("numbness");
   const hasWeakness = sensory.includes("weakness");
@@ -63,13 +65,13 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
   return (
     <div className="max-w-3xl mx-auto">
       <button onClick={onRestart} className="flex items-center gap-2 text-sm text-[var(--color-clinical-600)] font-medium mb-6 hover:text-[var(--color-clinical-700)]">
-        ← Start over
+        {t("result.back")}
       </button>
 
       {/* Red Flag Alert */}
       {showRedFlags && (
         <div className="mb-8 p-6 rounded-xl bg-red-50 border-2 border-[var(--color-alert-critical)]">
-          <h3 className="text-xl font-bold text-[var(--color-alert-critical)] mb-3">🚨 Important</h3>
+          <h3 className="text-xl font-bold text-[var(--color-alert-critical)] mb-3">{t("result.important")}</h3>
           <p className="text-red-800 font-medium mb-2">
             Your symptoms may require prompt medical assessment.
           </p>
@@ -88,34 +90,34 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
       )}
 
       {/* Title */}
-      <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">Your Pain Profile</h2>
+      <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("result.yourPainProfile")}</h2>
 
       {/* Pain Profile Summary */}
       <div className="mb-8 p-5 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">Pain Area</p>
+            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">{t("result.painArea")}</p>
             <p className="font-medium text-[var(--color-text-primary)]">{area.icon} {area.name}</p>
           </div>
           <div>
-            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">Duration</p>
+            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">{t("result.duration")}</p>
             <p className="font-medium text-[var(--color-text-primary)]">{duration}</p>
           </div>
           <div>
-            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">Pain Character</p>
+            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">{t("result.painCharacter")}</p>
             <p className="font-medium text-[var(--color-text-primary)]">{character}</p>
           </div>
           <div>
-            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">Intensity</p>
+            <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">{t("result.intensity")}</p>
             <p className="font-medium text-[var(--color-text-primary)]">{typeof intensity === "number" ? `${intensity}/10` : intensity}</p>
           </div>
           {(hasNumbness || hasTingling || hasWeakness) && (
             <div className="col-span-2">
-              <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">Associated Symptoms</p>
+              <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">{t("result.associatedSymptoms")}</p>
               <div className="flex flex-wrap gap-2">
-                {hasNumbness && <span className="px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-800 font-medium">Numbness</span>}
-                {hasTingling && <span className="px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-800 font-medium">Tingling</span>}
-                {hasWeakness && <span className="px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-800 font-medium">Weakness</span>}
+                {hasNumbness && <span className="px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-800 font-medium">{t("result.numbness")}</span>}
+                {hasTingling && <span className="px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-800 font-medium">{t("result.tingling")}</span>}
+                {hasWeakness && <span className="px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-800 font-medium">{t("result.weakness")}</span>}
               </div>
             </div>
           )}
@@ -124,7 +126,7 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
 
       {/* What Could This Mean? */}
       <section className="mb-8">
-        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">What Could This Mean?</h3>
+        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">{t("result.whatCouldThisMean")}</h3>
         <div className="space-y-3">
           {educationalNotes.map((note, i) => (
             <p key={i} className="text-[var(--color-text-secondary)] leading-relaxed p-4 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
@@ -136,8 +138,8 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
 
       {/* Possible Causes */}
       <section className="mb-8">
-        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Common Possible Causes</h3>
-        <p className="text-sm text-[var(--color-text-muted)] italic mb-3">Some common possible causes for {area.name.toLowerCase()} include:</p>
+        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">{t("result.commonPossibleCauses")}</h3>
+        <p className="text-sm text-[var(--color-text-muted)] italic mb-3">{t("result.someCommonCauses")}</p>
         <div className="space-y-2">
           {area.commonCauses.map((cause, i) => (
             <div key={i} className="p-3 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] text-sm text-[var(--color-text-secondary)]">
@@ -149,7 +151,7 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
 
       {/* What Can You Try at Home */}
       <section className="mb-8">
-        <h3 className="text-xl font-bold text-[var(--color-medical-700)] mb-3">What Can You Try at Home?</h3>
+        <h3 className="text-xl font-bold text-[var(--color-medical-700)] mb-3">{t("result.whatCanYouTry")}</h3>
         <ul className="space-y-2">
           {area.selfCare.map((tip, i) => (
             <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -165,7 +167,7 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
 
       {/* When to Seek Medical Attention */}
       <section className="mb-8">
-        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">When to Seek Medical Attention</h3>
+        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">{t("result.whenToSeekMedical")}</h3>
         <ul className="space-y-2">
           {area.whenToConsult.map((w, i) => (
             <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -178,8 +180,8 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
 
       {/* How a Pain Physician May Help */}
       <section className="mb-8">
-        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">How a Pain Physician May Help</h3>
-        <p className="text-[var(--color-text-secondary)] mb-3">Treatment depends on the cause, severity, examination findings and individual patient needs.</p>
+        <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">{t("result.howPhysicianHelp")}</h3>
+        <p className="text-[var(--color-text-secondary)] mb-3">{t("result.treatmentDepends")}</p>
         <div className="flex flex-wrap gap-2">
           {area.treatmentOptions.map((t, i) => (
             <span key={i} className="px-2.5 py-1 text-xs font-medium rounded bg-[var(--color-surface-100)] text-[var(--color-text-secondary)] border border-[var(--color-surface-200)]">
@@ -191,15 +193,16 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
 
       {/* Doctor CTA */}
       <div className="mt-10 p-8 rounded-xl bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white text-center">
-        <h3 className="text-xl font-bold mb-2">Need Help With Your Pain?</h3>
+        <h3 className="text-xl font-bold mb-2">{t("result.needHelpWithPain")}</h3>
         <p className="text-white/80 mb-1">Dr Shahnawaz F Shah</p>
-        <p className="text-sm text-white/60 mb-6">Interventional Spine &amp; Pain Physician</p>
+        <p className="text-sm text-white/60 mb-6">{t("result.spinePainPhysician")}</p>
+        <p className="text-sm text-white/70 mb-4">{t("result.contactDrShah")}</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <a href="/clinic#book" className="px-6 py-3 rounded-full bg-white text-[var(--color-primary-900)] font-semibold hover:bg-[var(--color-surface-100)] transition-colors">
-            Book an Appointment
+            {t("result.bookAppointment")}
           </a>
           <a href="/clinic" className="px-6 py-3 rounded-full border-2 border-white/30 text-white font-semibold hover:bg-white/10 transition-colors">
-            Contact the Clinic
+            {t("result.contactClinic")}
           </a>
           <a href={`/pain/${area.slug}`} className="px-6 py-3 rounded-full border-2 border-white/30 text-white font-semibold hover:bg-white/10 transition-colors">
             Explore More Information

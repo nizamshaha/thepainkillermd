@@ -6,11 +6,11 @@ import PainWizard from "@/components/medical/PainWizard";
 import SearchModal from "@/components/medical/SearchModal";
 import NervePathway from "@/components/medical/svgs/NervePathway";
 import SpinalStenosis from "@/components/medical/svgs/SpinalStenosis";
-import RFAFlow from "@/components/medical/svgs/RFAFlow";
 import WatchAndLearn from "@/components/medical/WatchAndLearn";
 // import PainNavigator from "@/components/medical/PainNavigator";
 import Logo from "@/components/ui/Logo";
 import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
+import Footer from "@/components/navigation/Footer";
 import { useT } from "@/lib/useT";
 
 // Condition preview cards
@@ -42,9 +42,9 @@ const redFlags = [
 
 // Articles preview
 const articles = [
-  { title: "Understanding Disc Herniation and Nerve Pain", category: "Spine", readTime: "8 min", excerpt: "How disc material compresses nerve roots and the inflammatory cascade that follows." },
-  { title: "The Neuroscience of Chronic Pain", category: "Chronic Pain", readTime: "12 min", excerpt: "Central sensitization, neuroplasticity, and why chronic pain becomes a disease of its own." },
-  { title: "Radiofrequency Ablation: What to Expect", category: "Procedures", readTime: "6 min", excerpt: "A step-by-step guide to the RFA procedure from preparation to recovery." },
+  { slug: "understanding-disc-herniation-and-nerve-pain", title: "Understanding Disc Herniation and Nerve Pain", category: "Spine", readTime: "8 min", excerpt: "How disc material compresses nerve roots and the inflammatory cascade that follows." },
+  { slug: "the-neuroscience-of-chronic-pain", title: "The Neuroscience of Chronic Pain", category: "Chronic Pain", readTime: "12 min", excerpt: "Central sensitization, neuroplasticity, and why chronic pain becomes a disease of its own." },
+  { slug: "radiofrequency-ablation-what-to-expect", title: "Radiofrequency Ablation: What to Expect", category: "Procedures", readTime: "6 min", excerpt: "A step-by-step guide to the RFA procedure from preparation to recovery." },
 ];
 
 export default function Home() {
@@ -214,21 +214,23 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featuredConditions.map((c) => (
+            {featuredConditions.map((c, idx) => (
               <a
                 key={c.slug}
                 href={`/conditions/${c.slug}`}
-                className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg hover:border-[var(--color-clinical-300)] transition-all"
+                className="group relative p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-xl hover:shadow-[var(--color-clinical-500)]/5 hover:border-[var(--color-clinical-300)] hover:-translate-y-1 transition-all duration-300"
+                style={{ animationDelay: `${idx * 60}ms` }}
               >
-                <div className="w-2 h-2 rounded-full mb-3" style={{ background: c.color }} />
+                <div className="absolute top-0 left-0 w-full h-1 rounded-t-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(90deg, ${c.color}, transparent)` }} />
+                <div className="w-3 h-3 rounded-full mb-3 ring-2 ring-offset-2 ring-transparent group-hover:ring-offset-white transition-all duration-300" style={{ background: c.color, ['--tw-ring-color' as string]: c.color }} />
                 <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">
                   {c.name}
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3">
                   {c.description}
                 </p>
-                <span className="inline-block mt-3 text-sm font-medium text-[var(--color-clinical-600)]">
-                  {t("common.readMore")} →
+                <span className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-[var(--color-clinical-600)] group-hover:gap-2 transition-all duration-300">
+                  {t("common.readMore")} <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </span>
               </a>
             ))}
@@ -317,8 +319,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* RFA Flow Diagram */}
-          <RFAFlow />
         </div>
       </section>
 
@@ -422,19 +422,19 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {articles.map((a) => (
-              <article key={a.title} className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-shadow">
+              <a key={a.slug} href={`/education/${a.slug}`} className="group block p-6 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg hover:border-[var(--color-clinical-300)] transition-all">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="px-2 py-0.5 text-xs font-semibold rounded bg-[var(--color-primary-50)] text-[var(--color-primary-700)]">
                     {a.category}
                   </span>
                   <span className="text-xs text-[var(--color-text-muted)]">{a.readTime} read</span>
                 </div>
-                <h3 className="font-bold text-[var(--color-text-primary)] mb-2">{a.title}</h3>
+                <h3 className="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-clinical-600)] transition-colors">{a.title}</h3>
                 <p className="text-sm text-[var(--color-text-secondary)]">{a.excerpt}</p>
                 <span className="inline-block mt-4 text-sm font-medium text-[var(--color-clinical-600)]">
                   {t("common.readMore")} →
                 </span>
-              </article>
+              </a>
             ))}
           </div>
         </div>
@@ -509,13 +509,13 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+919999999999"
+              href="tel:+919769682366"
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[var(--color-primary-900)] font-semibold text-lg hover:bg-[var(--color-surface-100)] transition-colors"
             >
               📞 {t("cta.call")}
             </a>
             <a
-              href="https://wa.me/919999999999"
+              href="https://wa.me/919769682366"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-green-600 text-white font-semibold text-lg hover:bg-green-700 transition-colors"
@@ -530,115 +530,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* === SECTION 14: Footer === */}
-      <footer className="bg-[var(--color-primary-900)] text-white py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            {/* Brand */}
-            <div>
-              <Logo size="md" variant="light" />
-              <p className="text-sm text-white/60 leading-relaxed mt-3">
-                {t("footer.brand")}
-              </p>
-            </div>
-
-            {/* Conditions */}
-            <div>
-              <h4 className="font-semibold text-sm uppercase tracking-wider text-white/80 mb-3">{t("nav.conditions")}</h4>
-              <ul className="space-y-1.5">
-                {[
-                  { label: "Sciatica", slug: "sciatica" },
-                  { label: "Spinal Stenosis", slug: "lumbar-spinal-stenosis" },
-                  { label: "Cervical Radiculopathy", slug: "cervical-radiculopathy" },
-                  { label: "CRPS", slug: "complex-regional-pain-syndrome" },
-                  { label: "Trigeminal Neuralgia", slug: "trigeminal-neuralgia" },
-                ].map((c) => (
-                  <li key={c.slug}>
-                    <a href={`/conditions/${c.slug}`} className="text-sm text-white/50 hover:text-white transition-colors">
-                      {c.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Procedures */}
-            <div>
-              <h4 className="font-semibold text-sm uppercase tracking-wider text-white/80 mb-3">{t("nav.procedures")}</h4>
-              <ul className="space-y-1.5">
-                {[
-                  { label: "Radiofrequency Ablation", slug: "radiofrequency-ablation" },
-                  { label: "Epidural Injections", slug: "lumbar-epidural-injection" },
-                  { label: "Medial Branch Blocks", slug: "medial-branch-block" },
-                  { label: "SI Joint Injections", slug: "si-joint-injection" },
-                  { label: "Spinal Cord Stimulation", slug: "spinal-cord-stimulation" },
-                ].map((p) => (
-                  <li key={p.slug}>
-                    <a href={`/procedures/${p.slug}`} className="text-sm text-white/50 hover:text-white transition-colors">
-                      {p.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h4 className="font-semibold text-sm uppercase tracking-wider text-white/80 mb-3">Information</h4>
-              <ul className="space-y-1.5">
-                {[
-                  { label: "Videos & Stories", href: "/videos" },
-                  { label: t("footer.privacy"), href: "/privacy" },
-                  { label: t("footer.terms"), href: "/terms" },
-                  { label: t("footer.editorial"), href: "/editorial" },
-                  { label: t("footer.patientInfo"), href: "/patient-info" },
-                ].map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} className="text-sm text-white/50 hover:text-white transition-colors">
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Medical Disclaimer */}
-          <div className="pt-8 border-t border-white/10">
-            <p className="text-xs text-white/40 text-center max-w-3xl mx-auto leading-relaxed">
-              <strong className="text-white/60">Medical Disclaimer:</strong>{" "}
-              {t("footer.disclaimer").replace("Medical Disclaimer: ", "")}
-            </p>
-            <p className="text-xs text-white/30 text-center mt-4">
-              © {new Date().getFullYear()} THE PAINKILLER MD. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
-
-      {/* Mobile Sticky Action Bar */}
-      <div className="mobile-action-bar" role="complementary" aria-label="Quick actions">
-        <a
-          href="tel:+919999999999"
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--color-primary-900)] text-white text-sm font-semibold hover:bg-[var(--color-primary-800)] transition-colors min-h-[44px]"
-        >
-          📞 {t("cta.call")}
-        </a>
-        <a
-          href="https://wa.me/919999999999"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors min-h-[44px]"
-        >
-          💬 {t("cta.whatsapp")}
-        </a>
-        <a
-          href="#book"
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--color-clinical-600)] text-white text-sm font-semibold hover:bg-[var(--color-clinical-700)] transition-colors min-h-[44px]"
-        >
-          📅 {t("nav.contact")}
-        </a>
-      </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { anatomyRegions, getRegionById } from "@/data/anatomy";
 import type { AnatomyRegion } from "@/lib/types";
 
-import Image from "next/image";
 
 // Calibrated hotspot coordinates matching body.jpeg (aspect ratio 2:3)
 const anatomyHotspots: Array<{
@@ -92,17 +91,25 @@ function BodySilhouette({
 
   return (
     <div className="relative w-full max-w-[340px] mx-auto">
-      {/* 2:3 Aspect ratio container matching body.jpeg */}
+      {/* 2:3 Aspect ratio container with SVG body silhouette */}
       <div className="relative w-full overflow-hidden rounded-2xl bg-[var(--color-surface-50)] shadow-inner border border-[var(--color-surface-200)]" style={{ aspectRatio: "2 / 3" }}>
-        {/* Photographic Anatomy Image */}
-        <Image
-          src="/images/body.jpeg"
-          alt="Human Body Anatomy Map"
-          fill
-          className="object-contain select-none pointer-events-none z-0"
-          priority
-          sizes="(max-width: 640px) 100vw, 340px"
-        />
+        {/* SVG Body Silhouette Background */}
+        <svg viewBox="0 0 100 150" className="absolute inset-0 w-full h-full z-0 opacity-20" preserveAspectRatio="xMidYMid meet">
+          {/* Head */}
+          <ellipse cx="50" cy="18" rx="10" ry="12" fill="var(--color-clinical-400)" />
+          {/* Neck */}
+          <rect x="47" y="30" width="6" height="6" rx="2" fill="var(--color-clinical-400)" />
+          {/* Torso */}
+          <path d="M35 36 L65 36 L68 85 L32 85 Z" fill="var(--color-clinical-400)" rx="4" />
+          {/* Left Arm */}
+          <path d="M35 36 L25 40 L18 70 L22 72 L28 48 L35 44 Z" fill="var(--color-clinical-400)" />
+          {/* Right Arm */}
+          <path d="M65 36 L75 40 L82 70 L78 72 L72 48 L65 44 Z" fill="var(--color-clinical-400)" />
+          {/* Left Leg */}
+          <path d="M35 85 L48 85 L46 140 L38 140 L32 95 Z" fill="var(--color-clinical-400)" />
+          {/* Right Leg */}
+          <path d="M52 85 L65 85 L68 95 L62 140 L54 140 Z" fill="var(--color-clinical-400)" />
+        </svg>
 
         {/* SVG Interactive Hotspot Overlay */}
         <svg

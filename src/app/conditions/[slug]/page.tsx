@@ -9,13 +9,14 @@ import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
 import ConditionFAQ from "./ConditionFAQ";
 import RelatedContent from "./RelatedContent";
 import { useT } from "@/lib/useT";
+import { notFound } from "next/navigation";
 
 // Generate static params for all conditions
 export default function ConditionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const t = useT();
   const condition = getConditionBySlug(slug);
-  if (!condition) return <div className="p-8 text-center">Condition not found</div>;
+  if (!condition) notFound();
 
   const conditionProcedures = procedures.filter((p) => condition.procedures.includes(p.slug));
   const conditionMedications = medications.filter((m) => condition.medications.includes(m.id));
@@ -39,7 +40,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${severityColors[condition.severity]}`}>
-              {condition.severity.charAt(0).toUpperCase() + condition.severity.slice(1)} Severity
+              {t(`condition.${condition.severity}Severity`)} — {t("condition.severity")}
             </span>
             <span className="text-xs text-white/50 uppercase tracking-wider">{condition.category}</span>
           </div>
@@ -182,8 +183,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
               <h3 className="font-bold text-[var(--color-text-primary)]">Dr. Shahnawaz F Shah</h3>
               <p className="text-sm text-[var(--color-clinical-600)] mb-2">{t("doctor.specialty")}</p>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Dr. Shah specializes in the diagnosis and management of {condition.name.toLowerCase()} using
-                evidence-based approaches tailored to each patient&apos;s needs.
+                {t("condition.drSpecializes")} <strong>{condition.name.toLowerCase()}</strong> {t("condition.evidenceBased")}
               </p>
               <a href="/clinic#book" className="inline-flex items-center px-5 py-2.5 rounded-full bg-[var(--color-clinical-600)] text-white text-sm font-semibold hover:bg-[var(--color-clinical-700)] transition-colors">
                 {t("hero.cta.primary")}
@@ -194,9 +194,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Medical Disclaimer */}
         <div className="text-xs text-[var(--color-text-muted)] leading-relaxed border-t border-[var(--color-surface-200)] pt-6">
-          <strong>{t("condition.disclaimer")}:</strong> The information on this page is for educational purposes only and does
-          not constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional
-          for personalized evaluation and management.
+          <strong>{t("condition.disclaimer")}:</strong> {t("condition.disclaimerFull")}
         </div>
       </div>
     </>

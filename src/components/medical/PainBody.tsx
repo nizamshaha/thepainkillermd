@@ -10,11 +10,24 @@ import {
   type PainSelection,
 } from "@/data/bodyRegions";
 import type { PainArea } from "@/data/painAreas";
+import { useT } from "@/lib/useT";
+import BodyRegionZoom from "./BodyRegionZoom";
+
+interface PlacedPin {
+  anchor: { id: string; label: string; x: number; y: number };
+  customLabel?: string;
+}
+
+type RegionZoomState = {
+  regionId: string;
+  pins: PlacedPin[];
+} | null;
 
 interface PainBodyProps {
   areas: PainArea[];
   selectedIds: string[];
   onSelect: (area: PainArea) => void;
+  onPinsChange?: (pins: Map<string, PlacedPin[]>) => void;
 }
 
 /* ─── Intensity visual config ──────────────────────────────────────── */
@@ -42,7 +55,8 @@ const INTENSITY_CONFIG: Record<
   },
 };
 
-export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps) {
+export default function PainBody({ areas, selectedIds, onSelect, onPinsChange }: PainBodyProps) {
+  const t = useT();
   const [view, setView] = useState<BodyView>("front");
   const [hovered, setHovered] = useState<string | null>(null);
   const [selections, setSelections] = useState<Map<string, PainSelection>>(new Map());
@@ -50,6 +64,8 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
   const [showIntensityPicker, setShowIntensityPicker] = useState<string | null>(null);
   const [showMobileSheet, setShowMobileSheet] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<{ x: number; y: number; label: string } | null>(null);
+  const [zoomRegion, setZoomRegion] = useState<string | null>(null);
+  const [regionPins, setRegionPins] = useState<Map<string, PlacedPin[]>>(new Map());
 
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -133,27 +149,45 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
 
   const handleRegionClick = useCallback(
     (id: string) => {
-      const area = areas.find((a) => a.id === id);
-      if (!area) return;
+      // Open zoom panel for this region
+      setZoomRegion(id);
+      setHovered(null);
+      setTooltip(null);
+    },
+    []
+  );
 
-      setSelections((prev) => {
-        const next = new Map(prev);
-        if (next.has(id)) {
-          next.delete(id);
-        } else {
-          next.set(id, { regionId: id, label: area.name, intensity: activeIntensity });
-        }
-        return next;
-      });
+  const handleZoomConfirm = useCallback(
+    (regionId: string, pins: PlacedPin[]) => {
+      // Save pins for this region
+      const newPins = new Map(regionPins);
+      if (pins.length > 0) {
+        newPins.set(regionId, pins);
+      } else {
+        newPins.delete(regionId);
+      }
+      setRegionPins(newPins);
+      onPinsChange?.(newPins);
 
-      // Sync with parent (legacy support)
-      const region = visibleRegions.find((r) => r.id === id);
-      if (region) {
+      // Also select the region in the main body map
+      const area = areas.find((a) => a.id === regionId);
+      if (area) {
+        setSelections((prev) => {
+          const next = new Map(prev);
+          next.set(regionId, { regionId, label: area.name, intensity: activeIntensity });
+          return next;
+        });
         onSelect(area as PainArea);
       }
+
+      setZoomRegion(null);
     },
-    [areas, activeIntensity, onSelect, visibleRegions]
+    [areas, activeIntensity, onSelect, regionPins, onPinsChange]
   );
+
+  const handleZoomClose = useCallback(() => {
+    setZoomRegion(null);
+  }, []);
 
   const handleRegionKeyDown = useCallback(
     (e: React.KeyboardEvent, id: string) => {
@@ -217,8 +251,15 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
       next.delete(id);
       return next;
     });
+    // Also remove pins for this region
+    setRegionPins((prev) => {
+      const next = new Map(prev);
+      next.delete(id);
+      onPinsChange?.(next);
+      return next;
+    });
     setShowMobileSheet(null);
-  }, []);
+  }, [onPinsChange]);
 
   /* ─── Sync selection count to parent for badge ───────────────── */
   useEffect(() => {
@@ -259,7 +300,7 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
           }`}
           aria-pressed={view === "front"}
         >
-          Front
+          {t("body.frontView")}
         </button>
         <button
           onClick={() => setView("back")}
@@ -270,7 +311,7 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
           }`}
           aria-pressed={view === "back"}
         >
-          Back
+          {t("body.backView")}
         </button>
       </div>
 
@@ -344,9 +385,9 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
                   strokeColor = config.stroke;
                   filterVal = `drop-shadow(${config.glow})`;
                 } else if (isHovered) {
-                  fillColor = "rgba(96, 165, 250, 0.3)";
-                  strokeColor = "#60a5fa";
-                  filterVal = "drop-shadow(0 0 6px rgba(96,165,250,0.4))";
+                  fillColor = "rgba(239, 68, 68, 0.35)";
+                  strokeColor = "#ef4444";
+                  filterVal = "drop-shadow(0 0 8px rgba(239,68,68,0.5))";
                 } else {
                   fillColor = "rgba(51, 65, 85, 0.15)";
                   strokeColor = "rgba(71, 85, 105, 0.4)";
@@ -426,7 +467,7 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
           </div>
 
           <p className="text-center text-xs text-[var(--color-text-muted)] mt-3">
-            Click on the body area where you feel pain — or use the list below
+            Hover to preview — body part glows red. Click to select and pinpoint exact pain location.
           </p>
         </div>
 
@@ -446,7 +487,7 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
                   </svg>
                 </div>
                 <p className="text-xs text-[var(--color-text-muted)]">
-                  No regions selected. Click or tap a body region to begin.
+                  {t("painNav.noRegions")}
                 </p>
               </div>
             ) : (
@@ -473,6 +514,30 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
                           ×
                         </button>
                       </div>
+
+                      {/* Placed pain pins */}
+                      {regionPins.has(id) && regionPins.get(id)!.length > 0 && (
+                        <div className="mb-2">
+                          <p className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider mb-1">Pain Points</p>
+                          <div className="flex flex-wrap gap-1">
+                            {regionPins.get(id)!.map((pin) => (
+                              <span
+                                key={pin.anchor.id}
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-50 text-red-600 text-[10px] font-medium border border-red-200"
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                                {pin.anchor.label}
+                              </span>
+                            ))}
+                          </div>
+                          <button
+                            onClick={() => setZoomRegion(id)}
+                            className="mt-1 text-[10px] text-[var(--color-clinical-600)] hover:underline"
+                          >
+                            Edit pain points
+                          </button>
+                        </div>
+                      )}
 
                       {/* Intensity selector */}
                       <div className="flex gap-1.5" role="radiogroup" aria-label={`Pain intensity for ${sel.label}`}>
@@ -529,13 +594,20 @@ export default function PainBody({ areas, selectedIds, onSelect }: PainBodyProps
           {/* ── How it works ── */}
           <div className="mt-4 p-4 bg-[var(--color-primary-50)] border border-[var(--color-primary-200)] rounded-xl">
             <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
-              <strong>How it works:</strong> Hover to preview, click to select. Choose pain intensity
-              (Mild / Moderate / Severe). Multiple regions can be selected. Use Front/Back toggle to
-              view both sides.
+              <strong>{t("painNav.howItWorks")}</strong> {t("painNav.howItWorksDesc")}
             </p>
           </div>
         </div>
       </div>
+
+      {/* ─── Zoom Panel (when a region is clicked) ────────── */}
+      {zoomRegion && (
+        <BodyRegionZoom
+          regionId={zoomRegion}
+          onClose={handleZoomClose}
+          onConfirm={handleZoomConfirm}
+        />
+      )}
 
       {/* ─── Mobile Bottom Sheet ───────────────────────────── */}
       {showMobileSheet && (

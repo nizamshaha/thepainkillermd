@@ -84,6 +84,29 @@ function makeQuestions(areaSpecific: { duration?: boolean; radiation?: boolean; 
     ],
   });
 
+  qs.push({
+    id: "previousTreatment", text: "Have you tried any treatment for this pain before?", type: "multiple",
+    options: [
+      { id: "pt1", label: "Painkillers / tablets", value: "medication" },
+      { id: "pt2", label: "Physiotherapy", value: "physiotherapy" },
+      { id: "pt3", label: "Hot / cold packs", value: "hot-cold" },
+      { id: "pt4", label: "Massage or manual therapy", value: "massage" },
+      { id: "pt5", label: "Injections", value: "injections" },
+      { id: "pt6", label: "Surgery", value: "surgery" },
+      { id: "pt7", label: "No previous treatment", value: "none" },
+    ],
+  });
+
+  qs.push({
+    id: "medications", text: "Are you currently taking any medication for this pain?", type: "single",
+    options: [
+      { id: "m1", label: "No medication", value: "none" },
+      { id: "m2", label: "Over-the-counter painkillers (e.g., Paracetamol, Ibuprofen)", value: "otc" },
+      { id: "m3", label: "Prescribed pain medication", value: "prescribed" },
+      { id: "m4", label: "Other medication (please mention in notes)", value: "other" },
+    ],
+  });
+
   qs.push({ id: "intensity", text: "On a scale of 0–10, how intense is your pain most of the time?", type: "scale" });
 
   return qs;

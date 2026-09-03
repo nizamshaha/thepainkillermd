@@ -37,10 +37,11 @@ export default function ConditionsPage() {
               <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">{categoryLabels[cat] || cat}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {items.map((c) => (
-                  <a key={c.slug} href={`/conditions/${c.slug}`} className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg hover:border-[var(--color-clinical-300)] transition-all">
-                    <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] mb-2">{c.name}</h3>
+                  <a key={c.slug} href={`/conditions/${c.slug}`} className="group relative p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-xl hover:shadow-[var(--color-clinical-500)]/5 hover:border-[var(--color-clinical-300)] hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[var(--color-clinical-500)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">{c.name}</h3>
                     <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3">{c.overview}</p>
-                    <span className="inline-block mt-3 text-sm font-medium text-[var(--color-clinical-600)]">{t("common.readMore")} →</span>
+                    <span className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-[var(--color-clinical-600)] group-hover:gap-2 transition-all duration-300">{t("common.readMore")} <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></span>
                   </a>
                 ))}
               </div>

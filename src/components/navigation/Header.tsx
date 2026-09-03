@@ -5,19 +5,20 @@ import Link from "next/link";
 import SearchModal from "@/components/medical/SearchModal";
 import Logo from "@/components/ui/Logo";
 import LanguageToggle from "@/components/ui/LanguageToggle";
-
-const navLinks = [
-  { label: "Pain Navigator", href: "/pain-navigator" },
-  { label: "Conditions", href: "/conditions" },
-  { label: "Procedures", href: "/procedures" },
-  { label: "Medications", href: "/medications" },
-  { label: "Education", href: "/education" },
-  { label: "Videos & Stories", href: "/videos" },
-  { label: "About Dr. Shah", href: "/doctor" },
-  { label: "Clinic", href: "/clinic" },
-];
+import { useT } from "@/lib/useT";
 
 export default function Header() {
+  const t = useT();
+  const navLinks = [
+    { label: t("header.painNavigator"), href: "/pain-navigator" },
+    { label: t("header.conditions"), href: "/conditions" },
+    { label: t("header.procedures"), href: "/procedures" },
+    { label: t("header.medications"), href: "/medications" },
+    { label: t("header.education"), href: "/education" },
+    { label: t("header.videos"), href: "/videos" },
+    { label: t("header.aboutDrShah"), href: "/doctor" },
+    { label: t("header.clinic"), href: "/clinic" },
+  ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -75,7 +76,7 @@ export default function Header() {
               href="/clinic#book"
               className="hidden md:inline-flex items-center px-4 py-2 rounded-full bg-[var(--color-clinical-600)] text-white text-sm font-semibold hover:bg-[var(--color-clinical-700)] transition-colors"
             >
-              Book Consultation
+              {t("header.bookConsultation")}
             </a>
 
             {/* Mobile Menu Button */}

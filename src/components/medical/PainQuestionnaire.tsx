@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import type { PainArea } from "@/data/painAreas";
+import { useT } from "@/lib/useT";
 
 interface Props {
   area: PainArea;
@@ -11,8 +12,14 @@ interface Props {
 }
 
 export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }: Props) {
+  const t = useT();
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[] | number>>({});
+
+  // Translation helpers
+  const trQ = (qId: string) => t(`q.${qId}`);
+  const trOpt = (qId: string, optVal: string) => t(`q.${qId}.${optVal}`);
+  const trUI = (key: string) => t(`q.${key}`);
 
   // Merge questions from all selected areas (use first area's questionnaire, add multi-area question if needed)
   const questions = area.questionnaire.questions;
@@ -71,13 +78,13 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
   return (
     <div className="max-w-2xl mx-auto">
       <button onClick={handlePrev} className="flex items-center gap-2 text-sm text-[var(--color-clinical-600)] font-medium mb-6 hover:text-[var(--color-clinical-700)]">
-        ← {currentQ > 0 ? "Previous question" : "Back"}
+        ← {currentQ > 0 ? trUI("previous") : trUI("back")}
       </button>
 
       {/* Progress */}
       <div className="mb-6">
         <div className="flex items-center justify-between text-sm text-[var(--color-text-muted)] mb-2">
-          <span>Question {currentQ + 1} of {visibleQuestions.length}</span>
+          <span>Question {currentQ + 1} {trUI("of")} {visibleQuestions.length}</span>
           <span>{Math.round(((currentQ + 1) / visibleQuestions.length) * 100)}%</span>
         </div>
         <div className="w-full h-2 bg-[var(--color-surface-200)] rounded-full overflow-hidden">
@@ -100,7 +107,7 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
       )}
 
       {/* Question */}
-      <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">{question.text}</h3>
+      <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">{trQ(question.id) || question.text}</h3>
 
       {/* Options */}
       {question.type === "single" && question.options && (
@@ -115,7 +122,7 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
                   : "border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)]"
               }`}
             >
-              <span className="font-medium text-[var(--color-text-primary)]">{opt.label}</span>
+              <span className="font-medium text-[var(--color-text-primary)]">{trOpt(question.id, opt.value) || opt.label}</span>
             </button>
           ))}
         </div>
@@ -144,8 +151,8 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
                     </svg>
                   )}
                 </div>
-                <span className="font-medium text-[var(--color-text-primary)]">{opt.label}</span>
-                {opt.triggersRedFlag && (
+              <span className="font-medium text-[var(--color-text-primary)]">{trOpt(question.id, opt.value) || opt.label}</span>
+              {opt.triggersRedFlag && (
                   <span className="ml-auto px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-700 font-medium">⚠️</span>
                 )}
               </button>
@@ -171,8 +178,8 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
             aria-label="Pain intensity scale"
           />
           <div className="flex justify-between max-w-md mx-auto mt-2 text-xs text-[var(--color-text-muted)]">
-            <span>0 — No pain</span>
-            <span>10 — Worst pain</span>
+            <span>0 — {trUI("noPain")}</span>
+            <span>10 — {trUI("worstPain")}</span>
           </div>
         </div>
       )}
@@ -184,7 +191,7 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
           disabled={!canAdvance}
           className="px-6 py-3 rounded-full bg-[var(--color-clinical-600)] text-white font-semibold hover:bg-[var(--color-clinical-700)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
-          {isLast ? "View Results →" : "Next →"}
+          {isLast ? trUI("viewResults") : trUI("next")}
         </button>
       </div>
     </div>

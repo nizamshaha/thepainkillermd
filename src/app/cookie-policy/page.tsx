@@ -1,11 +1,13 @@
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
+"use client";
 
-export const metadata = { title: "Cookie Policy" };
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import { useT } from "@/lib/useT";
 
 export default function CookiePolicyPage() {
+  const t = useT();
   return (
     <>
-      <Breadcrumbs items={[{ label: "Cookie Policy" }]} />
+      <Breadcrumbs items={[{ label: t("breadcrumb.cookiePolicy") }]} />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Cookie Policy</h1>
         <div className="prose prose-stone max-w-none text-[var(--color-text-secondary)] space-y-4 leading-relaxed text-sm">
