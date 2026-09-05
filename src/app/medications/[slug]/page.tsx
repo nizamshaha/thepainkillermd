@@ -1,16 +1,21 @@
 "use client";
 
 import { use } from "react";
+import { notFound } from "next/navigation";
 import { medications, getMedicationBySlug } from "@/data/medications";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { useT } from "@/lib/useT";
 import ContentDiscovery from "@/components/ui/ContentDiscovery";
+import { validateSlug } from "@/lib/security";
 
 export default function MedicationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
+  const validSlug = validateSlug(slug);
   const t = useT();
-  const med = getMedicationBySlug(slug);
-  if (!med) return <div className="p-8 text-center">Medication not found</div>;
+  if (!validSlug) notFound();
+
+  const med = getMedicationBySlug(validSlug);
+  if (!med) notFound();
 
   return (
     <>

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/navigation/Header";
+import Footer from "@/components/navigation/Footer";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import CookieConsent from "@/components/ui/CookieConsent";
+import { sanitizeJsonLd } from "@/lib/security";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,6 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.thepainkillermd.in"),
   title: {
     default: "THE PAINKILLER MD — Evidence-Based Pain Medicine",
     template: "%s | THE PAINKILLER MD",
@@ -71,7 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: sanitizeJsonLd({
               "@context": "https://schema.org",
               "@type": "Physician",
               name: "Dr. Shahnawaz F Shah",
@@ -79,21 +82,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               medicalSpecialty: "Pain Medicine",
               description:
                 "Evidence-based pain medicine combining advanced diagnostics with compassionate care.",
-              url: "https://thepainkillermd.com",
+              url: "https://thepainkillermd.in",
             }),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: sanitizeJsonLd({
               "@context": "https://schema.org",
               "@type": "MedicalClinic",
               name: "THE PAINKILLER MD",
               medicalSpecialty: "Pain Medicine",
               description:
                 "Advanced interventional pain management and diagnostic services.",
-              url: "https://thepainkillermd.com",
+              url: "https://thepainkillermd.in",
             }),
           }}
         />

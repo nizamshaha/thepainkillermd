@@ -4,6 +4,7 @@ import { useState, useMemo, useRef, useCallback } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import type { PainArea } from "@/data/painAreas";
 import { useT } from "@/lib/useT";
+import { safeCopyToClipboard } from "@/lib/security";
 
 interface Props {
   areas: PainArea[];
@@ -138,18 +139,8 @@ export default function PainReport({ areas, answers, onBack, pins }: Props) {
 
   // Copy to clipboard
   const copyToClipboard = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(plainTextReport);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Fallback
-      const textarea = document.createElement("textarea");
-      textarea.value = plainTextReport;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
+    const success = await safeCopyToClipboard(plainTextReport);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }

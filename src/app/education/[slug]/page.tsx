@@ -8,12 +8,14 @@ import ReadingProgress from "@/components/ui/ReadingProgress";
 import TableOfContents from "@/components/ui/TableOfContents";
 import ShareButtons from "@/components/ui/ShareButtons";
 import { useT } from "@/lib/useT";
+import { validateSlug } from "@/lib/security";
 import Link from "next/link";
 
 export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
+  const validSlug = validateSlug(slug);
   const t = useT();
-  const article = getArticleBySlug(slug);
+  const article = validSlug ? getArticleBySlug(validSlug) : undefined;
 
   if (!article) {
     return (

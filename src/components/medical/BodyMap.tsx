@@ -113,7 +113,7 @@ function BodySilhouette({
 
         {/* SVG Interactive Hotspot Overlay */}
         <svg
-          viewBox="0 0 100 100"
+          viewBox="0 0 100 150"
           className="absolute inset-0 w-full h-full z-10"
           preserveAspectRatio="none"
           role="img"

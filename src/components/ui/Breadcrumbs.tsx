@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useT } from "@/lib/useT";
+import { sanitizeJsonLd } from "@/lib/security";
 
 interface BreadcrumbItem {
   label: string;
@@ -12,12 +13,12 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://thepainkillermd.com" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://thepainkillermd.in" },
       ...items.map((item, i) => ({
         "@type": "ListItem",
         position: i + 2,
         name: item.label,
-        ...(item.href ? { item: `https://thepainkillermd.com${item.href}` } : {}),
+        ...(item.href ? { item: `https://thepainkillermd.in${item.href}` } : {}),
       })),
     ],
   };
@@ -26,7 +27,7 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
     <nav aria-label="Breadcrumb" className="py-3 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: sanitizeJsonLd(schema) }}
       />
       <ol className="flex items-center gap-1.5 text-sm text-[var(--color-text-muted)] flex-wrap">
         <li>

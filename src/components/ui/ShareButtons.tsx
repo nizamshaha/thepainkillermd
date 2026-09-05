@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { safeCopyToClipboard } from "@/lib/security";
 
 interface ShareButtonsProps {
   title: string;
@@ -14,18 +15,8 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
   const encodedTitle = encodeURIComponent(title);
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Fallback
-      const input = document.createElement("input");
-      input.value = shareUrl;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand("copy");
-      document.body.removeChild(input);
+    const success = await safeCopyToClipboard(shareUrl);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }

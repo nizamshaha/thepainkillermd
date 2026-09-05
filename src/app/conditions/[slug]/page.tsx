@@ -10,12 +10,16 @@ import ConditionFAQ from "./ConditionFAQ";
 import RelatedContent from "./RelatedContent";
 import { useT } from "@/lib/useT";
 import { notFound } from "next/navigation";
+import { validateSlug } from "@/lib/security";
 
 // Generate static params for all conditions
 export default function ConditionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
+  const validSlug = validateSlug(slug);
   const t = useT();
-  const condition = getConditionBySlug(slug);
+  if (!validSlug) notFound();
+
+  const condition = getConditionBySlug(validSlug);
   if (!condition) notFound();
 
   const conditionProcedures = procedures.filter((p) => condition.procedures.includes(p.slug));

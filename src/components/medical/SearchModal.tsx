@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { conditions } from "@/data/conditions";
 import { procedures } from "@/data/procedures";
 import { medications } from "@/data/medications";
 import { painSensations } from "@/data/sensations";
 import { anatomyRegions } from "@/data/anatomy";
 import { testimonials, educationalVideos } from "@/data/testimonials";
+import { sanitizeInput } from "@/lib/security";
 import type { SearchResult } from "@/lib/types";
 
 // Build search index from all data sources
@@ -99,6 +101,7 @@ const typeLabels: Record<string, { label: string; color: string }> = {
 };
 
 export default function SearchModal() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -108,8 +111,9 @@ export default function SearchModal() {
   const searchIndex = useMemo(() => buildSearchIndex(), []);
 
   const results = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
+    const cleanQuery = sanitizeInput(query, 100);
+    if (!cleanQuery) return [];
+    const q = cleanQuery.toLowerCase();
     return searchIndex
       .filter(
         (r) =>
@@ -118,6 +122,18 @@ export default function SearchModal() {
       )
       .slice(0, 12);
   }, [query, searchIndex]);
+
+  const handleNavigate = useCallback(
+    (slug: string) => {
+      setIsOpen(false);
+      if (slug.startsWith("#")) {
+        window.location.hash = slug;
+      } else {
+        router.push(slug);
+      }
+    },
+    [router]
+  );
 
   // Open with Cmd/Ctrl + K
   useEffect(() => {
@@ -155,12 +171,10 @@ export default function SearchModal() {
         e.preventDefault();
         setSelectedIndex((i) => Math.max(i - 1, 0));
       } else if (e.key === "Enter" && results[selectedIndex]) {
-        // Navigate (would use router in full app)
-        console.log("Navigate to:", results[selectedIndex].slug);
-        setIsOpen(false);
+        handleNavigate(results[selectedIndex].slug);
       }
     },
-    [results, selectedIndex]
+    [results, selectedIndex, handleNavigate]
   );
 
   // Scroll selected into view
@@ -211,8 +225,9 @@ export default function SearchModal() {
             ref={inputRef}
             type="text"
             value={query}
+            maxLength={100}
             onChange={(e) => {
-              setQuery(e.target.value);
+              setQuery(e.target.value.slice(0, 100));
               setSelectedIndex(0);
             }}
             onKeyDown={handleKeyDown}
@@ -246,10 +261,7 @@ export default function SearchModal() {
                     ? "bg-[var(--color-clinical-500)] bg-opacity-5"
                     : "hover:bg-[var(--color-surface-50)]"
                 }`}
-                onClick={() => {
-                  console.log("Navigate to:", result.slug);
-                  setIsOpen(false);
-                }}
+                onClick={() => handleNavigate(result.slug)}
                 onMouseEnter={() => setSelectedIndex(i)}
               >
                 <span

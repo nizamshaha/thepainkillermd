@@ -7,11 +7,13 @@ import SearchModal from "@/components/medical/SearchModal";
 import NervePathway from "@/components/medical/svgs/NervePathway";
 import SpinalStenosis from "@/components/medical/svgs/SpinalStenosis";
 import WatchAndLearn from "@/components/medical/WatchAndLearn";
+import HumanBody3DViewer from "@/components/medical/HumanBody3DViewer";
 // import PainNavigator from "@/components/medical/PainNavigator";
 import Logo from "@/components/ui/Logo";
 import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
 import Footer from "@/components/navigation/Footer";
 import { useT } from "@/lib/useT";
+import { useState } from "react";
 
 // Condition preview cards
 const featuredConditions = [
@@ -49,6 +51,7 @@ const articles = [
 
 export default function Home() {
   const t = useT();
+  const [show3DViewer, setShow3DViewer] = useState(false);
 
   return (
     <div className="min-h-screen">
@@ -95,6 +98,13 @@ export default function Home() {
                 className="inline-flex items-center justify-center px-8 py-3.5 rounded-full border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
               >
                 {t("hero.cta.secondary")}
+              </a>
+              <a
+                href="#"
+                onClick={() => setShow3DViewer(true)}
+                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-[var(--color-clinical-600)] to-[var(--color-clinical-400)] text-white font-semibold text-lg hover:bg-gradient-to-r from-[var(--color-clinical-700)] to-[var(--color-clinical-500)] transition-colors"
+              >
+                Explore 3D Body
               </a>
             </div>
 
@@ -532,6 +542,22 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+      {show3DViewer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="relative w-[90%] max-w-[800px] h-[90%] max-h-[800px]">
+            <div className="absolute inset-0 z-10">
+              <HumanBody3DViewer onClose={() => setShow3DViewer(false)} />
+            </div>
+            <button
+              onClick={() => setShow3DViewer(false)}
+              className="absolute top-2 right-2 z-20 rounded-full bg-white/20 backdrop-blur-sm py-1 px-3 text-white hover:bg-white/30 transition-colors"
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

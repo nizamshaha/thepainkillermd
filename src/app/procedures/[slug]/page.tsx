@@ -1,17 +1,22 @@
 "use client";
 
 import { use } from "react";
+import { notFound } from "next/navigation";
 import { getProcedureBySlug } from "@/data/procedures";
 import { conditions } from "@/data/conditions";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { useT } from "@/lib/useT";
 import ContentDiscovery from "@/components/ui/ContentDiscovery";
+import { validateSlug } from "@/lib/security";
 
 export default function ProcedurePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
+  const validSlug = validateSlug(slug);
   const t = useT();
-  const proc = getProcedureBySlug(slug);
-  if (!proc) return <div className="p-8 text-center">Procedure not found</div>;
+  if (!validSlug) notFound();
+
+  const proc = getProcedureBySlug(validSlug);
+  if (!proc) notFound();
 
   const relatedConditions = conditions.filter((c) => proc.conditions.includes(c.slug));
 

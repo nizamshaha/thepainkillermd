@@ -1,18 +1,23 @@
 "use client";
 
 import { use } from "react";
+import { notFound } from "next/navigation";
 import { allPainAreas } from "@/data/painAreasFull";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { useT } from "@/lib/useT";
 import ContentDiscovery from "@/components/ui/ContentDiscovery";
 import ExerciseLibrary from "@/components/medical/ExerciseLibrary";
 import HomeRemedies from "@/components/medical/HomeRemedies";
+import { sanitizeJsonLd, validateSlug } from "@/lib/security";
 
 export default function PainAreaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
+  const validSlug = validateSlug(slug);
   const t = useT();
-  const area = allPainAreas.find((a) => a.slug === slug);
-  if (!area) return <div className="p-8 text-center">Pain area not found</div>;
+  if (!validSlug) notFound();
+
+  const area = allPainAreas.find((a) => a.slug === validSlug);
+  if (!area) notFound();
 
   // JSON-LD schema for this pain area
   const schema = {
@@ -40,7 +45,6 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
   };
 
   return (
-    <>
     <>
       <Breadcrumbs items={[
         { label: t("nav.painNavigator"), href: "/pain-navigator" },
@@ -166,9 +170,8 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: sanitizeJsonLd(schema) }}
       />
-    </>
     </>
   );
 }
