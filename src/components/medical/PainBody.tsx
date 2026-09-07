@@ -289,32 +289,6 @@ export default function PainBody({ areas, selectedIds, onSelect, onPinsChange }:
 
   return (
     <div className="w-full max-w-5xl mx-auto">
-      {/* ─── View Toggle ──────────────────────────────────── */}
-      <div className="flex justify-center gap-2 mb-6">
-        <button
-          onClick={() => setView("front")}
-          className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-            view === "front"
-              ? "bg-[var(--color-primary-700)] text-white shadow-lg shadow-[var(--color-primary-700)]/25"
-              : "bg-[var(--color-surface-200)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-300)]"
-          }`}
-          aria-pressed={view === "front"}
-        >
-          {t("body.frontView")}
-        </button>
-        <button
-          onClick={() => setView("back")}
-          className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-            view === "back"
-              ? "bg-[var(--color-primary-700)] text-white shadow-lg shadow-[var(--color-primary-700)]/25"
-              : "bg-[var(--color-surface-200)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-300)]"
-          }`}
-          aria-pressed={view === "back"}
-        >
-          {t("body.backView")}
-        </button>
-      </div>
-
       <div className="flex flex-col lg:flex-row gap-6 items-start">
         {/* ─── SVG Body Container ─────────────────────────── */}
         <div className="flex-1 w-full">

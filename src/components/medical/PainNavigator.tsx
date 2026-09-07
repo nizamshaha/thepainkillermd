@@ -105,43 +105,8 @@ export default function PainNavigator() {
             </div>
           </div>
 
-          {/* View Toggle */}
-          <div className="flex justify-center gap-2 mb-6">
-            <button
-              onClick={() => setView("body")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === "body" ? "bg-[var(--color-clinical-600)] text-white" : "bg-[var(--color-surface-100)] text-[var(--color-text-secondary)]"}`}
-            >
-              {t("navUI.bodyMap")}
-            </button>
-            <button
-              onClick={() => setView("list")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === "list" ? "bg-[var(--color-clinical-600)] text-white" : "bg-[var(--color-surface-100)] text-[var(--color-text-secondary)]"}`}
-            >
-              {t("navUI.listView")}
-            </button>
-          </div>
-
-          {/* Body Map or List */}
-          {view === "body" ? (
-            <PainBody areas={filteredAreas} selectedIds={selectedAreas.map((a) => a.id)} onSelect={selectArea} onPinsChange={handlePinsChange} />
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-w-3xl mx-auto">
-              {filteredAreas.map((area: PainArea) => (
-                <button
-                  key={area.id}
-                  onClick={() => selectArea(area)}
-                  className={`p-3 rounded-lg text-left text-sm font-medium transition-all border ${
-                    selectedAreas.find((a) => a.id === area.id)
-                      ? "border-[var(--color-alert-critical)] bg-red-50 text-[var(--color-alert-critical)]"
-                      : "border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] text-[var(--color-text-primary)]"
-                  }`}
-                >
-                  <span className="mr-1.5">{area.icon}</span>
-                  {area.name}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* Body Map */}
+          <PainBody areas={filteredAreas} selectedIds={selectedAreas.map((a) => a.id)} onSelect={selectArea} onPinsChange={handlePinsChange} />
 
           {/* Selected Areas */}
           {selectedAreas.length > 0 && (
