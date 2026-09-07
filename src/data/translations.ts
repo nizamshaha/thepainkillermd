@@ -937,7 +937,7 @@ export const translations: TranslationSet = {
     gu: "સ્થાન",
   },
   "clinic.locationValue": {
-    en: "Ahmedabad, Gujarat, India",
+    en: "Surat, Gujarat, India",
     hi: "अहमदाबाद, गुजरात, भारत",
     mr: "अहमदाबाद, गुजरात, भारत",
     gu: "અમદાવાદ, ગુજરાત, ભારત",

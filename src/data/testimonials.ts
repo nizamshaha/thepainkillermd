@@ -12,7 +12,7 @@ export const testimonials: PatientTestimonial[] = [
     thumbnailUrl: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
     duration: "3:42",
     patientAge: 52,
-    patientLocation: "Ahmedabad, Gujarat",
+    patientLocation: "Surat, Gujarat",
     quote:
       "I could barely walk into the clinic. After the epidural injection guided by Dr. Shah, I was walking normally within two weeks. The pain that had plagued me for months just melted away.",
     recoverySummary:

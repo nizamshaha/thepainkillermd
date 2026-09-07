@@ -47,7 +47,7 @@ export default function ClinicPage() {
         <section className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">📍 {t("clinic.location")}</h3>
-            <p className="text-[var(--color-text-secondary)]">Ahmedabad, Gujarat, India</p>
+            <p className="text-[var(--color-text-secondary)]">Surat, Gujarat, India</p>
             <p className="text-sm text-[var(--color-text-muted)] mt-2">Detailed address to be provided by clinic owner.</p>
           </div>
           <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
