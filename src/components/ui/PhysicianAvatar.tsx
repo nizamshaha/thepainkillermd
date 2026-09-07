@@ -6,13 +6,13 @@ interface PhysicianAvatarProps {
 
 export default function PhysicianAvatar({ size = "md" }: PhysicianAvatarProps) {
   const sizeClasses = {
-    sm: "w-10 h-10",
-    md: "w-12 h-12",
-    lg: "w-16 h-16",
+    sm: "w-16 h-16",
+    md: "w-20 h-20",
+    lg: "w-24 h-24",
     xl: "w-36 h-36",
   };
 
-  const pxSizes = { sm: 40, md: 48, lg: 64, xl: 144 };
+  const pxSizes = { sm: 64, md: 80, lg: 96, xl: 144 };
 
   return (
     <Image
