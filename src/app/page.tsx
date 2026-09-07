@@ -100,11 +100,10 @@ export default function Home() {
                 {t("hero.cta.secondary")}
               </a>
               <a
-                href="#"
-                onClick={() => setShow3DViewer(true)}
+                href="#body-map"
                 className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-[var(--color-clinical-600)] to-[var(--color-clinical-400)] text-white font-semibold text-lg hover:bg-gradient-to-r from-[var(--color-clinical-700)] to-[var(--color-clinical-500)] transition-colors"
               >
-                Explore 3D Body
+                Explore 2D Body
               </a>
             </div>
 
