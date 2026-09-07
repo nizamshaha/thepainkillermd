@@ -949,7 +949,7 @@ export const translations: TranslationSet = {
     gu: "સમય",
   },
   "clinic.hoursValue": {
-    en: "Mon — Sat: 9:00 AM — 6:00 PM",
+    en: "Mon — Sat: 10:00 AM — 6:00 PM",
     hi: "सोम — शनि: सुबह 9:00 — शाम 6:00",
     mr: "सोम — शनि: सकाळी 9:00 — संध्याकाळी 6:00",
     gu: "સોમ — શનિ: સવારે 9:00 — સાંજે 6:00",

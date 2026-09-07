@@ -52,7 +52,7 @@ export default function ClinicPage() {
           </div>
           <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">🕐 {t("clinic.hours")}</h3>
-            <p className="text-[var(--color-text-secondary)]">Monday — Saturday: 9:00 AM — 6:00 PM</p>
+            <p className="text-[var(--color-text-secondary)]">Monday — Saturday: 10:00 AM — 6:00 PM</p>
             <p className="text-sm text-[var(--color-text-muted)] mt-2">Sunday &amp; Public Holidays: Closed</p>
           </div>
           <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
