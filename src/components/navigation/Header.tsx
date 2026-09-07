@@ -44,7 +44,7 @@ export default function Header() {
       role="banner"
     >
       <div className="w-full pl-2 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link href="/" className="shrink-0" aria-label="THE PAINKILLER MD — Home">
             <Logo size="md" variant="dark" />
@@ -103,8 +103,7 @@ export default function Header() {
       {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="lg:hidden animate-fade-in">
-          <div className="absolute inset-0 top-16 bg-black/20" onClick={() => setMobileOpen(false)} />
-          <nav className="relative bg-white border-t border-[var(--color-surface-200)] shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto" aria-label="Mobile navigation">
+          <div className="absolute inset-0 top-24 bg-black/20" onClick={() => setMobileOpen(false)} />            <nav className="relative bg-white border-t border-[var(--color-surface-200)] shadow-lg max-h-[calc(100vh-6rem)] overflow-y-auto" aria-label="Mobile navigation">
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <a

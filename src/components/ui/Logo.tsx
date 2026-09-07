@@ -7,7 +7,7 @@ interface LogoProps {
 }
 
 export default function Logo({ size = "md", variant = "dark", showText = true }: LogoProps) {
-  const iconSizes = { sm: 40, md: 48, lg: 64 };
+  const iconSizes = { sm: 64, md: 96, lg: 120 };
   const titleSizes = { sm: "text-[10px]", md: "text-xs", lg: "text-sm" };
   const nameSizes = { sm: "text-lg", md: "text-xl", lg: "text-2xl" };
 
