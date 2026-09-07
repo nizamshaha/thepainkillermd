@@ -80,7 +80,7 @@ export default function Home() {
             <div className="flex items-center gap-3 mb-8 text-sm text-white/70">
               <PhysicianAvatar size="sm" />
               <div>
-                <p className="font-semibold text-white">Dr. Shahnawaz F Shah</p>
+                <p className="font-bold text-white uppercase tracking-wide">DR. SHAHNAWAZ F SHAH</p>
                 <p>{t("doctor.specialty")}</p>
               </div>
             </div>
@@ -389,7 +389,7 @@ export default function Home() {
             </div>
             <div className="flex-1">
               <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-                Dr. Shahnawaz F Shah
+                DR. SHAHNAWAZ F SHAH
               </h3>
               <p className="text-[var(--color-clinical-600)] font-medium mb-4">
                 {t("doctor.specialty")}

@@ -16,7 +16,7 @@ export default function DoctorPage() {
             <PhysicianAvatar size="xl" />
           </div>
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold mb-2">Dr. Shahnawaz F Shah</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2">DR. SHAHNAWAZ F SHAH</h1>
             <p className="text-[var(--color-clinical-300)] text-lg mb-4">{t("doctor.specialty")}</p>
             <p className="text-white/70">MBBS, MD — Pain Medicine Specialist</p>
           </div>
