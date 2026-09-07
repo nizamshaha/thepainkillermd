@@ -8,8 +8,8 @@ interface LogoProps {
 
 export default function Logo({ size = "md", variant = "dark", showText = true }: LogoProps) {
   const iconSizes = { sm: 32, md: 40, lg: 56 };
-  const textSizes = { sm: "text-xs", md: "text-sm", lg: "text-base" };
-  const subSizes = { sm: "text-[8px]", md: "text-[9px]", lg: "text-[10px]" };
+  const titleSizes = { sm: "text-[9px]", md: "text-[10px]", lg: "text-[11px]" };
+  const nameSizes = { sm: "text-sm", md: "text-base", lg: "text-lg" };
 
   const iconSize = iconSizes[size];
   const isLight = variant === "light";
@@ -27,16 +27,16 @@ export default function Logo({ size = "md", variant = "dark", showText = true }:
       />
 
       {showText && (
-        <div className="flex flex-col leading-none">
-          <span className={`font-bold ${textSizes[size]} tracking-tight ${
-            isLight ? "text-white" : "text-[var(--color-text-primary)]"
+        <div className="flex flex-col leading-tight">
+          <span className={`${titleSizes[size]} tracking-[0.15em] uppercase font-medium ${
+            isLight ? "text-white/70" : "text-[var(--color-text-muted)]"
           }`}>
             THE PAINKILLER MD
           </span>
-          <span className={`${subSizes[size]} tracking-wide ${
-            isLight ? "text-white/60" : "text-[var(--color-text-muted)]"
+          <span className={`font-bold ${nameSizes[size]} tracking-tight ${
+            isLight ? "text-white" : "text-[var(--color-text-primary)]"
           }`}>
-            Evidence-Based Pain Medicine
+            Dr Shahnawaz F Shah
           </span>
         </div>
       )}
