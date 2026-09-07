@@ -5,71 +5,72 @@ import { anatomyRegions, getRegionById } from "@/data/anatomy";
 import type { AnatomyRegion } from "@/lib/types";
 
 
-// Calibrated hotspot coordinates matching body.jpeg (aspect ratio 2:3)
+// Hotspot coordinates calibrated to match the inline SVG body silhouette
+// SVG viewBox: 0 0 100 150 — silhouette paths define head~cy18, torso~cy36-85, arms~cy36-72, legs~cy85-140
 const anatomyHotspots: Array<{
   id: string;
   label: string;
   spots: Array<{ cx: number; cy: number; rx: number; ry: number }>;
 }> = [
-  { id: "head", label: "Head & Face", spots: [{ cx: 50, cy: 7, rx: 7, ry: 4.5 }] },
-  { id: "neck", label: "Neck & Cervical", spots: [{ cx: 50, cy: 14.5, rx: 5, ry: 2.5 }] },
+  { id: "head", label: "Head & Face", spots: [{ cx: 50, cy: 14, rx: 9, ry: 8 }] },
+  { id: "neck", label: "Neck & Cervical", spots: [{ cx: 50, cy: 33, rx: 4.5, ry: 2.5 }] },
   {
     id: "shoulder",
     label: "Shoulder",
     spots: [
-      { cx: 33, cy: 18, rx: 6, ry: 3.5 },
-      { cx: 67, cy: 18, rx: 6, ry: 3.5 },
+      { cx: 33, cy: 38, rx: 5, ry: 3.5 },
+      { cx: 67, cy: 38, rx: 5, ry: 3.5 },
     ],
   },
-  { id: "chest", label: "Chest & Thoracic", spots: [{ cx: 50, cy: 23.5, rx: 11, ry: 4.5 }] },
-  { id: "back", label: "Lumbar & Thoracic Spine", spots: [{ cx: 50, cy: 34, rx: 9, ry: 5 }] },
+  { id: "chest", label: "Chest & Thoracic", spots: [{ cx: 50, cy: 48, rx: 12, ry: 6 }] },
+  { id: "back", label: "Lumbar & Thoracic Spine", spots: [{ cx: 50, cy: 70, rx: 8, ry: 6 }] },
   {
     id: "arm",
     label: "Arm & Elbow",
     spots: [
-      { cx: 20, cy: 33, rx: 4.5, ry: 7 },
-      { cx: 80, cy: 33, rx: 4.5, ry: 7 },
+      { cx: 21, cy: 55, rx: 4, ry: 8 },
+      { cx: 79, cy: 55, rx: 4, ry: 8 },
     ],
   },
   {
     id: "hand",
     label: "Hand & Wrist",
     spots: [
-      { cx: 13.5, cy: 52, rx: 3.5, ry: 5 },
-      { cx: 86.5, cy: 52, rx: 3.5, ry: 5 },
+      { cx: 18, cy: 72, rx: 3.5, ry: 3 },
+      { cx: 82, cy: 72, rx: 3.5, ry: 3 },
     ],
   },
   {
     id: "hip",
     label: "Hip & Pelvis",
     spots: [
-      { cx: 38, cy: 47, rx: 6, ry: 3.5 },
-      { cx: 62, cy: 47, rx: 6, ry: 3.5 },
-      { cx: 50, cy: 43, rx: 5, ry: 2.5 },
+      { cx: 38, cy: 85, rx: 6, ry: 3.5 },
+      { cx: 62, cy: 85, rx: 6, ry: 3.5 },
+      { cx: 50, cy: 82, rx: 5, ry: 2.5 },
     ],
   },
   {
     id: "knee",
     label: "Knee",
     spots: [
-      { cx: 41.5, cy: 68, rx: 5, ry: 3.5 },
-      { cx: 58.5, cy: 68, rx: 5, ry: 3.5 },
+      { cx: 42, cy: 112, rx: 4.5, ry: 3.5 },
+      { cx: 58, cy: 112, rx: 4.5, ry: 3.5 },
     ],
   },
   {
     id: "leg",
     label: "Leg & Shin",
     spots: [
-      { cx: 42, cy: 77, rx: 4.5, ry: 5 },
-      { cx: 58, cy: 77, rx: 4.5, ry: 5 },
+      { cx: 42, cy: 128, rx: 3.5, ry: 5 },
+      { cx: 58, cy: 128, rx: 3.5, ry: 5 },
     ],
   },
   {
     id: "foot",
     label: "Foot & Ankle",
     spots: [
-      { cx: 42, cy: 89, rx: 5, ry: 4 },
-      { cx: 58, cy: 89, rx: 5, ry: 4 },
+      { cx: 40, cy: 143, rx: 4.5, ry: 3 },
+      { cx: 60, cy: 143, rx: 4.5, ry: 3 },
     ],
   },
 ];

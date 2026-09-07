@@ -1294,6 +1294,17 @@ export const translations: TranslationSet = {
   "newsletter.errorInvalid": { en: "Please enter a valid email address", hi: "कृपया एक वैध ईमेल पता दर्ज करें", mr: "कृपया वैध ईमेल पत्ता टाका", gu: "કૃપા કરીને માન્ય ઇમેઇલ સરનામું દાખલ કરો" },
   "newsletter.privacy": { en: "We respect your privacy. Unsubscribe at any time.", hi: "हम आपकी गोपनीयता का सम्मान करते हैं। कभी भी अनसब्सक्राइब करें।", mr: "आम्ही तुमच्या गोपनीयतेचा आदर करतो. कधीही अनसबस्क्राइब करा.", gu: "અમે તમારી ગોપનીયતાનો આદર કરીએ છીએ. કોઈપણ સમયે અનસબ્સ્ક્રાઇબ કરો." },
 
+
+  // Chat Widget
+  "chat.online": { en: "Online", hi: "ऑनलाइन", mr: "ऑनलाइन", gu: "ओनलाइन" },
+  "chat.offline": { en: "Offline", hi: "ऑफ़लाइन", mr: "ऑफ़लाइन", gu: "ओफ़लाइन" },
+  "chat.welcome": { en: "Hello! How can we help you today?", hi: "नमस्ते! आबका से मदद कर सकते हैं?", mr: "नमस्ते! आम्ही तुमहा काय मदत करू शकती?", gu: "नमस्ते! आपने मदद करी शकाय छे?" },
+  "chat.welcomeSub": { en: "Select an option or type your question below.", hi: "कोई विकल्प चुनेन या नीचे अपना सवाल लिखें०", mr: "कोही पर्याय निवड करा किवा तुम्हा प्रश्न वाचा किना.", gu: "नीचे कोई विकल्प पसंद करो तमारो प्रश्न लसो." },
+  "chat.book": { en: "Book Appointment", hi: "अपॉइंटमेंट बुक करें", mr: "अपॉिंटमेंट बुक करा", gu: "अपोइंटमेंट बुक करो" },
+  "chat.ask": { en: "Ask a Question", hi: "सवाल पूछें", mr: "प्रश्न विचारा", gu: "सवाल पूछो" },
+  "chat.sendReport": { en: "Send My Report", hi: "मेरी रिपोर्ट भेजें", mr: "माझेही तान्दासता पाठवा", gu: "मारो रिपोर्ट मोकोलो" },
+  "chat.sent": { en: "Message sent! Dr. Shah will respond on WhatsApp.", hi: "संदेश भेज गया! डॉक्टर शाह WhatsApp पर जवाब देंगे०", mr: "संदेश पाठवला! डॉक्टर शाह WhatsApp वर WhatsApp पर उत्तर देती०", gu: "संदेश मोकायो! डॉक्टर शाह WhatsApp पर जवाब आपशेष थासे." },
+  "chat.placeholder": { en: "Type your message...", hi: "अपना संदेश लिखें०", mr: "तुमहा संदेश वाचा...", gu: "तमारो संदेश लसो..." },
 };
 
 export const locales: { code: Locale; label: string; flag: string }[] = [
