@@ -94,7 +94,7 @@ export default function Home() {
                 padding="12px 26px 12px 22px"
                 rounded={100}
                 gap={14}
-                colors={{ fill: "#ffffff", textColor: "#0c1929" }}
+                colors={{ fill: "#ffffff", textColor: "#0c1929", hoverTextColor: "#ffffff" }}
                 icon={{
                   side: "right",
                   color: "#ffffff",
@@ -114,7 +114,7 @@ export default function Home() {
                 padding="12px 26px 12px 22px"
                 rounded={100}
                 gap={14}
-                colors={{ fill: "rgba(255, 255, 255, 0.12)", textColor: "#ffffff" }}
+                colors={{ fill: "rgba(255, 255, 255, 0.12)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
                 icon={{
                   side: "right",
                   color: "#0c1929",
@@ -134,7 +134,7 @@ export default function Home() {
                 padding="12px 26px 12px 22px"
                 rounded={100}
                 gap={14}
-                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
                 icon={{
                   side: "right",
                   color: "var(--color-clinical-600)",
@@ -188,7 +188,7 @@ export default function Home() {
             padding="14px 30px 14px 24px"
             rounded={100}
             gap={16}
-            colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+            colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
             icon={{
               side: "right",
               color: "var(--color-clinical-600)",
@@ -583,7 +583,7 @@ export default function Home() {
               padding="12px 28px 12px 24px"
               rounded={100}
               gap={14}
-              colors={{ fill: "#ffffff", textColor: "#0c1929" }}
+              colors={{ fill: "#ffffff", textColor: "#0c1929", hoverTextColor: "#ffffff" }}
               icon={{
                 side: "right",
                 color: "#ffffff",
@@ -604,7 +604,7 @@ export default function Home() {
               padding="12px 28px 12px 24px"
               rounded={100}
               gap={14}
-              colors={{ fill: "#16a34a", textColor: "#ffffff" }}
+              colors={{ fill: "#16a34a", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
               icon={{
                 side: "right",
                 color: "#16a34a",

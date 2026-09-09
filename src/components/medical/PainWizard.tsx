@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { wizardSteps, evaluateWizardAnswers } from "@/data/wizard";
 import type { WizardResult } from "@/lib/types";
+import Button from "@/components/ui/Button";
 
 // Step indicator dots
 function StepIndicator({
@@ -374,12 +375,14 @@ export default function PainWizard() {
             A 10-step guided assessment that helps you understand your pain patterns.
             This is an educational tool — not a diagnostic device.
           </p>
-          <button
-            onClick={() => setIsOpen(true)}
-            className="px-8 py-3.5 rounded-full bg-[var(--color-clinical-600)] text-white font-semibold text-lg hover:bg-[var(--color-clinical-700)] transition-colors shadow-lg hover:shadow-xl"
-          >
-            Start Assessment
-          </button>
+          <div className="flex justify-center">
+            <Button
+              label="Start Assessment"
+              variant="primary"
+              size="lg"
+              onClick={() => setIsOpen(true)}
+            />
+          </div>
         </div>
       </section>
     );

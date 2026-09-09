@@ -80,7 +80,7 @@ export default function Header() {
                 padding="6px 14px 6px 12px"
                 rounded={100}
                 gap={12}
-                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
                 icon={{
                   side: "right",
                   color: "var(--color-clinical-600)",

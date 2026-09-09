@@ -130,7 +130,7 @@ export default function PainNavigator() {
                   padding="10px 24px 10px 20px"
                   rounded={100}
                   gap={12}
-                  colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+                  colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
                   icon={{
                     side: "right",
                     color: "var(--color-clinical-600)",
@@ -150,7 +150,7 @@ export default function PainNavigator() {
                   padding="10px 24px 10px 20px"
                   rounded={100}
                   gap={12}
-                  colors={{ fill: "#ffffff", textColor: "var(--color-text-primary)" }}
+                  colors={{ fill: "#ffffff", textColor: "var(--color-text-primary)", hoverTextColor: "#ffffff" }}
                   icon={{
                     side: "right",
                     color: "#ffffff",

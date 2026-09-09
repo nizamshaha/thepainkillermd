@@ -90,7 +90,7 @@ export default function ClinicPage() {
               padding="12px 28px 12px 24px"
               rounded={100}
               gap={14}
-              colors={{ fill: "#ffffff", textColor: "#0c1929" }}
+              colors={{ fill: "#ffffff", textColor: "#0c1929", hoverTextColor: "#ffffff" }}
               icon={{
                 side: "right",
                 color: "#ffffff",
@@ -111,7 +111,7 @@ export default function ClinicPage() {
               padding="12px 28px 12px 24px"
               rounded={100}
               gap={14}
-              colors={{ fill: "#16a34a", textColor: "#ffffff" }}
+              colors={{ fill: "#16a34a", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
               icon={{
                 side: "right",
                 color: "#16a34a",

@@ -280,6 +280,36 @@ export default function ArrowRevealButton(props: Props) {
 
     const iconPosition = iconSideProp ?? iconPositionLegacy ?? "left"
 
+    const hoverFill = colors?.hoverFill ?? iconBackground ?? "#FFFFFF"
+
+    const isLightColor = (c: string) => {
+        const str = (c || "").trim().toLowerCase()
+        if (str === "#fff" || str === "#ffffff" || str === "white" || str.startsWith("rgba(255,") || str.startsWith("rgb(255,")) return true
+        if (str === "#000" || str === "#000000" || str === "black") return false
+        if (str.startsWith("#")) {
+            const hex = str.replace("#", "")
+            let r = 255, g = 255, b = 255
+            if (hex.length === 3) {
+                r = parseInt(hex[0] + hex[0], 16)
+                g = parseInt(hex[1] + hex[1], 16)
+                b = parseInt(hex[2] + hex[2], 16)
+            } else if (hex.length >= 6) {
+                r = parseInt(hex.slice(0, 2), 16)
+                g = parseInt(hex.slice(2, 4), 16)
+                b = parseInt(hex.slice(4, 6), 16)
+            }
+            return (r * 299 + g * 587 + b * 114) / 1000 >= 140
+        }
+        if (str.includes("clinical") || str.includes("primary") || str.includes("green") || str.includes("blue")) {
+            return false
+        }
+        return true
+    }
+
+    const hoverTextColor =
+        colors?.hoverTextColor ??
+        (isLightColor(hoverFill) ? "#0c1929" : "#ffffff")
+
     const iconSrc =
         typeof iconImage === "string"
             ? iconImage
@@ -461,7 +491,15 @@ export default function ArrowRevealButton(props: Props) {
         )
 
         if (textRef.current) {
-            animate(textRef.current, { x: isLeft ? 8 : -8 } as any, opts() as any)
+            animate(
+                textRef.current,
+                {
+                    x: isLeft ? 8 : -8,
+                    color: hoverTextColor,
+                } as any,
+                opts() as any
+            )
+            textRef.current.style.color = hoverTextColor
         }
     }
 
@@ -477,7 +515,15 @@ export default function ArrowRevealButton(props: Props) {
             opts() as any
         )
         if (textRef.current) {
-            animate(textRef.current, { x: 0 } as any, opts() as any)
+            animate(
+                textRef.current,
+                {
+                    x: 0,
+                    color: textColor,
+                } as any,
+                opts() as any
+            )
+            textRef.current.style.color = textColor
         }
 
         pressTo(1)
@@ -569,21 +615,20 @@ export default function ArrowRevealButton(props: Props) {
                     boxShadow: "0 10px 24px rgba(0,0,0,0.16)",
                 }}
             >
-                {}
                 <span
                     ref={textRef}
                     style={{
                         position: "relative",
-                        zIndex: 1,
+                        zIndex: 3,
                         color: textColor,
                         opacity: 1,
+                        transition: "color 0.25s ease",
                         ...font,
                     }}
                 >
                     {label}
                 </span>
 
-                {}
                 <span
                     ref={slotRef}
                     aria-hidden
@@ -594,7 +639,6 @@ export default function ArrowRevealButton(props: Props) {
                     }}
                 />
 
-                {}
                 <div
                     ref={badgeRef}
                     aria-hidden
@@ -611,13 +655,12 @@ export default function ArrowRevealButton(props: Props) {
                     }}
                 />
 
-                {}
                 <div
                     ref={arrowRef}
                     aria-hidden
                     style={{
                         position: "absolute",
-                        zIndex: 3,
+                        zIndex: 4,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -629,14 +672,13 @@ export default function ArrowRevealButton(props: Props) {
                 </div>
             </Tag>
 
-            {}
             <span
                 ref={strokeRef}
                 aria-hidden
                 style={{
                     position: "absolute",
                     inset: -bWidth,
-                    zIndex: 4,
+                    zIndex: 5,
                     boxSizing: "border-box",
                     pointerEvents: "none",
                     ...(border ?? {}),

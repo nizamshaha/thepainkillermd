@@ -64,7 +64,7 @@ export default function NewsletterSignup() {
             padding="12px 24px 12px 20px"
             rounded={100}
             gap={16}
-            colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+            colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
             icon={{
               side: "right",
               color: "var(--color-clinical-600)",
