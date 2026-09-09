@@ -44,6 +44,10 @@ export default function AssessmentReport({
 }: AssessmentReportProps) {
   const t = useT();
   const [copied, setCopied] = useState(false);
+  const [patientData, setPatientData] = useState({ name: "", mobile: "", email: "" });
+
+  // Derived validation: name and mobile are required
+  const isValid = patientData.name.trim() !== "" && patientData.mobile.trim() !== "";
 
   // Parse neutral state values
   const locations: string[] = useMemo(() => {
@@ -193,6 +197,13 @@ export default function AssessmentReport({
 
   // Compile full translated text string for sharing
   const formattedReportText = useMemo(() => {
+    const patientName = patientData.name.trim();
+    const patientMobile = patientData.mobile.trim();
+    const patientEmail = patientData.email.trim() || "N/A";
+    const patientHeader = `Patient Name: ${patientName} | Mobile: ${patientMobile} | Email: ${patientEmail}`;
+    const assuranceMessage =
+      "Dr. Shahnawaz F Shah will carefully review your assessment. Please be assured that our clinical team will contact you as soon as possible to guide you toward the appropriate care.";
+
     const regionNames = locations.map(getRegionName).join(", ");
     const qualityNames = qualities.map(getQualityName).join(", ");
     const durationLabel = getDurationName(durationKey);
@@ -213,6 +224,7 @@ export default function AssessmentReport({
       .join(", ");
 
     return (
+      `${patientHeader}\n\n` +
       `🏥 ${t("assessment.title").toUpperCase()} — ${t("assessment.report.badge").toUpperCase()}\n` +
       `Dr. Shahnawaz F Shah (Surat, Gujarat)\n` +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
@@ -228,10 +240,12 @@ export default function AssessmentReport({
       `🧬 ${t("assessment.report.pathwaysHeading")}: ${pathwaysText}\n` +
       (redFlagsList.length > 0 ? `\n🚨 ${t("assessment.report.safetyAlert")}:\n${redFlagsList.join("\n")}\n` : "") +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `${assuranceMessage}\n\n` +
       `*${t("assessment.report.disclaimer")}*\n` +
-      `thepainkillermd.com`
+      `https://thepainkillermd.com`
     );
   }, [
+    patientData,
     locations,
     qualities,
     durationKey,
@@ -250,13 +264,16 @@ export default function AssessmentReport({
   // Generates dedicated mailto URL for clinic with subject and URL-encoded body
   const generateMailtoUrl = () => {
     const recipient = "thepainkillermd@gmail.com";
-    const subject = t("assessment.report.emailSubject") || "Patient Pain Assessment Report - Dr. Shahnawaz F Shah";
+    const patientName = patientData.name.trim();
+    const defaultSubject = t("assessment.report.emailSubject") || "Patient Pain Assessment Report - Dr. Shahnawaz F Shah";
+    const subject = patientName ? `Patient Assessment: ${patientName} - Dr. Shahnawaz F Shah` : defaultSubject;
     const body = formattedReportText;
     return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   // WhatsApp sharing handler
   const handleShareWhatsApp = () => {
+    if (!isValid) return;
     const phone = "919769682366";
     const encoded = encodeURIComponent(formattedReportText);
     const url = `https://wa.me/${phone}?text=${encoded}`;
@@ -265,12 +282,14 @@ export default function AssessmentReport({
 
   // Email sharing handler
   const handleShareEmail = () => {
+    if (!isValid) return;
     const mailtoUrl = generateMailtoUrl();
     window.location.href = mailtoUrl;
   };
 
   // Copy to clipboard handler
   const handleCopy = async () => {
+    if (!isValid) return;
     try {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(formattedReportText);
@@ -428,6 +447,77 @@ export default function AssessmentReport({
         </div>
       )}
 
+      {/* Patient Intake Form */}
+      <div className="p-6 rounded-2xl bg-white border border-[var(--color-surface-300)] shadow-sm space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-50 text-[var(--color-clinical-600)] flex items-center justify-center text-xl flex-shrink-0 border border-blue-100">
+            👤
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-[var(--color-text-primary)]">
+              {t("assessment.intake.title")}
+            </h3>
+            <p className="text-xs text-[var(--color-text-secondary)]">
+              {t("assessment.intake.subtitle")}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+          {/* Full Name */}
+          <div className="space-y-1.5 sm:col-span-2">
+            <label htmlFor="patient-name" className="block text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+              {t("assessment.intake.nameLabel")}{" "}
+              <span className="text-[var(--color-alert-critical)]">*</span>
+            </label>
+            <input
+              id="patient-name"
+              type="text"
+              required
+              value={patientData.name}
+              onChange={(e) => setPatientData((prev) => ({ ...prev, name: e.target.value }))}
+              placeholder={t("assessment.intake.namePlaceholder")}
+              className="w-full px-4 py-3 rounded-xl border border-[var(--color-surface-300)] bg-[var(--color-surface-50)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
+            />
+          </div>
+
+          {/* Mobile Number */}
+          <div className="space-y-1.5">
+            <label htmlFor="patient-mobile" className="block text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+              {t("assessment.intake.mobileLabel")}{" "}
+              <span className="text-[var(--color-alert-critical)]">*</span>
+            </label>
+            <input
+              id="patient-mobile"
+              type="tel"
+              required
+              value={patientData.mobile}
+              onChange={(e) => setPatientData((prev) => ({ ...prev, mobile: e.target.value }))}
+              placeholder={t("assessment.intake.mobilePlaceholder")}
+              className="w-full px-4 py-3 rounded-xl border border-[var(--color-surface-300)] bg-[var(--color-surface-50)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
+            />
+          </div>
+
+          {/* Email Address */}
+          <div className="space-y-1.5">
+            <label htmlFor="patient-email" className="block text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+              {t("assessment.intake.emailLabel")}{" "}
+              <span className="text-xs font-normal text-[var(--color-text-muted)]">
+                {t("assessment.intake.optional")}
+              </span>
+            </label>
+            <input
+              id="patient-email"
+              type="email"
+              value={patientData.email}
+              onChange={(e) => setPatientData((prev) => ({ ...prev, email: e.target.value }))}
+              placeholder={t("assessment.intake.emailPlaceholder")}
+              className="w-full px-4 py-3 rounded-xl border border-[var(--color-surface-300)] bg-[var(--color-surface-50)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Action / Sharing Section */}
       <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-50/70 to-indigo-50/70 border-2 border-[var(--color-clinical-200)] text-center space-y-4">
         <div>
@@ -439,27 +529,45 @@ export default function AssessmentReport({
           </p>
         </div>
 
-        {/* Primary Share Buttons with contrasting hover states */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-2">
-          <Button
-            label={t("assessment.report.shareWhatsApp")}
-            variant="whatsapp"
-            size="md"
-            onClick={handleShareWhatsApp}
-          />
-          <Button
-            label={t("assessment.report.shareEmail")}
-            variant="primary"
-            size="md"
-            onClick={handleShareEmail}
-          />
-          <button
-            onClick={handleCopy}
-            className="px-5 py-3 rounded-full border border-[var(--color-surface-300)] bg-white text-[var(--color-text-primary)] text-sm font-semibold hover:bg-[var(--color-surface-100)] transition-colors shadow-sm"
-          >
-            {copied ? `✅ ${t("assessment.report.copied")}` : `📋 ${t("assessment.report.copy")}`}
-          </button>
-        </div>
+        {/* Conditional rendering: locked indicator vs transitioned buttons */}
+        {!isValid ? (
+          <div className="py-4 px-5 rounded-xl bg-white/80 border border-dashed border-[var(--color-clinical-300)] text-center max-w-md mx-auto animate-fade-in shadow-sm">
+            <div className="text-2xl mb-1">🔒</div>
+            <p className="text-sm font-bold text-[var(--color-text-primary)]">
+              {t("assessment.intake.lockedTitle")}
+            </p>
+            <p className="text-xs text-[var(--color-text-secondary)] mt-1 leading-relaxed">
+              {t("assessment.intake.lockedSubtitle")}
+            </p>
+          </div>
+        ) : (
+          <div className="transition-all duration-500 ease-out transform opacity-100 translate-y-0 scale-100">
+            {/* Primary Share Buttons with contrasting hover states */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-2">
+              <Button
+                label={t("assessment.report.shareWhatsApp")}
+                variant="whatsapp"
+                size="md"
+                onClick={handleShareWhatsApp}
+                disabled={!isValid}
+              />
+              <Button
+                label={t("assessment.report.shareEmail")}
+                variant="primary"
+                size="md"
+                onClick={handleShareEmail}
+                disabled={!isValid}
+              />
+              <button
+                onClick={handleCopy}
+                disabled={!isValid}
+                className="px-5 py-3 rounded-full border border-[var(--color-surface-300)] bg-white text-[var(--color-text-primary)] text-sm font-semibold hover:bg-[var(--color-surface-100)] transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {copied ? `✅ ${t("assessment.report.copied")}` : `📋 ${t("assessment.report.copy")}`}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Start Over Action */}

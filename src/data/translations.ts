@@ -1778,6 +1778,73 @@ export const translations: TranslationSet = {
     mr: "महत्त्वाची सुरक्षा सूचना",
     gu: "મહત્વપૂર્ણ સુરક્ષા સૂચના",
   },
+  // Patient Intake Form
+  "assessment.intake.title": {
+    en: "Patient Details",
+    hi: "रोगी का विवरण",
+    mr: "रुग्णाचे तपशील",
+    gu: "દર્દીની વિગતો",
+  },
+  "assessment.intake.subtitle": {
+    en: "Please provide your contact details so Dr. Shah's clinical team can review your assessment and reach out.",
+    hi: "कृपया अपनी संपर्क जानकारी दर्ज करें ताकि डॉ. शाह की क्लिनिकल टीम आपके मूल्यांकन की समीक्षा कर आपसे संपर्क कर सके।",
+    mr: "कृपया तुमची संपर्क माहिती प्रविष्ट करा जेणेकरून डॉ. शाह यांची क्लिनिकल टीम तुमच्या तपासणीचे पुनरावलोकन करून तुमच्याशी संपर्क साधू शकेल.",
+    gu: "કૃપા કરીને તમારી સંપર્ક માહિતી દાખલ કરો જેથી ડૉ. શાહની ક્લિનિકલ ટીમ તમારા મૂલ્યાંકનની સમીક્ષા કરીને તમારો સંપર્ક કરી શકે.",
+  },
+  "assessment.intake.nameLabel": {
+    en: "Full Name",
+    hi: "पूरा नाम",
+    mr: "पूर्ण नाव",
+    gu: "પૂરું નામ",
+  },
+  "assessment.intake.namePlaceholder": {
+    en: "e.g., Rajesh Sharma",
+    hi: "उदा. राजेश शर्मा",
+    mr: "उदा. राजेश शर्मा",
+    gu: "દા.ત., રાજેશ શર્મા",
+  },
+  "assessment.intake.mobileLabel": {
+    en: "Mobile Number",
+    hi: "मोबाइल नंबर",
+    mr: "मोबाईल नंबर",
+    gu: "મોબાઇલ નંબર",
+  },
+  "assessment.intake.mobilePlaceholder": {
+    en: "e.g., 9876543210",
+    hi: "उदा. 9876543210",
+    mr: "उदा. 9876543210",
+    gu: "દા.ત., 9876543210",
+  },
+  "assessment.intake.emailLabel": {
+    en: "Email Address",
+    hi: "ईमेल पता",
+    mr: "ईमेल पत्ता",
+    gu: "ઈમેલ સરનામું",
+  },
+  "assessment.intake.emailPlaceholder": {
+    en: "e.g., patient@example.com",
+    hi: "उदा. patient@example.com",
+    mr: "उदा. patient@example.com",
+    gu: "દા.ત., patient@example.com",
+  },
+  "assessment.intake.optional": {
+    en: "(Optional)",
+    hi: "(वैकल्पिक)",
+    mr: "(पर्यायी)",
+    gu: "(વૈકલ્પિક)",
+  },
+  "assessment.intake.lockedTitle": {
+    en: "Patient Details Required",
+    hi: "रोगी का विवरण आवश्यक है",
+    mr: "रुग्णाचे तपशील आवश्यक आहेत",
+    gu: "દર્દીની વિગતો જરૂરી છે",
+  },
+  "assessment.intake.lockedSubtitle": {
+    en: "Please enter your Full Name and Mobile Number above to view and unlock sharing options.",
+    hi: "साझाकरण विकल्प अनलॉक करने के लिए कृपया ऊपर अपना पूरा नाम और मोबाइल नंबर दर्ज करें।",
+    mr: "शेअरिंग पर्याय अनलॉक करण्यासाठी कृपया वर तुमचे पूर्ण नाव आणि मोबाईल नंबर प्रविष्ट करा.",
+    gu: "શેરિંગ વિકલ્પો અનલૉક કરવા માટે કૃપા કરીને ઉપર તમારું પૂરું નામ અને મોબાઇલ નંબર દાખલ કરો.",
+  },
   "assessment.report.shareTitle": {
     en: "Share Your Assessment with Dr. Shah",
     hi: "डॉ. शाह के साथ अपना मूल्यांकन साझा करें",
