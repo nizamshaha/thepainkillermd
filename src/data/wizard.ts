@@ -5,7 +5,7 @@ export const wizardSteps: WizardStep[] = [
     id: 1,
     title: "Pain Location",
     question: "Where is your pain primarily located?",
-    type: "select",
+    type: "multiselect",
     options: [
       { id: "head", label: "Head / Face", value: "head", icon: "🧠" },
       { id: "neck", label: "Neck / Cervical", value: "neck", icon: "🦴" },
@@ -24,7 +24,7 @@ export const wizardSteps: WizardStep[] = [
     id: 2,
     title: "Pain Quality",
     question: "How would you describe the quality of your pain?",
-    type: "select",
+    type: "multiselect",
     options: [
       { id: "burning", label: "Burning", value: "burning", icon: "🔥" },
       { id: "electric", label: "Electric Shock", value: "electric", icon: "⚡" },
@@ -139,12 +139,23 @@ export const wizardSteps: WizardStep[] = [
 export function evaluateWizardAnswers(
   answers: Record<number, string | string[] | number>
 ): WizardResult {
-  const location = answers[1] as string;
-  const quality = answers[2] as string;
-  const duration = answers[3] as string;
+  const rawLocation = answers[1];
+  const locations: string[] = Array.isArray(rawLocation)
+    ? (rawLocation as string[])
+    : rawLocation
+    ? [rawLocation as string]
+    : ["back"];
+
+  const rawQuality = answers[2];
+  const qualities: string[] = Array.isArray(rawQuality)
+    ? (rawQuality as string[])
+    : rawQuality
+    ? [rawQuality as string]
+    : ["aching"];
+
+  const duration = (answers[3] as string) || "chronic";
   const intensity = (answers[4] as number) || 5;
-  const radiates = answers[5] as string;
-  // const radiationPattern = (answers[6] as string[]) || [];
+  const radiates = (answers[5] as string) || "no";
   const aggravating = (answers[7] as string[]) || [];
   const sensoryChanges = (answers[8] as string[]) || [];
   const motorWeakness = answers[9] as string;
@@ -155,16 +166,17 @@ export function evaluateWizardAnswers(
   const neuropathicQualities = ["burning", "electric", "shooting", "pins-and-needles", "numbness"];
   const nociceptiveQualities = ["aching", "stabbing", "throbbing"];
 
-  if (neuropathicQualities.includes(quality)) {
+  if (qualities.some((q) => neuropathicQualities.includes(q))) {
     possiblePathways.push("neuropathic");
   }
-  if (nociceptiveQualities.includes(quality)) {
+  if (qualities.some((q) => nociceptiveQualities.includes(q))) {
     possiblePathways.push("nociceptive");
   }
   if (
     sensoryChanges.length > 1 ||
     duration === "chronic" ||
-    intensity > 7
+    intensity > 7 ||
+    locations.length > 2
   ) {
     possiblePathways.push("nociplastic");
   }
@@ -187,8 +199,14 @@ export function evaluateWizardAnswers(
   if (aggravating.includes("coughing")) {
     patterns.push("Pain worsened by Valsalva maneuver (coughing/sneezing) is consistent with disc pathology.");
   }
-  if (aggravating.includes("sitting") && location === "back") {
+  if (aggravating.includes("sitting") && locations.includes("back")) {
     patterns.push("Pain worsened by sitting suggests discogenic or lumbar spinal stenosis pattern.");
+  }
+  if (locations.includes("head") && locations.includes("neck")) {
+    patterns.push("Combined neck and head pain suggests possible cervicogenic or tension-type pain mechanism.");
+  }
+  if (locations.length > 2) {
+    patterns.push("Multi-regional pain pattern detected across multiple body segments.");
   }
   if (aggravating.includes("night")) {
     patterns.push("Nocturnal pain warrants further investigation for inflammatory or neoplastic causes.");
@@ -246,13 +264,14 @@ export function evaluateWizardAnswers(
   }
 
   // Generate summary
-  const regionName = location.charAt(0).toUpperCase() + location.slice(1);
+  const regionNames = locations.map((loc) => loc.charAt(0).toUpperCase() + loc.slice(1)).join(", ");
+  const qualityNames = qualities.map((q) => q.replace("-", " ")).join(", ");
   const pathwayNames = possiblePathways.map(
     (p) => p.charAt(0).toUpperCase() + p.slice(1)
   );
 
   const summary =
-    `Based on your responses, your ${regionName.toLowerCase()} pain with ${quality.replace("-", " ")} quality ` +
+    `Based on your responses, your pain in ${regionNames} with ${qualityNames} quality ` +
     `(rated ${intensity}/10, ${duration} duration) ${radiates === "yes" ? "radiating to other areas " : ""}` +
     `suggests ${pathwayNames.join(" and ")} pain mechanisms. ` +
     (patterns.length > 0
