@@ -3,6 +3,7 @@ import { WizardStep, WizardResult } from "@/lib/types";
 export const wizardSteps: WizardStep[] = [
   {
     id: 1,
+    key: "location",
     title: "Pain Location",
     question: "Where is your pain primarily located?",
     type: "multiselect",
@@ -22,6 +23,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 2,
+    key: "quality",
     title: "Pain Quality",
     question: "How would you describe the quality of your pain?",
     type: "multiselect",
@@ -38,6 +40,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 3,
+    key: "duration",
     title: "Duration",
     question: "How long have you been experiencing this pain?",
     type: "select",
@@ -50,6 +53,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 4,
+    key: "intensity",
     title: "Intensity",
     question: "On a scale of 0–10, how intense is your pain most of the time?",
     type: "range",
@@ -59,6 +63,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 5,
+    key: "radiation",
     title: "Radiation",
     question: "Does the pain travel or spread to other areas?",
     type: "yesno",
@@ -69,6 +74,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 6,
+    key: "radiationPattern",
     title: "Radiation Pattern",
     question: "Where does the pain radiate to? (if applicable)",
     type: "multiselect",
@@ -83,6 +89,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 7,
+    key: "aggravating",
     title: "Aggravating Factors",
     question: "What makes your pain worse?",
     type: "multiselect",
@@ -99,6 +106,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 8,
+    key: "sensory",
     title: "Sensory Changes",
     question: "Have you noticed any changes in sensation?",
     type: "multiselect",
@@ -112,6 +120,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 9,
+    key: "motor",
     title: "Motor Strength",
     question: "Have you experienced any weakness or difficulty moving?",
     type: "yesno",
@@ -122,6 +131,7 @@ export const wizardSteps: WizardStep[] = [
   },
   {
     id: 10,
+    key: "redFlags",
     title: "Red Flags Screening",
     question: "Have you experienced any of these concerning symptoms?",
     type: "multiselect",

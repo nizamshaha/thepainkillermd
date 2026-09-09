@@ -1320,7 +1320,7 @@ export const translations: TranslationSet = {
     gu: "તમારો દુખાવો શોધો",
   },
   "assessment.subtitle": {
-    en: "A guided assessment that helps you understand your pain patterns. This is an educational tool — not a diagnostic device.",
+    en: "A guided clinical assessment that helps you understand your pain patterns. This is an educational tool — not a diagnostic device.",
     hi: "एक निर्देशित मूल्यांकन जो आपके दर्द के पैटर्न को समझने में मदद करता है। यह एक शैक्षिक उपकरण है — कोई नैदानिक उपकरण नहीं।",
     mr: "एक मार्गदर्शित मूल्यांकन जे तुमच्या दुखाव्याचे स्वरूप समजून घेण्यास मदत करते. हे एक शैक्षणिक साधन आहे — निदान साधन नाही.",
     gu: "એક માર્ગદર્શિત મૂલ્યાંકન જે તમને તમારા દુખાવાના પ્રકારને સમજવામાં મદદ કરે છે. આ એક શૈક્ષણિક સાધન છે — નિદાનનું સાધન નથી.",
@@ -1386,12 +1386,43 @@ export const translations: TranslationSet = {
     gu: "પસંદ કરેલ",
   },
 
-  // Assessment Steps
-  "assessment.step1.title": {
-    en: "Pain Location",
-    hi: "दर्द का स्थान",
-    mr: "दुखाव्याचे ठिकाण",
-    gu: "દુખાવાનું સ્થળ",
+  // Assessment Step Titles (semantic key and step number aliases)
+  "assessment.titles.location": { en: "Pain Location", hi: "दर्द का स्थान", mr: "दुखाव्याचे ठिकाण", gu: "દુખાવાનું સ્થળ" },
+  "assessment.step1.title": { en: "Pain Location", hi: "दर्द का स्थान", mr: "दुखाव्याचे ठिकाण", gu: "દુખાવાનું સ્થળ" },
+
+  "assessment.titles.quality": { en: "Pain Quality", hi: "दर्द का प्रकार / अहसास", mr: "दुखाव्याचे स्वरूप", gu: "દુખાવાનો પ્રકાર" },
+  "assessment.step2.title": { en: "Pain Quality", hi: "दर्द का प्रकार / अहसास", mr: "दुखाव्याचे स्वरूप", gu: "દુખાવાનો પ્રકાર" },
+
+  "assessment.titles.duration": { en: "Duration", hi: "अवधि", mr: "कालावधी", gu: "સમયગાળો" },
+  "assessment.step3.title": { en: "Duration", hi: "अवधि", mr: "कालावधी", gu: "સમયગાળો" },
+
+  "assessment.titles.intensity": { en: "Pain Intensity", hi: "दर्द की तीव्रता", mr: "दुखाव्याची तीव्रता", gu: "દુખાવાની તીવ્રતા" },
+  "assessment.step4.title": { en: "Intensity", hi: "तीव्रता", mr: "तीव्रता", gu: "તીવ્રતા" },
+
+  "assessment.titles.radiation": { en: "Radiation", hi: "दर्द का फैलाव", mr: "दुखाव्याचा प्रसार", gu: "દુખાવાનો ફેલાવો" },
+  "assessment.step5.title": { en: "Radiation", hi: "दर्द का फैलाव", mr: "दुखाव्याचा प्रसार", gu: "દુખાવાનો ફેલાવો" },
+
+  "assessment.titles.radiationPattern": { en: "Radiation Pattern", hi: "फैलाव का पैटर्न", mr: "प्रसाराचे स्वरूप", gu: "ફેલાવાની પેટર્ન" },
+  "assessment.step6.title": { en: "Radiation Pattern", hi: "फैलाव का पैटर्न", mr: "प्रसाराचे स्वरूप", gu: "ફેલાવાની પેટર્ન" },
+
+  "assessment.titles.aggravating": { en: "Aggravating Factors", hi: "दर्द बढ़ाने वाले कारक", mr: "दुखावा वाढवणारे घटक", gu: "દુખાવો વધારતા પરિબળો" },
+  "assessment.step7.title": { en: "Aggravating Factors", hi: "दर्द बढ़ाने वाले कारक", mr: "दुखावा वाढवणारे घटक", gu: "દુખાવો વધારતા પરિબળો" },
+
+  "assessment.titles.sensory": { en: "Sensory Changes", hi: "संवेदी परिवर्तन", mr: "संवेदी बदल", gu: "સંવેદી ફેરફારો" },
+  "assessment.step8.title": { en: "Sensory Changes", hi: "संवेदी परिवर्तन", mr: "संवेदी बदल", gu: "સંવેદી ફેરફારો" },
+
+  "assessment.titles.motor": { en: "Motor Strength", hi: "मांसपेशियों की ताकत", mr: "स्नायूंची ताकद", gu: "સ્નાયુ શક્તિ" },
+  "assessment.step9.title": { en: "Motor Strength", hi: "मांसपेशियों की ताकत", mr: "स्नायूंची ताकद", gu: "સ્નાયુ શક્તિ" },
+
+  "assessment.titles.redFlags": { en: "Red Flags Screening", hi: "सुरक्षा संकेत", mr: "सुरक्षा सूचना", gu: "સુરક્ષા ચેતવણીઓ" },
+  "assessment.step10.title": { en: "Red Flags Screening", hi: "सुरक्षा संकेत", mr: "सुरक्षा सूचना", gu: "સુરક્ષા ચેતવણીઓ" },
+
+  // Assessment Step Questions (semantic key and step number aliases)
+  "assessment.questions.location": {
+    en: "Where is your pain primarily located? (Select all that apply)",
+    hi: "आपका दर्द मुख्य रूप से कहाँ स्थित है? (लागू होने वाले सभी चुनें)",
+    mr: "तुमचा दुखावा प्रामुख्याने कुठे आहे? (सर्व लागू पर्याय निवडा)",
+    gu: "તમારો દુખાવો મુખ્યત્વે ક્યાં થાય છે? (લાગુ પડતા તમામ પસંદ કરો)",
   },
   "assessment.step1.question": {
     en: "Where is your pain primarily located? (Select all that apply)",
@@ -1399,11 +1430,12 @@ export const translations: TranslationSet = {
     mr: "तुमचा दुखावा प्रामुख्याने कुठे आहे? (सर्व लागू पर्याय निवडा)",
     gu: "તમારો દુખાવો મુખ્યત્વે ક્યાં થાય છે? (લાગુ પડતા તમામ પસંદ કરો)",
   },
-  "assessment.step2.title": {
-    en: "Pain Quality",
-    hi: "दर्द का प्रकार / अहसास",
-    mr: "दुखाव्याचे स्वरूप",
-    gu: "દુખાવાનો પ્રકાર",
+
+  "assessment.questions.quality": {
+    en: "How would you describe the quality of your pain? (Select all that apply)",
+    hi: "आप अपने दर्द के अहसास का वर्णन कैसे करेंगे? (लागू होने वाले सभी चुनें)",
+    mr: "तुम्ही तुमच्या दुखाव्याचे वर्णन कसे कराल? (सर्व लागू पर्याय निवडा)",
+    gu: "તમે તમારા દુખાવાના પ્રકારનું વર્ણન કેવી રીતે કરશો? (લાગુ પડતા તમામ પસંદ કરો)",
   },
   "assessment.step2.question": {
     en: "How would you describe the quality of your pain? (Select all that apply)",
@@ -1411,11 +1443,12 @@ export const translations: TranslationSet = {
     mr: "तुम्ही तुमच्या दुखाव्याचे वर्णन कसे कराल? (सर्व लागू पर्याय निवडा)",
     gu: "તમે તમારા દુખાવાના પ્રકારનું વર્ણન કેવી રીતે કરશો? (લાગુ પડતા તમામ પસંદ કરો)",
   },
-  "assessment.step3.title": {
-    en: "Duration",
-    hi: "अवधि",
-    mr: "कालावधी",
-    gu: "સમયગાળો",
+
+  "assessment.questions.duration": {
+    en: "How long have you been experiencing this pain?",
+    hi: "आप कब से इस दर्द का अनुभव कर रहे हैं?",
+    mr: "तुम्ही हा दुखावा किती काळापासून अनुभवत आहात?",
+    gu: "તમે આ દુખાવો કેટલા સમયથી અનુભવી રહ્યા છો?",
   },
   "assessment.step3.question": {
     en: "How long have you been experiencing this pain?",
@@ -1423,11 +1456,12 @@ export const translations: TranslationSet = {
     mr: "तुम्ही हा दुखावा किती काळापासून अनुभवत आहात?",
     gu: "તમે આ દુખાવો કેટલા સમયથી અનુભવી રહ્યા છો?",
   },
-  "assessment.step4.title": {
-    en: "Intensity",
-    hi: "तीव्रता",
-    mr: "तीव्रता",
-    gu: "તીવ્રતા",
+
+  "assessment.questions.intensity": {
+    en: "On a scale of 0–10, how intense is your pain most of the time?",
+    hi: "0–10 के पैमाने पर, अधिकांश समय आपका दर्द कितना तीव्र रहता है?",
+    mr: "0–10 च्या प्रमाणावर, बहुतेक वेळ तुमचा दुखावा किती तीव्र असतो?",
+    gu: "0–10 ના સ્કેલ પર, મોટાભાગના સમયે તમારો દુખાવો કેટલો તીવ્ર હોય છે?",
   },
   "assessment.step4.question": {
     en: "On a scale of 0–10, how intense is your pain most of the time?",
@@ -1435,11 +1469,12 @@ export const translations: TranslationSet = {
     mr: "0–10 च्या प्रमाणावर, बहुतेक वेळ तुमचा दुखावा किती तीव्र असतो?",
     gu: "0–10 ના સ્કેલ પર, મોટાભાગના સમયે તમારો દુખાવો કેટલો તીવ્ર હોય છે?",
   },
-  "assessment.step5.title": {
-    en: "Radiation",
-    hi: "दर्द का फैलाव",
-    mr: "दुखाव्याचा प्रसार",
-    gu: "દુખાવાનો ફેલાવો",
+
+  "assessment.questions.radiation": {
+    en: "Does the pain travel or spread to other areas?",
+    hi: "क्या दर्द अन्य क्षेत्रों में फैलता या जाता है?",
+    mr: "दुखावा इतर भागात पसरतो का?",
+    gu: "શું દુખાવો અન્ય ભાગોમાં ફેલાય છે?",
   },
   "assessment.step5.question": {
     en: "Does the pain travel or spread to other areas?",
@@ -1447,11 +1482,12 @@ export const translations: TranslationSet = {
     mr: "दुखावा इतर भागात पसरतो का?",
     gu: "શું દુખાવો અન્ય ભાગોમાં ફેલાય છે?",
   },
-  "assessment.step6.title": {
-    en: "Radiation Pattern",
-    hi: "फैलाव का पैटर्न",
-    mr: "प्रसाराचे स्वरूप",
-    gu: "ફેલાવાની પેટર્ન",
+
+  "assessment.questions.radiationPattern": {
+    en: "Where does the pain radiate to? (if applicable)",
+    hi: "दर्द कहाँ तक फैलता है? (यदि लागू हो)",
+    mr: "दुखावा कुठे पसरतो? (लागू असल्यास)",
+    gu: "દુખાવો ક્યાં સુધી ફેલાય છે? (જો લાગુ પડતું હોય તો)",
   },
   "assessment.step6.question": {
     en: "Where does the pain radiate to? (if applicable)",
@@ -1459,11 +1495,12 @@ export const translations: TranslationSet = {
     mr: "दुखावा कुठे पसरतो? (लागू असल्यास)",
     gu: "દુખાવો ક્યાં સુધી ફેલાય છે? (જો લાગુ પડતું હોય તો)",
   },
-  "assessment.step7.title": {
-    en: "Aggravating Factors",
-    hi: "दर्द बढ़ाने वाले कारक",
-    mr: "दुखावा वाढवणारे घटक",
-    gu: "દુખાવો વધારતા પરિબળો",
+
+  "assessment.questions.aggravating": {
+    en: "What makes your pain worse?",
+    hi: "किस कारण आपका दर्द बढ़ जाता है?",
+    mr: "कशाने तुमचा दुखावा वाढतो?",
+    gu: "શાનાથી તમારો દુખાવો વધી જાય છે?",
   },
   "assessment.step7.question": {
     en: "What makes your pain worse?",
@@ -1471,73 +1508,124 @@ export const translations: TranslationSet = {
     mr: "कशाने तुमचा दुखावा वाढतो?",
     gu: "શાનાથી તમારો દુખાવો વધી જાય છે?",
   },
-  "assessment.step8.title": {
-    en: "Relieving Factors",
-    hi: "राहत देने वाले कारक",
-    mr: "आराम देणारे घटक",
-    gu: "રાહત આપતા પરિબળો",
+
+  "assessment.questions.sensory": {
+    en: "Have you noticed any changes in sensation?",
+    hi: "क्या आपने संवेदनशीलता में कोई बदलाव देखा है?",
+    mr: "संवेदनेत काही बदल जाणवले आहेत का?",
+    gu: "શું તમે સંવેદનામાં કોઈ ફેરફાર અનુભવ્યા છે?",
   },
   "assessment.step8.question": {
-    en: "What helps relieve your pain?",
-    hi: "आपके दर्द को कम करने में क्या मदद करता है?",
-    mr: "तुमचा दुखावा कमी करण्यास काय मदत करते?",
-    gu: "તમારા દુખાવામાં રાહત આપવા શું મદદ કરે છે?",
+    en: "Have you noticed any changes in sensation?",
+    hi: "क्या आपने संवेदनशीलता में कोई बदलाव देखा है?",
+    mr: "संवेदनेत काही बदल जाणवले आहेत का?",
+    gu: "શું તમે સંવેદનામાં કોઈ ફેરફાર અનુભવ્યા છે?",
   },
-  "assessment.step9.title": {
-    en: "Daily Impact",
-    hi: "दैनिक जीवन पर प्रभाव",
-    mr: "दैनंदिन जीवनावरील परिणाम",
-    gu: "રોજિંદા જીવન પર અસર",
+
+  "assessment.questions.motor": {
+    en: "Have you experienced any weakness or difficulty moving?",
+    hi: "क्या आपको कमजोरी या हिलने-डुलने में कठिनाई का अनुभव हुआ है?",
+    mr: "तुम्हाला अशक्तपणा किंवा हालचालीत अडचण जाणवली आहे का?",
+    gu: "શું તમને નબળાઈ કે હલનચલનમાં મુશ્કેલી અનુભવાઈ છે?",
   },
   "assessment.step9.question": {
-    en: "How does pain impact your daily life?",
-    hi: "दर्द आपके दैनिक जीवन को कैसे प्रभावित करता है?",
-    mr: "दुखावा तुमच्या दैनंदिन जीवनावर कसा परिणाम करतो?",
-    gu: "દુખાવો તમારા રોજિંદા જીવનને કેવી રીતે અસર કરે છે?",
+    en: "Have you experienced any weakness or difficulty moving?",
+    hi: "क्या आपको कमजोरी या हिलने-डुलने में कठिनाई का अनुभव हुआ है?",
+    mr: "तुम्हाला अशक्तपणा किंवा हालचालीत अडचण जाणवली आहे का?",
+    gu: "શું તમને નબળાઈ કે હલનચલનમાં મુશ્કેલી અનુભવાઈ છે?",
   },
-  "assessment.step10.title": {
-    en: "Safety Alerts",
-    hi: "सुरक्षा संकेत",
-    mr: "सुरक्षा सूचना",
-    gu: "સુરક્ષા ચેતવણીઓ",
+
+  "assessment.questions.redFlags": {
+    en: "Have you experienced any of these concerning symptoms?",
+    hi: "क्या आपने इनमें से किसी चिंताजनक लक्षण का अनुभव किया है?",
+    mr: "तुम्ही यापैकी कोणत्याही गंभीर लक्षणांचा अनुभव घेतला आहे का?",
+    gu: "શું તમે આમાંથી કોઈપણ ચિંતાજનક લક્ષણોનો અનુભવ કર્યો છે?",
   },
   "assessment.step10.question": {
-    en: "Do you have any of these symptoms that require immediate evaluation?",
-    hi: "क्या आपके पास इनमें से कोई लक्षण हैं जिनके लिए तत्काल मूल्यांकन आवश्यक है?",
-    mr: "तुमच्याकडे अशी कोणती लक्षणे आहेत ज्यांचे त्वरित मूल्यांकन करणे आवश्यक आहे?",
-    gu: "શું તમારી પાસે આમાંથી કોઈ લક્ષણો છે જેના માટે તાત્કાલિક મૂલ્યાંકન જરૂરી છે?",
+    en: "Have you experienced any of these concerning symptoms?",
+    hi: "क्या आपने इनमें से किसी चिंताजनक लक्षण का अनुभव किया है?",
+    mr: "तुम्ही यापैकी कोणत्याही गंभीर लक्षणांचा अनुभव घेतला आहे का?",
+    gu: "શું તમે આમાંથી કોઈપણ ચિંતાજનક લક્ષણોનો અનુભવ કર્યો છે?",
   },
 
-  // Anatomical Regions
+  // Step 1: Anatomical Locations / Regions
+  "assessment.options.location.head": { en: "Head / Face", hi: "सिर / चेहरा", mr: "डोके / चेहरा", gu: "માથું / ચહેરો" },
   "assessment.region.head": { en: "Head / Face", hi: "सिर / चेहरा", mr: "डोके / चेहरा", gu: "માથું / ચહેરો" },
-  "assessment.region.neck": { en: "Neck / Cervical", hi: "गर्दन / सर्वाइकल", mr: "मान / गर्भाशय मणका", gu: "ગરદન / સર્વાઇકલ" },
-  "assessment.region.shoulder": { en: "Shoulder", hi: "कंधा", mr: "खांदा", gu: "ખભો" },
-  "assessment.region.arm": { en: "Arm / Elbow", hi: "बांह / कोहनी", mr: "हात / कोपर", gu: "હાથ / કોણી" },
-  "assessment.region.hand": { en: "Hand / Wrist", hi: "हाथ / कलाई", mr: "हात / मनगट", gu: "હાથ / કાંડું" },
-  "assessment.region.chest": { en: "Chest / Thoracic", hi: "छाती / वक्षीय रीढ़", mr: "छाती / थोरॅसिक", gu: "છાતી / થોરેસિક" },
-  "assessment.region.back": { en: "Lower Back / Lumbar", hi: "निचली पीठ / कमर", mr: "कंबर / पाठीचा खालचा भाग", gu: "કમર / પીઠનો નીચેનો ભાગ" },
-  "assessment.region.hip": { en: "Hip / Pelvis", hi: "कूल्हा / पेल्विस", mr: "खुबा / ओटीपोट", gu: "થાપો / પેલ્વિસ" },
-  "assessment.region.knee": { en: "Knee", hi: "घुटना", mr: "गुडघा", gu: "ઘૂંટણ" },
-  "assessment.region.leg": { en: "Leg / Shin", hi: "पैर / पिंडली", mr: "पाय / पोटरी", gu: "પગ / પિંડી" },
-  "assessment.region.foot": { en: "Foot / Ankle", hi: "पैर / टखना", mr: "पाऊલ / घोटा", gu: "પગનો પંજો / ઘૂંટી" },
 
-  // Pain Qualities
+  "assessment.options.location.neck": { en: "Neck / Cervical", hi: "गर्दन / सर्वाइकल", mr: "मान / गर्भाशय मणका", gu: "ગરદન / સર્વાઇકલ" },
+  "assessment.region.neck": { en: "Neck / Cervical", hi: "गर्दन / सर्वाइकल", mr: "मान / गर्भाशय मणका", gu: "ગરદન / સર્વાઇકલ" },
+
+  "assessment.options.location.shoulder": { en: "Shoulder", hi: "कंधा", mr: "खांदा", gu: "ખભો" },
+  "assessment.region.shoulder": { en: "Shoulder", hi: "कंधा", mr: "खांदा", gu: "ખભો" },
+
+  "assessment.options.location.arm": { en: "Arm / Elbow", hi: "बांह / कोहनी", mr: "हात / कोपर", gu: "હાથ / કોણી" },
+  "assessment.region.arm": { en: "Arm / Elbow", hi: "बांह / कोहनी", mr: "हात / कोपर", gu: "હાથ / કોણી" },
+
+  "assessment.options.location.hand": { en: "Hand / Wrist", hi: "हाथ / कलाई", mr: "हात / मनगट", gu: "હાથ / કાંડું" },
+  "assessment.region.hand": { en: "Hand / Wrist", hi: "हाथ / कलाई", mr: "हात / मनगट", gu: "હાથ / કાંડું" },
+
+  "assessment.options.location.chest": { en: "Chest / Thoracic", hi: "छाती / वक्षीय रीढ़", mr: "छाती / थोरॅसिक", gu: "છાતી / થોરેસિક" },
+  "assessment.region.chest": { en: "Chest / Thoracic", hi: "छाती / वक्षीय रीढ़", mr: "छाती / थोरॅसिक", gu: "છાતી / થોરેસિક" },
+
+  "assessment.options.location.back": { en: "Lower Back / Lumbar", hi: "निचली पीठ / कमर", mr: "कंबर / पाठीचा खालचा भाग", gu: "કમર / પીઠનો નીચેનો ભાગ" },
+  "assessment.region.back": { en: "Lower Back / Lumbar", hi: "निचली पीठ / कमर", mr: "कंबर / पाठीचा खालचा भाग", gu: "કમર / પીઠનો નીચેનો ભાગ" },
+
+  "assessment.options.location.hip": { en: "Hip / Pelvis", hi: "कूल्हा / पेल्विस", mr: "खुबा / ओटीपोट", gu: "થાપો / પેલ્વિસ" },
+  "assessment.region.hip": { en: "Hip / Pelvis", hi: "कूल्हा / पेल्विस", mr: "खुबा / ओटीपोट", gu: "થાપો / પેલ્વિસ" },
+
+  "assessment.options.location.knee": { en: "Knee", hi: "घुटना", mr: "गुडघा", gu: "ઘૂંટણ" },
+  "assessment.region.knee": { en: "Knee", hi: "घुटना", mr: "गुडघा", gu: "ઘૂંટણ" },
+
+  "assessment.options.location.leg": { en: "Leg / Shin", hi: "पैर / पिंडली", mr: "पाय / पोटरी", gu: "પગ / પિંડી" },
+  "assessment.region.leg": { en: "Leg / Shin", hi: "पैर / पिंडली", mr: "पाय / पोटरी", gu: "પગ / પિંડી" },
+
+  "assessment.options.location.foot": { en: "Foot / Ankle", hi: "पैर / टखना", mr: "पाऊल / घोटा", gu: "પગનો પંજો / ઘૂંટી" },
+  "assessment.region.foot": { en: "Foot / Ankle", hi: "पैर / टखना", mr: "पाऊल / घोटा", gu: "પગનો પંજો / ઘૂંટી" },
+
+  // Step 2: Pain Qualities
+  "assessment.options.quality.burning": { en: "Burning", hi: "जलन जैसा", mr: "जळजळणारे", gu: "બળતરા જેવો" },
   "assessment.quality.burning": { en: "Burning", hi: "जलन जैसा", mr: "जळजळणारे", gu: "બળતરા જેવો" },
+
+  "assessment.options.quality.electric": { en: "Electric Shock", hi: "बिजली का झटका", mr: "विजेचा झटका", gu: "વીજળીનો આંચકો" },
   "assessment.quality.electric": { en: "Electric Shock", hi: "बिजली का झटका", mr: "विजेचा झटका", gu: "વીજળીનો આંચકો" },
+
+  "assessment.options.quality.shooting": { en: "Shooting", hi: "तीव्र चुभने वाला", mr: "तीव्र चमकणारा", gu: "તીક્ષ્ણ શૂળ જેવો" },
   "assessment.quality.shooting": { en: "Shooting", hi: "तीव्र चुभने वाला", mr: "तीव्र चमकणारा", gu: "તીક્ષ્ણ શૂળ જેવો" },
+
+  "assessment.options.quality.pins-and-needles": { en: "Pins & Needles / Tingling", hi: "सुई चुभना / झुनझुनी", mr: "सुया टोचणे / मुंग्या येणे", gu: "ઝણઝણાટી / સોય ભોંકાતી હોય તેવું" },
+  "assessment.quality.pins-and-needles": { en: "Pins & Needles / Tingling", hi: "सुई चुभना / झुनझुनी", mr: "सुया टोचणे / मुंग्या येणे", gu: "ઝણઝણાટી / સોય ભોંકાતી હોય તેવું" },
   "assessment.quality.pins": { en: "Pins & Needles / Tingling", hi: "सुई चुभना / झुनझुनी", mr: "सुया टोचणे / मुंग्या येणे", gu: "ઝણઝણાટી / સોય ભોંકાતી હોય તેવું" },
+
+  "assessment.options.quality.aching": { en: "Deep Aching", hi: "गहरा दर्द", mr: "खोल दुखणे", gu: "ઊંડો કણસતો દુખાવો" },
   "assessment.quality.aching": { en: "Deep Aching", hi: "गहरा दर्द", mr: "खोल दुखणे", gu: "ઊંડો કણસતો દુખાવો" },
+
+  "assessment.options.quality.stabbing": { en: "Stabbing / Sharp", hi: "छुरा घोंपने जैसा / तीखा", mr: "भाला टोचल्यासारखे / तीक्ष्ण", gu: "છરી ભોંકાતી હોય તેવું / તીક્ષ્ણ" },
   "assessment.quality.stabbing": { en: "Stabbing / Sharp", hi: "छुरा घोंपने जैसा / तीखा", mr: "भाला टोचल्यासारखे / तीक्ष्ण", gu: "છરી ભોંકાતી હોય તેવું / તીક્ષ્ણ" },
+
+  "assessment.options.quality.numbness": { en: "Numbness", hi: "सुन्नपन", mr: "बधीरपणा", gu: "સુન્નતા / બહેરું પડવું" },
   "assessment.quality.numbness": { en: "Numbness", hi: "सुन्नपन", mr: "बधीरपणा", gu: "સુન્નતા / બહેરું પડવું" },
+
+  "assessment.options.quality.throbbing": { en: "Throbbing / Pulsating", hi: "धड़कता हुआ", mr: "ठोके पडणारे", gu: "ધબકારા જેવો દુખાવો" },
   "assessment.quality.throbbing": { en: "Throbbing / Pulsating", hi: "धड़कता हुआ", mr: "ठोके पडणारे", gu: "ધબકારા જેવો દુખાવો" },
 
-  // Duration
+  // Step 3: Duration
+  "assessment.options.duration.acute": { en: "Less than 2 weeks", hi: "2 सप्ताह से कम", mr: "2 आठवड्यांपेक्षा कमी", gu: "2 અઠવાડિયાથી ઓછો" },
   "assessment.duration.acute": { en: "Less than 2 weeks", hi: "2 सप्ताह से कम", mr: "2 आठवड्यांपेक्षा कमी", gu: "2 અઠવાડિયાથી ઓછો" },
-  "assessment.duration.subacute": { en: "2 weeks to 3 months", hi: "2 सप्ताह से 3 महीने", mr: "2 आठवडे ते 3 महिने", gu: "2 અઠવાડિયાથી 3 મહિના" },
-  "assessment.duration.chronic": { en: "More than 3 months", hi: "3 महीने से अधिक", mr: "3 महिन्यांपेक्षा जास्त", gu: "3 મહિનાથી વધુ" },
-  "assessment.duration.intermittent": { en: "Comes and goes", hi: "आता-जाता रहता है", mr: "येत-जात राहतो", gu: "આવે-જાય છે" },
+  "assessment.options.duration.acute.desc": { en: "Acute pain", hi: "अल्पकालिक नया दर्द", mr: "अचानक सुरू झालेला दुखावा", gu: "નવો તીવ્ર દુખાવો" },
 
-  // Intensity Scale Labels
+  "assessment.options.duration.subacute": { en: "2 weeks to 3 months", hi: "2 सप्ताह से 3 महीने", mr: "2 आठवडे ते 3 महिने", gu: "2 અઠવાડિયાથી 3 મહિના" },
+  "assessment.duration.subacute": { en: "2 weeks to 3 months", hi: "2 सप्ताह से 3 महीने", mr: "2 आठवडे ते 3 महिने", gu: "2 અઠવાડિયાથી 3 મહિના" },
+  "assessment.options.duration.subacute.desc": { en: "Subacute pain", hi: "मध्यम अवधि का दर्द", mr: "मध्यम कालावधीचा दुखावा", gu: "મધ્યમ ગાળાનો દુખાવો" },
+
+  "assessment.options.duration.chronic": { en: "More than 3 months", hi: "3 महीने से अधिक", mr: "3 महिन्यांपेक्षा जास्त", gu: "3 મહિનાથી વધુ" },
+  "assessment.duration.chronic": { en: "More than 3 months", hi: "3 महीने से अधिक", mr: "3 महिन्यांपेक्षा जास्त", gu: "3 મહિનાથી વધુ" },
+  "assessment.options.duration.chronic.desc": { en: "Chronic pain", hi: "दीर्घकालिक दर्द", mr: "दीर्घकालीन दुखावा", gu: "લાંબા ગાળાનો દુખાવો" },
+
+  "assessment.options.duration.intermittent": { en: "Comes and goes", hi: "आता-जाता रहता है", mr: "येत-जात राहतो", gu: "આવે-જાય છે" },
+  "assessment.duration.intermittent": { en: "Comes and goes", hi: "आता-जाता रहता है", mr: "येत-जात राहतो", gu: "આવે-જાય છે" },
+  "assessment.options.duration.intermittent.desc": { en: "Episodic pain", hi: "रुक-रुक कर होने वाला", mr: "अधूनमधून होणारा दुखावा", gu: "ક્યારેક ક્યારેક થતો દુખાવો" },
+
+  // Step 4: Intensity Scale Labels
   "assessment.scale.0": { en: "No pain", hi: "कोई दर्द नहीं", mr: "काहीही दुखावा नाही", gu: "કોઈ દુખાવો નથી" },
   "assessment.scale.1": { en: "Barely noticeable", hi: "मुश्किल से ध्यान देने योग्य", mr: "सहज लक्षात न येणारा", gu: "ભાગ્યે જ જણાય તેવો" },
   "assessment.scale.2": { en: "Mild", hi: "हल्का दर्द", mr: "मंद दुखावा", gu: "હળવો દુખાવો" },
@@ -1550,11 +1638,50 @@ export const translations: TranslationSet = {
   "assessment.scale.9": { en: "Nearly unbearable", hi: "लगभग असहनीय", mr: "जवळजवळ असह्य", gu: "લગભગ અસહ્ય" },
   "assessment.scale.10": { en: "Worst possible", hi: "चरम असहनीय दर्द", mr: "सर्वात जास्त तीव्र दुखावा", gu: "સૌથી વધુ અસહ્ય દુખાવો" },
 
-  // Yes / No options
+  // Step 5: Radiation Options
+  "assessment.options.radiation.yes": { en: "Yes, it radiates", hi: "हाँ, यह अन्य जगह फैलता है", mr: "होय, इतरत्र पसरतो", gu: "હા, તે અન્ય જગ્યાએ ફેલાય છે" },
+  "assessment.options.radiation.no": { en: "No, it stays in one spot", hi: "नहीं, यह एक ही जगह रहता है", mr: "नाही, एकाच जागी राहतो", gu: "ના, તે એક જ જગ્યાએ રહે છે" },
   "assessment.yesno.radiates": { en: "Yes, it radiates", hi: "हाँ, यह अन्य जगह फैलता है", mr: "होय, इतरत्र पसरतो", gu: "હા, તે અન્ય જગ્યાએ ફેલાય છે" },
   "assessment.yesno.localized": { en: "No, it stays in one spot", hi: "नहीं, यह एक ही जगह रहता है", mr: "नाही, एकाच जागी राहतो", gu: "ના, તે એક જ જગ્યાએ રહે છે" },
 
-  // Report & Sharing
+  // Step 6: Radiation Pattern Options
+  "assessment.options.radiationPattern.below-knee": { en: "Below the knee", hi: "घुटने के नीचे", mr: "गुडघ्याच्या खाली", gu: "ઘૂંટણની નીચે" },
+  "assessment.options.radiationPattern.below-elbow": { en: "Below the elbow", hi: "कोहनी के नीचे", mr: "कोपराच्या खाली", gu: "કોણીની નીચે" },
+  "assessment.options.radiationPattern.groin": { en: "Groin area", hi: "कांख / कमर का निचला जोड़", mr: "मांडीचा सांधा (ग्रोइन)", gu: "જાંઘનો સાંધો (ગ્રોઇન)" },
+  "assessment.options.radiationPattern.buttock": { en: "Buttock / Back of thigh", hi: "नितंब / जांघ का पिछला हिस्सा", mr: "नितंब / मांडीची मागची बाजू", gu: "નિતંબ / સાથળનો પાછળનો ભાગ" },
+  "assessment.options.radiationPattern.shoulder-blade": { en: "Between shoulder blades", hi: "कंधे के ब्लेड के बीच", mr: "खांद्याच्या पात्यांच्या मध्ये", gu: "ખભાના હાડકાં વચ્ચે" },
+  "assessment.options.radiationPattern.none": { en: "Does not radiate", hi: "कहीं नहीं फैलता", mr: "इतरत्र पसरत नाही", gu: "ક્યાંય ફેલાતો નથી" },
+
+  // Step 7: Aggravating Factors Options
+  "assessment.options.aggravating.movement": { en: "Movement / Activity", hi: "हिलना-डुलना / शारीरिक गतिविधि", mr: "हालचाल / हालचालींचे काम", gu: "હલનચલન / પ્રવૃત્તિ" },
+  "assessment.options.aggravating.sitting": { en: "Prolonged Sitting", hi: "देर तक बैठना", mr: "दीर्घकाळ बसणे", gu: "લાંબો સમય બેસવું" },
+  "assessment.options.aggravating.standing": { en: "Prolonged Standing", hi: "देर तक खड़े रहना", mr: "दीर्घकाळ उभे राहणे", gu: "લાંબો સમય ઊભા રહેવું" },
+  "assessment.options.aggravating.lying": { en: "Lying Down", hi: "लेटना", mr: "झोपणे", gu: "સૂવું" },
+  "assessment.options.aggravating.coughing": { en: "Coughing / Sneezing", hi: "खांसना / छींकना", mr: "खोकणे / शिंकणे", gu: "ઉધરસ / છીંક આવવી" },
+  "assessment.options.aggravating.night": { en: "Night time", hi: "रात का समय", mr: "रात्रीची वेळ", gu: "રાતનો સમય" },
+  "assessment.options.aggravating.cold": { en: "Cold weather", hi: "ठंडा मौसम", mr: "थंड हवामान", gu: "ઠંડુ વાતાવરણ" },
+  "assessment.options.aggravating.touch": { en: "Light touch / Clothing", hi: "हल्का स्पर्श / कपड़े का छूना", mr: "हलका स्पर्श / कपड्यांचा स्पर्श", gu: "હળવો સ્પર્શ / કપડાંનો સ્પર્શ" },
+
+  // Step 8: Sensory Changes Options
+  "assessment.options.sensory.numbness": { en: "Numbness", hi: "सुन्नपन", mr: "बधीरपणा", gu: "સુન્નતા" },
+  "assessment.options.sensory.tingling": { en: "Tingling / Pins and needles", hi: "सुई चुभना / झुनझुनी", mr: "मुंग्या येणे / सुया टोचणे", gu: "ઝણઝણાટી / સોય ભોંકાતી હોય તેવું" },
+  "assessment.options.sensory.burning": { en: "Burning sensation on skin", hi: "त्वचा पर जलन का अहसास", mr: "त्वचेवर जळजळीची संवेदना", gu: "ત્વચા પર બળતરા" },
+  "assessment.options.sensory.cold": { en: "Feeling cold in the area", hi: "उस हिस्से में ठंडक लगना", mr: "भागात गारवा वाटणे", gu: "તે ભાગમાં ઠંડક લાગવી" },
+  "assessment.options.sensory.none": { en: "No sensory changes", hi: "कोई संवेदी बदलाव नहीं", mr: "संवेदनेत कोणताही बदल नाही", gu: "કોઈ સંવેદી ફેરફાર નથી" },
+
+  // Step 9: Motor Strength Options
+  "assessment.options.motor.yes": { en: "Yes, I feel weaker", hi: "हाँ, कमजोरी महसूस होती है", mr: "होय, अशक्तपणा जाणवतो", gu: "હા, નબળાઈ લાગે છે" },
+  "assessment.options.motor.no": { en: "No, strength feels normal", hi: "नहीं, ताकत सामान्य लगती है", mr: "नाही, ताकद सामान्य वाटते", gu: "ના, તાકાત સામાન્ય લાગે છે" },
+
+  // Step 10: Red Flags Screening Options
+  "assessment.options.redFlags.saddle": { en: "Numbness in groin / saddle area", hi: "कमर/कांख के निचले हिस्से में सुन्नपन", mr: "मांडीच्या सांध्यात बधीरपणा", gu: "જાંઘ કે પેલ્વિક ભાગમાં સુન્નતા" },
+  "assessment.options.redFlags.bladder": { en: "Bladder or bowel changes", hi: "मूत्राशय या आंतों में नियंत्रण का बदलाव", mr: "लघवी किंवा शौचातील नियंत्रण बदलणे", gu: "પેશાબ કે મળ નિયંત્રણમાં ફેરફાર" },
+  "assessment.options.redFlags.progressive": { en: "Progressively worsening weakness", hi: "लगातार बढ़ती कमजोरी", mr: "सतत वाढणारा अशक्तपणा", gu: "સતત વધતી જતી નબળાઈ" },
+  "assessment.options.redFlags.trauma": { en: "Recent significant trauma", hi: "हाल ही में कोई गंभीर चोट या दुर्घटना", mr: "अलीकडील गंभीर अपघात किंवा इजा", gu: "તાજેતરમાં થયેલી ગંભીર ઇજા" },
+  "assessment.options.redFlags.fever": { en: "Fever / Unexplained weight loss", hi: "बुखार या बिना वजह वजन कम होना", mr: "ताप किंवा विनाकारण वजन कमी होणे", gu: "તાવ અથવા અકારણ વજન ઘટવું" },
+  "assessment.options.redFlags.none": { en: "None of these", hi: "इनमें से कोई नहीं", mr: "यापैकी काहीही नाही", gu: "આમાંથી કોઈ નહીં" },
+
+  // Localized Report Summary, Metrics, and Recommendations
   "assessment.report.badge": {
     en: "Assessment Summary Report",
     hi: "मूल्यांकन सारांश रिपोर्ट",
@@ -1572,6 +1699,12 @@ export const translations: TranslationSet = {
     hi: "शैक्षणिक सारांश",
     mr: "शैक्षणिक सारांश",
     gu: "શૈક્ષણિક સારાંશ",
+  },
+  "assessment.report.summaryTemplate": {
+    en: "Based on your responses, your pain in {regions} with {qualities} characteristics (rated {intensity}/10, {duration}) suggests {pathways} pain mechanism(s).",
+    hi: "आपकी प्रतिक्रियाओं के आधार पर, {regions} में {qualities} लक्षणों वाला आपका दर्द ({intensity}/10 तीव्रता, {duration}) {pathways} दर्द तंत्र का संकेत देता है।",
+    mr: "तुमच्या उत्तरांच्या आधारे, {regions} मधील {qualities} संवेदनांचा दुखावा ({intensity}/10 तीव्रता, {duration}) {pathways} वेदना यंत्रणेचा निर्देश करतो.",
+    gu: "તમારા જવાબોના આધારે, {regions} માં {qualities} સંવેદનાઓવાળો તમારો દુખાવો ({intensity}/10 તીવ્રતા, {duration}) {pathways} પીડા પદ્ધતિ સૂચવે છે.",
   },
   "assessment.report.regionsHeading": {
     en: "Selected Pain Regions",
@@ -1597,6 +1730,30 @@ export const translations: TranslationSet = {
     mr: "दुखावा गुण",
     gu: "પીડા સ્કોર",
   },
+  "assessment.report.radiationHeading": {
+    en: "Radiation Pattern",
+    hi: "फैलाव का पैटर्न",
+    mr: "प्रसाराचे स्वरूप",
+    gu: "ફેલાવાની પેટર્ન",
+  },
+  "assessment.report.aggravatingHeading": {
+    en: "Aggravating Factors",
+    hi: "दर्द बढ़ाने वाले कारक",
+    mr: "दुखावा वाढवणारे घटक",
+    gu: "દુખાવો વધારતા પરિબળો",
+  },
+  "assessment.report.sensoryHeading": {
+    en: "Sensory Symptoms",
+    hi: "संवेदी लक्षण",
+    mr: "संवेदी लक्षणे",
+    gu: "સંવેદી લક્ષણો",
+  },
+  "assessment.report.motorHeading": {
+    en: "Motor Strength",
+    hi: "मांसपेशियों की कार्यक्षमता",
+    mr: "स्नायूंची कार्यक्षमता",
+    gu: "સ્નાયુ શક્તિ",
+  },
   "assessment.report.pathwaysHeading": {
     en: "Identified Pain Pathways",
     hi: "पहचाने गए दर्द मार्ग",
@@ -1610,10 +1767,28 @@ export const translations: TranslationSet = {
     gu: "ક્લિનિકલ પેટર્ન",
   },
   "assessment.report.recommendationsHeading": {
-    en: "Recommendations",
-    hi: "सिफारिशें",
-    mr: "शिफारसी",
-    gu: "ભલામણો",
+    en: "Clinical Recommendations",
+    hi: "नैदानिक सिफारिशें",
+    mr: "वैद्यकीय शिफारसी",
+    gu: "ક્લિનિકલ ભલામણો",
+  },
+  "assessment.report.safetyAlert": {
+    en: "Important Safety Notice",
+    hi: "महत्वपूर्ण सुरक्षा सूचना",
+    mr: "महत्त्वाची सुरक्षा सूचना",
+    gu: "મહત્વપૂર્ણ સુરક્ષા સૂચના",
+  },
+  "assessment.report.shareTitle": {
+    en: "Share Your Assessment with Dr. Shah",
+    hi: "डॉ. शाह के साथ अपना मूल्यांकन साझा करें",
+    mr: "डॉ. शाह यांच्यासह तुमचे मूल्यांकन शेअर करा",
+    gu: "ડૉ. શાહ સાથે તમારું મૂલ્યાંકન શેર કરો",
+  },
+  "assessment.report.directClinicNote": {
+    en: "Click below to share this structured assessment report directly with Dr. Shah's clinic for consultation review.",
+    hi: "परामर्श समीक्षा के लिए इस संरचित रिपोर्ट को सीधे डॉ. शाह के क्लिनिक के साथ साझा करने के लिए नीचे क्लिक करें।",
+    mr: "सल्लामसलत पुनरावलोकनासाठी हा अहवाल थेट डॉ. शाह यांच्या क्लिनिकसह शेअर करण्यासाठी खाली क्लिक करा.",
+    gu: "પરામર્શ સમીક્ષા માટે આ રિપોર્ટ સીધા ડૉ. શાહના ક્લિનિક સાથે શેર કરવા માટે નીચે ક્લિક કરો.",
   },
   "assessment.report.shareWhatsApp": {
     en: "Send via WhatsApp",
@@ -1639,17 +1814,117 @@ export const translations: TranslationSet = {
     mr: "क्लिपबोर्डवर कॉपी केले!",
     gu: "ક્લિપબોર્ડ પર કૉપિ થઈ ગયું!",
   },
-  "assessment.report.safetyAlert": {
-    en: "Important Safety Notice",
-    hi: "महत्वपूर्ण सुरक्षा सूचना",
-    mr: "महत्त्वाची सुरक्षा सूचना",
-    gu: "મહત્વપૂર્ણ સુરક્ષા સૂચના",
+  "assessment.report.emailSubject": {
+    en: "Patient Pain Assessment Report - Dr. Shahnawaz F Shah",
+    hi: "मरीज दर्द मूल्यांकन रिपोर्ट - डॉ. शहनवाज़ एफ शाह",
+    mr: "रुग्ण वेदना मूल्यांकन अहवाल - डॉ. शहनवाझ एफ शाह",
+    gu: "દર્દી પીડા મૂલ્યાંકન રિપોર્ટ - ડૉ. શહનવાઝ એફ શાહ"
   },
-  "assessment.report.directClinicNote": {
-    en: "Click below to share this structured assessment report directly with Dr. Shah's clinic for consultation review.",
-    hi: "परामर्श समीक्षा के लिए इस संरचित रिपोर्ट को सीधे डॉ. शाह के क्लिनिक के साथ साझा करने के लिए नीचे क्लिक करें।",
-    mr: "सल्लामसलत पुनरावलोकनासाठी हा अहवाल थेट डॉ. शाह यांच्या क्लिनिकसह शेअर करण्यासाठी खाली क्लिक करा.",
-    gu: "પરામર્શ સમીક્ષા માટે આ રિપોર્ટ સીધા ડૉ. શાહના ક્લિનિક સાથે શેર કરવા માટે નીચે ક્લિક કરો.",
+  "assessment.report.noneReported": {
+    en: "None reported",
+    hi: "कोई नहीं बताया गया",
+    mr: "काहीही नोंदवले नाही",
+    gu: "કંઈ નોંધાયું નથી",
+  },
+  "assessment.report.normalStrength": {
+    en: "Normal strength",
+    hi: "सामान्य ताकत",
+    mr: "सामान्य ताकद",
+    gu: "સામાન્ય તાકાત",
+  },
+  "assessment.report.weaknessReported": {
+    en: "Weakness present",
+    hi: "कमजोरी मौजूद",
+    mr: "अशक्तपणा जाणवतो",
+    gu: "નબળાઈ જણાય છે",
+  },
+  "assessment.report.pathway.neuropathic": {
+    en: "Neuropathic (Nerve-related)",
+    hi: "न्यूरोपैथिक (तंत्रिका संबंधी)",
+    mr: "न्यूरोपॅथिक (मज्जातंतू संबंधित)",
+    gu: "ન્યુરોપેથિક (ચેતા સંબંધિત)",
+  },
+  "assessment.report.pathway.nociceptive": {
+    en: "Nociceptive (Tissue/Structural)",
+    hi: "नोसिसेप्टिव (ऊतक/संरचनात्मक)",
+    mr: "नोसिसेप्टिव्ह (ऊती/संरचनात्मक)",
+    gu: "નોસિસેપ્ટિવ (પેશી/માળખાકીય)",
+  },
+  "assessment.report.pathway.nociplastic": {
+    en: "Nociplastic (Central Sensitization)",
+    hi: "नोसिप्लास्टिक (केंद्रीय संवेदीकरण)",
+    mr: "नोसिप्लास्टिक (मध्यवर्ती संवेदनशीलता)",
+    gu: "નોસિપ્લાસ્ટિક (સેન્ટ્રલ સેન્સિટાઇઝેશન)",
+  },
+
+  // Red Flag Alerts Text
+  "assessment.report.redFlag.saddle": {
+    en: "⚠️ Saddle anesthesia: Numbness in groin/saddle area — requires urgent emergency evaluation for Cauda Equina Syndrome.",
+    hi: "⚠️ सैडल एनेस्थीसिया: कमर/कांख क्षेत्र में सुन्नता — कौडा इक्विना सिंड्रोम के लिए तत्काल आपातकालीन मूल्यांकन की आवश्यकता है।",
+    mr: "⚠️ सॅडल ॲनेस्थेसिया: ओटीपोट/मांडीच्या सांध्यात बधीरपणा — कॉडा इक्विना सिंड्रोमसाठी त्वरित आपत्कालीन तपासणी आवश्यक आहे.",
+    gu: "⚠️ સેડલ એનેસ્થેસિયા: જાંઘ/પેલ્વિક ભાગમાં સુન્નતા — કૌડા ઇક્વિના સિન્ડ્રોમ માટે તાત્કાલિક ઇમરજન્સી તપાસ જરૂરી છે.",
+  },
+  "assessment.report.redFlag.bladder": {
+    en: "⚠️ Bladder or bowel changes: Loss of control or retention requires urgent neurological assessment.",
+    hi: "⚠️ मूत्राशय या आंतों में परिवर्तन: नियंत्रण खोना या रुकावट के लिए तत्काल न्यूरोलॉजिकल मूल्यांकन आवश्यक है।",
+    mr: "⚠️ मूत्राशय किंवा आतड्यांमधील बदल: नियंत्रण सुटणे किंवा अडचण यासाठी त्वरित न्यूरोलॉजिकल तपासणी आवश्यक आहे.",
+    gu: "⚠️ મૂત્રાશય અથવા આંતરડામાં ફેરફાર: નિયંત્રણ ગુમાવવું કે અટકાવ માટે તાત્કાલિક ન્યુરોલોજીકલ તપાસ જરૂરી છે.",
+  },
+  "assessment.report.redFlag.progressive": {
+    en: "⚠️ Progressive weakness: Rapidly worsening muscle strength requires urgent specialist review.",
+    hi: "⚠️ तेजी से बढ़ती कमजोरी: मांसपेशियों की कमजोरी बढ़ने पर तत्काल विशेषज्ञ समीक्षा की आवश्यकता है।",
+    mr: "⚠️ वेगाने वाढणारा अशक्तपणा: स्नायूंची ताकद कमी होत असल्यास त्वरित तज्ज्ञांचा सल्ला आवश्यक आहे.",
+    gu: "⚠️ સતત વધતી નબળાઈ: સ્નાયુઓની તાકાત ઘટતી જાય તો તાત્કાલિક નિષ્ણાતની સલાહ જરૂરી છે.",
+  },
+  "assessment.report.redFlag.trauma": {
+    en: "⚠️ Recent trauma: History of injury or accident requires imaging to rule out fracture or instability.",
+    hi: "⚠️ हालिया गंभीर चोट: फ्रैक्चर या चोट को बाहर करने के लिए तत्काल इमेजिंग/एक्स-रे आवश्यक है।",
+    mr: "⚠️ अलीकडील गंभीर इजा: फ्रॅक्चर नाकारण्यासाठी त्वरित इमेजिंग/एक्स-रे आवश्यक आहे.",
+    gu: "⚠️ તાજેતરની ઇજા: અસ્થિભંગ કે ગંભીર નુકસાન જાણવા તાત્કાલિક ઇમેજિંગ જરૂરી છે.",
+  },
+  "assessment.report.redFlag.fever": {
+    en: "⚠️ Fever or unexplained weight loss: May indicate systemic infection or inflammatory pathology.",
+    hi: "⚠️ बुखार या अस्पष्ट वजन घटना: संक्रमण या गंभीर सूजन संबंधी बीमारी का संकेत हो सकता है।",
+    mr: "⚠️ ताप किंवा विनाकारण वजन कमी होणे: संसर्ग किंवा गंभीर दाहक आजाराचे लक्षण असू शकते.",
+    gu: "⚠️ તાવ કે અકારણ વજન ઘટવું: ચેપ કે ગંભીર બીમારીનું સંકેત હોઈ શકે છે.",
+  },
+
+  // Recommendations Text
+  "assessment.report.rec.disclaimer": {
+    en: "This educational assessment provides informational screening only and does not replace clinical consultation.",
+    hi: "यह शैक्षणिक मूल्यांकन केवल सामान्य जानकारी प्रदान करता है और नैदानिक परामर्श का विकल्प नहीं है।",
+    mr: "हे शैक्षणिक मूल्यमापन केवळ सामान्य माहिती प्रदान करते आणि प्रत्यक्ष वैद्यकीय तपासणीचा पर्याय नाही.",
+    gu: "આ શૈક્ષણિક મૂલ્યાંકન ફક્ત સામાન્ય માહિતી આપે છે અને તબીબી પરામર્શનો વિકલ્પ નથી.",
+  },
+  "assessment.report.rec.consult": {
+    en: "Consult Dr. Shahnawaz F Shah for comprehensive diagnostic evaluation and individualized interventional treatment options.",
+    hi: "सटीक नैदानिक मूल्यांकन और व्यक्तिगत इंटरवेंशनल उपचार विकल्पों के लिए डॉ. शहनवाज़ एफ शाह से परामर्श लें।",
+    mr: "अचूक निदान आणि योग्य इंटरव्हेंशनल उपचारांसाठी डॉ. शहनवाझ एफ शाह यांचा सल्ला घ्या.",
+    gu: "ચોક્કસ નિદાન અને યોગ્ય ઇન્ટરવેન્શનલ સારવાર માટે ડૉ. શહનવાઝ એફ શાહનો સંપર્ક કરો.",
+  },
+  "assessment.report.rec.neuropathic": {
+    en: "Neuropathic pain features detected — nerve conduction studies or diagnostic nerve blocks may be considered.",
+    hi: "न्यूरोपैथिक दर्द के लक्षण मिले — नर्व कंडक्शन स्टडीज या नैदानिक नर्व ब्लॉक पर विचार किया जा सकता है।",
+    mr: "न्यूरोपॅथिक वेदनेची लक्षणे आढळली — नर्व्ह कंडक्शन स्टडी किंवा नर्व्ह ब्लॉकचा विचार केला जाऊ शकतो.",
+    gu: "ન્યુરોપેથિક પીડા લક્ષણો મળ્યા — નર્વ કન્ડક્શન સ્ટડીઝ અથવા ડાયગ્નોસ્ટિક નર્વ બ્લોક્સ વિચારી શકાય છે.",
+  },
+  "assessment.report.rec.motor": {
+    en: "Motor weakness reported — prompt neurological examination and MRI/imaging recommended.",
+    hi: "मांसपेशियों में कमजोरी दर्ज — शीघ्र न्यूरोलॉजिकल परीक्षा और एमआरआई/इमेजिंग की सिफारिश की जाती है।",
+    mr: "स्नायूंचा अशक्तपणा आढळला — त्वरित न्यूरोलॉजिकल तपासणी आणि एमआरआय/इमेजिंगची शिफारस केली जाते.",
+    gu: "સ્નાયુ નબળાઈ નોંધાઈ — તાત્કાલિક ન્યુરોલોજીકલ તપાસ અને એમઆરઆઈ/ઇમેજિંગની ભલામણ કરવામાં આવે છે.",
+  },
+  "assessment.report.rec.redFlagsUrgent": {
+    en: "🚨 Safety red flags detected: Please seek urgent medical evaluation as soon as possible.",
+    hi: "🚨 सुरक्षा चेतावनी लक्षण मिले: कृपया जल्द से जल्द तत्काल चिकित्सकीय सहायता लें।",
+    mr: "🚨 गंभीर धोक्याची लक्षणे आढळली: कृपया लवकरात लवकर तातडीची वैद्यकीय मदत घ्या.",
+    gu: "🚨 ગંભીર ચેતવણી લક્ષણો મળ્યા: કૃપા કરીને વહેલી તકે તાત્કાલિક તબીબી સહાય મેળવો.",
+  },
+  "assessment.report.disclaimer": {
+    en: "This educational tool is intended for informational purposes only. It does not constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional.",
+    hi: "यह शैक्षणिक उपकरण केवल सूचनात्मक उद्देश्यों के लिए है। यह चिकित्सकीय सलाह, निदान या उपचार का गठन नहीं करता है। हमेशा योग्य स्वास्थ्य पेशेवर से परामर्श लें।",
+    mr: "हे शैक्षणिक साधन केवळ माहितीच्या उद्देशाने आहे. हा वैद्यकीय सल्ला, निदान किंवा उपचार नाही. नेहमी पात्र आरोग्य तज्ज्ञांचा सल्ला घ्या.",
+    gu: "આ શૈક્ષણિક સાધન ફક્ત માહિતીના હેતુ માટે છે. તે તબીબી સલાહ, નિદાન કે સારવાર નથી. હંમેશા યોગ્ય તબીબની સલાહ લો.",
   },
 };
 

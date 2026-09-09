@@ -78,9 +78,34 @@ function MultiSelectStep({
   };
 
   const getOptionLabel = (val: string, fallback: string) => {
-    if (step.id === 1) return t(`assessment.region.${val}`) || fallback;
-    if (step.id === 2) return t(`assessment.quality.${val}`) || fallback;
+    const stepKey = step.key || (
+      step.id === 1 ? "location" :
+      step.id === 2 ? "quality" :
+      step.id === 6 ? "radiationPattern" :
+      step.id === 7 ? "aggravating" :
+      step.id === 8 ? "sensory" :
+      step.id === 10 ? "redFlags" : ""
+    );
+    const key = `assessment.options.${stepKey}.${val}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    if (step.id === 1) {
+      const reg = t(`assessment.region.${val}`);
+      if (reg && reg !== `assessment.region.${val}`) return reg;
+    }
+    if (step.id === 2) {
+      const q = t(`assessment.quality.${val}`);
+      if (q && q !== `assessment.quality.${val}`) return q;
+    }
     return fallback;
+  };
+
+  const getOptionDesc = (val: string, fallback?: string) => {
+    const stepKey = step.key || "";
+    const key = `assessment.options.${stepKey}.${val}.desc`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return fallback || "";
   };
 
   const isCompactGrid = step.id === 1 || step.id === 2;
@@ -109,6 +134,7 @@ function MultiSelectStep({
         {step.options?.map((opt) => {
           const isSelected = selected.includes(opt.value);
           const label = getOptionLabel(opt.value, opt.label);
+          const desc = getOptionDesc(opt.value, opt.description);
 
           return (
             <button
@@ -133,9 +159,9 @@ function MultiSelectStep({
                   <span className="font-semibold text-sm block truncate">
                     {label}
                   </span>
-                  {opt.description && (
+                  {desc && (
                     <span className="text-xs text-[var(--color-text-muted)] block truncate">
-                      {opt.description}
+                      {desc}
                     </span>
                   )}
                 </div>
@@ -176,8 +202,23 @@ function SelectStep({
   const t = useT();
 
   const getOptionLabel = (val: string, fallback: string) => {
-    if (step.id === 3) return t(`assessment.duration.${val}`) || fallback;
+    const stepKey = step.key || "duration";
+    const key = `assessment.options.${stepKey}.${val}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    if (step.id === 3) {
+      const dur = t(`assessment.duration.${val}`);
+      if (dur && dur !== `assessment.duration.${val}`) return dur;
+    }
     return fallback;
+  };
+
+  const getOptionDesc = (val: string, fallback?: string) => {
+    const stepKey = step.key || "duration";
+    const key = `assessment.options.${stepKey}.${val}.desc`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return fallback || "";
   };
 
   return (
@@ -185,6 +226,7 @@ function SelectStep({
       {step.options?.map((opt) => {
         const isSelected = value === opt.value;
         const label = getOptionLabel(opt.value, opt.label);
+        const desc = getOptionDesc(opt.value, opt.description);
 
         return (
           <button
@@ -207,9 +249,9 @@ function SelectStep({
             <span className="font-bold text-sm text-[var(--color-text-primary)] block">
               {label}
             </span>
-            {opt.description && (
+            {desc && (
               <span className="text-xs text-[var(--color-text-muted)] mt-1 block">
-                {opt.description}
+                {desc}
               </span>
             )}
           </button>
@@ -278,6 +320,10 @@ function YesNoStep({
   const t = useT();
 
   const getOptionLabel = (val: string, fallback: string) => {
+    const stepKey = step.key || (step.id === 5 ? "radiation" : step.id === 9 ? "motor" : "");
+    const key = `assessment.options.${stepKey}.${val}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
     if (step.id === 5) {
       return val === "yes" ? t("assessment.yesno.radiates") : t("assessment.yesno.localized");
     }
@@ -355,11 +401,23 @@ export default function PainWizard() {
   };
 
   const getStepTitle = (s: WizardStep) => {
-    return t(`assessment.step${s.id}.title`) || s.title;
+    if (s.key) {
+      const translated = t(`assessment.titles.${s.key}`);
+      if (translated && translated !== `assessment.titles.${s.key}`) return translated;
+    }
+    const legacy = t(`assessment.step${s.id}.title`);
+    if (legacy && legacy !== `assessment.step${s.id}.title`) return legacy;
+    return s.title;
   };
 
   const getStepQuestion = (s: WizardStep) => {
-    return t(`assessment.step${s.id}.question`) || s.question;
+    if (s.key) {
+      const translated = t(`assessment.questions.${s.key}`);
+      if (translated && translated !== `assessment.questions.${s.key}`) return translated;
+    }
+    const legacy = t(`assessment.step${s.id}.question`);
+    if (legacy && legacy !== `assessment.step${s.id}.question`) return legacy;
+    return s.question;
   };
 
   if (!isOpen) {

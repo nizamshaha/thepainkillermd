@@ -45,7 +45,7 @@ export default function AssessmentReport({
   const t = useT();
   const [copied, setCopied] = useState(false);
 
-  // Parse multi-select locations and qualities
+  // Parse neutral state values
   const locations: string[] = useMemo(() => {
     const raw = answers[1];
     if (Array.isArray(raw)) return raw;
@@ -65,11 +65,65 @@ export default function AssessmentReport({
   const radiates = (answers[5] as string) || "no";
   const radiationPattern = (answers[6] as string[]) || [];
   const aggravating = (answers[7] as string[]) || [];
+  const sensoryChanges = (answers[8] as string[]) || [];
+  const motorWeakness = (answers[9] as string) || "no";
 
-  // Localized getters
-  const getRegionName = (id: string) => t(`assessment.region.${id}`) || id;
-  const getQualityName = (id: string) => t(`assessment.quality.${id}`) || id;
-  const getDurationName = (id: string) => t(`assessment.duration.${id}`) || id;
+  // Localized dictionary lookups mapping neutral IDs to localized copy
+  const getRegionName = (id: string) => {
+    const key = `assessment.options.location.${id}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return t(`assessment.region.${id}`) || id;
+  };
+
+  const getQualityName = (id: string) => {
+    const key = `assessment.options.quality.${id}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return t(`assessment.quality.${id}`) || id;
+  };
+
+  const getDurationName = (id: string) => {
+    const key = `assessment.options.duration.${id}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return t(`assessment.duration.${id}`) || id;
+  };
+
+  const getDurationDesc = (id: string) => {
+    const key = `assessment.options.duration.${id}.desc`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return id === "chronic" ? "Involves central neuroplastic patterns" : "Acute/Subacute symptom pattern";
+  };
+
+  const getRadiationPatternName = (id: string) => {
+    const key = `assessment.options.radiationPattern.${id}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return id;
+  };
+
+  const getAggravatingName = (id: string) => {
+    const key = `assessment.options.aggravating.${id}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return id;
+  };
+
+  const getSensoryName = (id: string) => {
+    const key = `assessment.options.sensory.${id}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return id;
+  };
+
+  const getPathwayName = (p: string) => {
+    const key = `assessment.report.pathway.${p}`;
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    return p.charAt(0).toUpperCase() + p.slice(1);
+  };
 
   // Intensity descriptive label
   const getIntensityLabel = (score: number) => {
@@ -80,35 +134,126 @@ export default function AssessmentReport({
     return t("assessment.scale.10");
   };
 
-  // Compile full text string for sharing
+  // Localized Dynamic Summary mapping neutral state keys
+  const localizedSummary = useMemo(() => {
+    const regionNames = locations.map(getRegionName).join(", ");
+    const qualityNames = qualities.map(getQualityName).join(", ");
+    const durationLabel = getDurationName(durationKey);
+    const pathwayNames = result.possiblePathways.map(getPathwayName).join(", ");
+
+    const template = t("assessment.report.summaryTemplate");
+    if (template && template.includes("{regions}")) {
+      return template
+        .replace("{regions}", regionNames)
+        .replace("{qualities}", qualityNames)
+        .replace("{intensity}", intensity.toString())
+        .replace("{duration}", durationLabel)
+        .replace("{pathways}", pathwayNames);
+    }
+
+    return (
+      `Based on your responses, your pain in ${regionNames} with ${qualityNames} characteristics ` +
+      `(rated ${intensity}/10, ${durationLabel}) suggests ${pathwayNames} pain mechanism(s).`
+    );
+  }, [locations, qualities, durationKey, intensity, result.possiblePathways, t]);
+
+  // Localized Red Flag notices
+  const redFlagsList: string[] = useMemo(() => {
+    const raw = answers[10];
+    const flagIds = Array.isArray(raw) ? raw.filter((f) => f !== "none") : [];
+    if (flagIds.length === 0) return [];
+    return flagIds.map((id) => {
+      const key = `assessment.report.redFlag.${id}`;
+      const translated = t(key);
+      if (translated && translated !== key) return translated;
+      const optKey = `assessment.options.redFlags.${id}`;
+      const optTranslated = t(optKey);
+      if (optTranslated && optTranslated !== optKey) return `⚠️ ${optTranslated}`;
+      return `⚠️ ${id}`;
+    });
+  }, [answers, t]);
+
+  // Localized Recommendations list
+  const localizedRecommendations: string[] = useMemo(() => {
+    const list: string[] = [
+      t("assessment.report.rec.disclaimer"),
+      t("assessment.report.rec.consult"),
+    ];
+    if (result.possiblePathways.includes("neuropathic")) {
+      list.push(t("assessment.report.rec.neuropathic"));
+    }
+    if (motorWeakness === "yes") {
+      list.push(t("assessment.report.rec.motor"));
+    }
+    if (redFlagsList.length > 0) {
+      list.unshift(t("assessment.report.rec.redFlagsUrgent"));
+    }
+    return list;
+  }, [result.possiblePathways, motorWeakness, redFlagsList, t]);
+
+  // Compile full translated text string for sharing
   const formattedReportText = useMemo(() => {
     const regionNames = locations.map(getRegionName).join(", ");
     const qualityNames = qualities.map(getQualityName).join(", ");
     const durationLabel = getDurationName(durationKey);
-    const radiationText = radiates === "yes" 
-      ? `Yes (${radiationPattern.filter(r => r !== "none").join(", ") || "General"})`
-      : "No (stays in one spot)";
-    const aggravatingText = aggravating.length > 0 ? aggravating.join(", ") : "None reported";
+    const radiationText = radiates === "yes"
+      ? `${t("assessment.options.radiation.yes")} (${radiationPattern.filter((r) => r !== "none").map(getRadiationPatternName).join(", ") || t("assessment.titles.radiationPattern")})`
+      : t("assessment.options.radiation.no");
+    const aggravatingText = aggravating.length > 0
+      ? aggravating.map(getAggravatingName).join(", ")
+      : t("assessment.report.noneReported");
+    const sensoryText = sensoryChanges.length > 0 && !sensoryChanges.includes("none")
+      ? sensoryChanges.map(getSensoryName).join(", ")
+      : t("assessment.report.noneReported");
+    const motorText = motorWeakness === "yes"
+      ? t("assessment.options.motor.yes")
+      : t("assessment.options.motor.no");
     const pathwaysText = result.possiblePathways
-      .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+      .map(getPathwayName)
       .join(", ");
 
     return (
-      `🏥 *THE PAINKILLER MD — PATIENT ASSESSMENT REPORT*\n` +
-      `*Physician:* Dr. Shahnawaz F Shah (Surat, Gujarat)\n` +
+      `🏥 ${t("assessment.title").toUpperCase()} — ${t("assessment.report.badge").toUpperCase()}\n` +
+      `Dr. Shahnawaz F Shah (Surat, Gujarat)\n` +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `📍 *Pain Regions:* ${regionNames}\n` +
-      `⚡ *Pain Sensations:* ${qualityNames}\n` +
-      `⏱️ *Duration:* ${durationLabel}\n` +
-      `📊 *Intensity Score:* ${intensity}/10 (${getIntensityLabel(intensity)})\n` +
-      `🔄 *Radiation:* ${radiationText}\n` +
-      `⚠️ *Aggravating Factors:* ${aggravatingText}\n` +
-      `🔬 *Identified Pathways:* ${pathwaysText}\n` +
-      (result.redFlags.length > 0 ? `🚨 *Safety Alerts:* ${result.redFlags.join(" | ")}\n` : "") +
+      `📋 ${t("assessment.report.summaryHeading")}:\n${localizedSummary}\n\n` +
+      `📍 ${t("assessment.report.regionsHeading")}: ${regionNames}\n` +
+      `⚡ ${t("assessment.report.qualitiesHeading")}: ${qualityNames}\n` +
+      `⏱️ ${t("assessment.report.durationHeading")}: ${durationLabel}\n` +
+      `📊 ${t("assessment.report.intensityHeading")}: ${intensity}/10 (${getIntensityLabel(intensity)})\n` +
+      `🔄 ${t("assessment.report.radiationHeading")}: ${radiationText}\n` +
+      `⚠️ ${t("assessment.report.aggravatingHeading")}: ${aggravatingText}\n` +
+      `🔬 ${t("assessment.report.sensoryHeading")}: ${sensoryText}\n` +
+      `💪 ${t("assessment.report.motorHeading")}: ${motorText}\n` +
+      `🧬 ${t("assessment.report.pathwaysHeading")}: ${pathwaysText}\n` +
+      (redFlagsList.length > 0 ? `\n🚨 ${t("assessment.report.safetyAlert")}:\n${redFlagsList.join("\n")}\n` : "") +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `*Educational assessment generated via thepainkillermd.com*`
+      `*${t("assessment.report.disclaimer")}*\n` +
+      `thepainkillermd.com`
     );
-  }, [locations, qualities, durationKey, intensity, radiates, radiationPattern, aggravating, result, t]);
+  }, [
+    locations,
+    qualities,
+    durationKey,
+    intensity,
+    radiates,
+    radiationPattern,
+    aggravating,
+    sensoryChanges,
+    motorWeakness,
+    result.possiblePathways,
+    localizedSummary,
+    redFlagsList,
+    t,
+  ]);
+
+  // Generates dedicated mailto URL for clinic with subject and URL-encoded body
+  const generateMailtoUrl = () => {
+    const recipient = "thepainkillermd@gmail.com";
+    const subject = t("assessment.report.emailSubject") || "Patient Pain Assessment Report - Dr. Shahnawaz F Shah";
+    const body = formattedReportText;
+    return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
 
   // WhatsApp sharing handler
   const handleShareWhatsApp = () => {
@@ -120,9 +265,8 @@ export default function AssessmentReport({
 
   // Email sharing handler
   const handleShareEmail = () => {
-    const subject = encodeURIComponent("Patient Pain Assessment Report - Dr. Shahnawaz F Shah");
-    const body = encodeURIComponent(formattedReportText);
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    const mailtoUrl = generateMailtoUrl();
+    window.location.href = mailtoUrl;
   };
 
   // Copy to clipboard handler
@@ -153,19 +297,19 @@ export default function AssessmentReport({
         <h2 className="text-2xl sm:text-3xl font-bold mb-2">
           {t("assessment.report.summaryHeading")}
         </h2>
-        <p className="text-sm text-white/80 leading-relaxed">
-          {result.summary}
+        <p className="text-sm text-white/90 leading-relaxed font-medium">
+          {localizedSummary}
         </p>
       </div>
 
       {/* Safety Alerts (if any) */}
-      {result.redFlags.length > 0 && (
+      {redFlagsList.length > 0 && (
         <div className="p-5 rounded-xl bg-red-50 border-2 border-[var(--color-alert-critical)]/40 shadow-sm">
           <h3 className="text-base font-bold text-[var(--color-alert-critical)] mb-2 flex items-center gap-2">
             🚨 {t("assessment.report.safetyAlert")}
           </h3>
           <ul className="space-y-1.5">
-            {result.redFlags.map((flag, idx) => (
+            {redFlagsList.map((flag, idx) => (
               <li key={idx} className="text-sm text-red-900 font-medium">
                 {flag}
               </li>
@@ -221,7 +365,7 @@ export default function AssessmentReport({
             {getDurationName(durationKey)}
           </p>
           <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
-            {durationKey === "chronic" ? "Involves neuroplastic adaptations" : "Acute/Subacute symptom pattern"}
+            {getDurationDesc(durationKey)}
           </p>
         </div>
 
@@ -261,20 +405,20 @@ export default function AssessmentReport({
               key={p}
               className={`px-3.5 py-1.5 rounded-full text-xs font-bold border pathway-${p}`}
             >
-              {p.charAt(0).toUpperCase() + p.slice(1)}
+              {getPathwayName(p)}
             </span>
           ))}
         </div>
       </div>
 
-      {/* Clinical Patterns & Recommendations */}
-      {result.recommendations.length > 0 && (
+      {/* Clinical Recommendations */}
+      {localizedRecommendations.length > 0 && (
         <div className="p-5 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
           <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
             🩺 {t("assessment.report.recommendationsHeading")}
           </h3>
           <ul className="space-y-2">
-            {result.recommendations.map((rec, idx) => (
+            {localizedRecommendations.map((rec, idx) => (
               <li key={idx} className="text-sm text-[var(--color-text-secondary)] flex items-start gap-2">
                 <span className="mt-1 w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] flex-shrink-0" />
                 <span>{rec}</span>
@@ -288,7 +432,7 @@ export default function AssessmentReport({
       <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-50/70 to-indigo-50/70 border-2 border-[var(--color-clinical-200)] text-center space-y-4">
         <div>
           <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-1">
-            Share Your Assessment with Dr. Shah
+            {t("assessment.report.shareTitle")}
           </h3>
           <p className="text-xs text-[var(--color-text-secondary)] max-w-lg mx-auto">
             {t("assessment.report.directClinicNote")}
@@ -333,7 +477,7 @@ export default function AssessmentReport({
         <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span className="text-xs text-center">{result.disclaimer}</span>
+        <span className="text-xs text-center">{t("assessment.report.disclaimer") || result.disclaimer}</span>
       </div>
     </div>
   );

@@ -101,6 +101,7 @@ export interface Article {
 
 export interface WizardStep {
   id: number;
+  key?: string;
   title: string;
   question: string;
   type: "select" | "multiselect" | "range" | "yesno";
