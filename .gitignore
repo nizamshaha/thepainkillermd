@@ -43,3 +43,5 @@ next-env.d.ts
 # local scratch/temp
 .freebuff/
 
+.originkit/
+Full ScreenShot.png

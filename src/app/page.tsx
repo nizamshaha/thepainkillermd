@@ -12,6 +12,7 @@ import HumanBody3DViewer from "@/components/medical/HumanBody3DViewer";
 import Logo from "@/components/ui/Logo";
 import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
 import Footer from "@/components/navigation/Footer";
+import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
 import { useT } from "@/lib/useT";
 import { useState } from "react";
 
@@ -86,25 +87,67 @@ export default function Home() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="#book"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white text-[var(--color-primary-900)] font-semibold text-lg hover:bg-[var(--color-surface-100)] transition-colors shadow-lg"
-              >
-                {t("hero.cta.primary")}
-              </a>
-              <a
-                href="#pain-wizard"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
-              >
-                {t("hero.cta.secondary")}
-              </a>
-              <a
-                href="#body-map"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-[var(--color-clinical-600)] to-[var(--color-clinical-400)] text-white font-semibold text-lg hover:bg-gradient-to-r from-[var(--color-clinical-700)] to-[var(--color-clinical-500)] transition-colors"
-              >
-                Explore 2D Body
-              </a>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+              <ArrowRevealButton
+                label={t("hero.cta.primary")}
+                link="#book"
+                padding="12px 26px 12px 22px"
+                rounded={100}
+                gap={14}
+                colors={{ fill: "#ffffff", textColor: "#0c1929" }}
+                icon={{
+                  side: "right",
+                  color: "#ffffff",
+                  background: "var(--color-clinical-600)",
+                  size: 14,
+                  badgeSize: 32,
+                  padding: 8,
+                  restAngle: 0,
+                  hoverAngle: 45,
+                }}
+                border={{ borderWidth: 0 }}
+                font={{ fontSize: "1.05rem", fontWeight: 600 }}
+              />
+              <ArrowRevealButton
+                label={t("hero.cta.secondary")}
+                link="#pain-wizard"
+                padding="12px 26px 12px 22px"
+                rounded={100}
+                gap={14}
+                colors={{ fill: "rgba(255, 255, 255, 0.12)", textColor: "#ffffff" }}
+                icon={{
+                  side: "right",
+                  color: "#0c1929",
+                  background: "#ffffff",
+                  size: 14,
+                  badgeSize: 32,
+                  padding: 8,
+                  restAngle: 0,
+                  hoverAngle: 45,
+                }}
+                border={{ borderColor: "rgba(255, 255, 255, 0.35)", borderWidth: 2 }}
+                font={{ fontSize: "1.05rem", fontWeight: 600 }}
+              />
+              <ArrowRevealButton
+                label="Explore 2D Body"
+                link="#body-map"
+                padding="12px 26px 12px 22px"
+                rounded={100}
+                gap={14}
+                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+                icon={{
+                  side: "right",
+                  color: "var(--color-clinical-600)",
+                  background: "#ffffff",
+                  size: 14,
+                  badgeSize: 32,
+                  padding: 8,
+                  restAngle: 0,
+                  hoverAngle: 45,
+                }}
+                border={{ borderWidth: 0 }}
+                font={{ fontSize: "1.05rem", fontWeight: 600 }}
+              />
             </div>
 
             {/* Trust metrics */}
@@ -139,9 +182,26 @@ export default function Home() {
             {t("painNav.subtitle")}
           </p>
           <p className="text-sm text-[var(--color-text-muted)] mb-8">{t("painNav.disclaimer")}</p>
-          <a href="/pain-navigator" className="inline-flex items-center px-8 py-3.5 rounded-full bg-[var(--color-clinical-600)] text-white font-semibold text-lg hover:bg-[var(--color-clinical-700)] transition-colors shadow-lg">
-            {t("painNav.cta")}
-          </a>
+          <ArrowRevealButton
+            label={t("painNav.cta")}
+            link="/pain-navigator"
+            padding="14px 30px 14px 24px"
+            rounded={100}
+            gap={16}
+            colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+            icon={{
+              side: "right",
+              color: "var(--color-clinical-600)",
+              background: "#ffffff",
+              size: 15,
+              badgeSize: 34,
+              padding: 9,
+              restAngle: 0,
+              hoverAngle: 45,
+            }}
+            border={{ borderWidth: 0 }}
+            font={{ fontSize: "1.125rem", fontWeight: 600 }}
+          />
         </div>
       </section>
 
@@ -516,21 +576,48 @@ export default function Home() {
             {t("cta.description")}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="tel:+919769682366"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[var(--color-primary-900)] font-semibold text-lg hover:bg-[var(--color-surface-100)] transition-colors"
-            >
-              📞 {t("cta.call")}
-            </a>
-            <a
-              href="https://wa.me/919769682366"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-green-600 text-white font-semibold text-lg hover:bg-green-700 transition-colors"
-            >
-              💬 {t("cta.whatsapp")}
-            </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <ArrowRevealButton
+              label={`📞 ${t("cta.call")}`}
+              link="tel:+919769682366"
+              padding="12px 28px 12px 24px"
+              rounded={100}
+              gap={14}
+              colors={{ fill: "#ffffff", textColor: "#0c1929" }}
+              icon={{
+                side: "right",
+                color: "#ffffff",
+                background: "#0c1929",
+                size: 14,
+                badgeSize: 32,
+                padding: 8,
+                restAngle: 0,
+                hoverAngle: 45,
+              }}
+              border={{ borderWidth: 0 }}
+              font={{ fontSize: "1.05rem", fontWeight: 600 }}
+            />
+            <ArrowRevealButton
+              label={`💬 ${t("cta.whatsapp")}`}
+              link="https://wa.me/919769682366"
+              newTab={true}
+              padding="12px 28px 12px 24px"
+              rounded={100}
+              gap={14}
+              colors={{ fill: "#16a34a", textColor: "#ffffff" }}
+              icon={{
+                side: "right",
+                color: "#16a34a",
+                background: "#ffffff",
+                size: 14,
+                badgeSize: 32,
+                padding: 8,
+                restAngle: 0,
+                hoverAngle: 45,
+              }}
+              border={{ borderWidth: 0 }}
+              font={{ fontSize: "1.05rem", fontWeight: 600 }}
+            />
           </div>
 
           <p className="mt-6 text-sm text-white/50">

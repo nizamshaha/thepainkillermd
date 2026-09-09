@@ -5,6 +5,7 @@ import Link from "next/link";
 import SearchModal from "@/components/medical/SearchModal";
 import Logo from "@/components/ui/Logo";
 import LanguageToggle from "@/components/ui/LanguageToggle";
+import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
 import { useT } from "@/lib/useT";
 
 export default function Header() {
@@ -72,12 +73,28 @@ export default function Header() {
             <SearchModal />
 
             {/* Book CTA (desktop) */}
-            <a
-              href="/clinic#book"
-              className="hidden md:inline-flex items-center px-4 py-2 rounded-full bg-[var(--color-clinical-600)] text-white text-sm font-semibold hover:bg-[var(--color-clinical-700)] transition-colors"
-            >
-              {t("header.bookConsultation")}
-            </a>
+            <div className="hidden md:inline-flex">
+              <ArrowRevealButton
+                label={t("header.bookConsultation")}
+                link="/clinic#book"
+                padding="6px 14px 6px 12px"
+                rounded={100}
+                gap={12}
+                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+                icon={{
+                  side: "right",
+                  color: "var(--color-clinical-600)",
+                  background: "#ffffff",
+                  size: 12,
+                  badgeSize: 24,
+                  padding: 4,
+                  restAngle: 0,
+                  hoverAngle: 45,
+                }}
+                border={{ borderWidth: 0 }}
+                font={{ fontSize: "0.875rem", fontWeight: 600 }}
+              />
+            </div>
 
             {/* Mobile Menu Button */}
             <button

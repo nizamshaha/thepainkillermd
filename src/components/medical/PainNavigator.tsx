@@ -10,6 +10,7 @@ import PainDetailPanel from "./PainDetailPanel";
 import PainQuestionnaire from "./PainQuestionnaire";
 import PainResults from "./PainResults";
 import PainReport from "./PainReport";
+import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
 
 type NavigatorState = "explore" | "detail" | "questionnaire" | "results" | "report";
 
@@ -122,13 +123,47 @@ export default function PainNavigator() {
                   </span>
                 ))}
               </div>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button onClick={startQuestionnaire} className="px-6 py-3 rounded-full bg-[var(--color-clinical-600)] text-white font-semibold hover:bg-[var(--color-clinical-700)] transition-colors">
-                  {t("navUI.letsUnderstand")}
-                </button>
-                <button onClick={() => { setState("detail"); }} className="px-6 py-3 rounded-full bg-white border border-[var(--color-surface-300)] text-[var(--color-text-primary)] font-semibold hover:border-[var(--color-clinical-300)] transition-colors">
-                  {t("navUI.viewInformation")}
-                </button>
+              <div className="flex flex-col sm:flex-row gap-3 items-center">
+                <ArrowRevealButton
+                  label={t("navUI.letsUnderstand")}
+                  onClick={startQuestionnaire}
+                  padding="10px 24px 10px 20px"
+                  rounded={100}
+                  gap={12}
+                  colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff" }}
+                  icon={{
+                    side: "right",
+                    color: "var(--color-clinical-600)",
+                    background: "#ffffff",
+                    size: 14,
+                    badgeSize: 30,
+                    padding: 8,
+                    restAngle: 0,
+                    hoverAngle: 45,
+                  }}
+                  border={{ borderWidth: 0 }}
+                  font={{ fontSize: "0.95rem", fontWeight: 600 }}
+                />
+                <ArrowRevealButton
+                  label={t("navUI.viewInformation")}
+                  onClick={() => { setState("detail"); }}
+                  padding="10px 24px 10px 20px"
+                  rounded={100}
+                  gap={12}
+                  colors={{ fill: "#ffffff", textColor: "var(--color-text-primary)" }}
+                  icon={{
+                    side: "right",
+                    color: "#ffffff",
+                    background: "var(--color-clinical-600)",
+                    size: 14,
+                    badgeSize: 30,
+                    padding: 8,
+                    restAngle: 0,
+                    hoverAngle: 45,
+                  }}
+                  border={{ borderColor: "var(--color-surface-300)", borderWidth: 1 }}
+                  font={{ fontSize: "0.95rem", fontWeight: 600 }}
+                />
               </div>
             </div>
           )}
