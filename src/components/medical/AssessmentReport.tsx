@@ -558,13 +558,14 @@ export default function AssessmentReport({
                 onClick={handleShareEmail}
                 disabled={!isValid}
               />
-              <button
+              <Button
+                label={copied ? `✅ ${t("assessment.report.copied")}` : `📋 ${t("assessment.report.copy")}`}
+                variant="light"
+                size="md"
                 onClick={handleCopy}
                 disabled={!isValid}
-                className="px-5 py-3 rounded-full border border-[var(--color-surface-300)] bg-white text-[var(--color-text-primary)] text-sm font-semibold hover:bg-[var(--color-surface-100)] transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {copied ? `✅ ${t("assessment.report.copied")}` : `📋 ${t("assessment.report.copy")}`}
-              </button>
+                icon={false}
+              />
             </div>
           </div>
         )}

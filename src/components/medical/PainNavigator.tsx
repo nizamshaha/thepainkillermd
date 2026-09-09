@@ -10,7 +10,7 @@ import PainDetailPanel from "./PainDetailPanel";
 import PainQuestionnaire from "./PainQuestionnaire";
 import PainResults from "./PainResults";
 import PainReport from "./PainReport";
-import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
+import Button from "@/components/ui/Button";
 
 type NavigatorState = "explore" | "detail" | "questionnaire" | "results" | "report";
 
@@ -124,45 +124,17 @@ export default function PainNavigator() {
                 ))}
               </div>
               <div className="flex flex-col sm:flex-row gap-3 items-center">
-                <ArrowRevealButton
+                <Button
                   label={t("navUI.letsUnderstand")}
                   onClick={startQuestionnaire}
-                  padding="10px 24px 10px 20px"
-                  rounded={100}
-                  gap={12}
-                  colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-                  icon={{
-                    side: "right",
-                    color: "var(--color-clinical-600)",
-                    background: "#ffffff",
-                    size: 14,
-                    badgeSize: 30,
-                    padding: 8,
-                    restAngle: 0,
-                    hoverAngle: 45,
-                  }}
-                  border={{ borderWidth: 0 }}
-                  font={{ fontSize: "0.95rem", fontWeight: 600 }}
+                  variant="primary"
+                  size="md"
                 />
-                <ArrowRevealButton
+                <Button
                   label={t("navUI.viewInformation")}
                   onClick={() => { setState("detail"); }}
-                  padding="10px 24px 10px 20px"
-                  rounded={100}
-                  gap={12}
-                  colors={{ fill: "#ffffff", textColor: "var(--color-text-primary)", hoverTextColor: "#ffffff" }}
-                  icon={{
-                    side: "right",
-                    color: "#ffffff",
-                    background: "var(--color-clinical-600)",
-                    size: 14,
-                    badgeSize: 30,
-                    padding: 8,
-                    restAngle: 0,
-                    hoverAngle: 45,
-                  }}
-                  border={{ borderColor: "var(--color-surface-300)", borderWidth: 1 }}
-                  font={{ fontSize: "0.95rem", fontWeight: 600 }}
+                  variant="outline"
+                  size="md"
                 />
               </div>
             </div>

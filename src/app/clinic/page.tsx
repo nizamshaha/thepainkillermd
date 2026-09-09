@@ -1,7 +1,7 @@
 "use client";
 
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
+import Button from "@/components/ui/Button";
 import { useT } from "@/lib/useT";
 
 const firstVisitSteps = [
@@ -84,46 +84,18 @@ export default function ClinicPage() {
             Schedule a consultation with Dr. Shahnawaz F Shah for personalized pain evaluation and treatment planning.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <ArrowRevealButton
+            <Button
               label={`📞 ${t("cta.call")}`}
-              link="tel:+919769682366"
-              padding="12px 28px 12px 24px"
-              rounded={100}
-              gap={14}
-              colors={{ fill: "#ffffff", textColor: "#0c1929", hoverTextColor: "#ffffff" }}
-              icon={{
-                side: "right",
-                color: "#ffffff",
-                background: "#0c1929",
-                size: 14,
-                badgeSize: 32,
-                padding: 8,
-                restAngle: 0,
-                hoverAngle: 45,
-              }}
-              border={{ borderWidth: 0 }}
-              font={{ fontSize: "1.05rem", fontWeight: 600 }}
+              href="tel:+919769682366"
+              variant="light"
+              size="lg"
             />
-            <ArrowRevealButton
+            <Button
               label={`💬 ${t("cta.whatsapp")}`}
-              link="https://wa.me/919769682366"
+              href="https://wa.me/919769682366"
+              variant="whatsapp"
+              size="lg"
               newTab={true}
-              padding="12px 28px 12px 24px"
-              rounded={100}
-              gap={14}
-              colors={{ fill: "#16a34a", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-              icon={{
-                side: "right",
-                color: "#16a34a",
-                background: "#ffffff",
-                size: 14,
-                badgeSize: 32,
-                padding: 8,
-                restAngle: 0,
-                hoverAngle: 45,
-              }}
-              border={{ borderWidth: 0 }}
-              font={{ fontSize: "1.05rem", fontWeight: 600 }}
             />
           </div>
         </section>

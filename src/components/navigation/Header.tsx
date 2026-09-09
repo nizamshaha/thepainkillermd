@@ -5,7 +5,7 @@ import Link from "next/link";
 import SearchModal from "@/components/medical/SearchModal";
 import Logo from "@/components/ui/Logo";
 import LanguageToggle from "@/components/ui/LanguageToggle";
-import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
+import Button from "@/components/ui/Button";
 import { useT } from "@/lib/useT";
 
 export default function Header() {
@@ -74,25 +74,11 @@ export default function Header() {
 
             {/* Book CTA (desktop) */}
             <div className="hidden md:inline-flex">
-              <ArrowRevealButton
+              <Button
                 label={t("header.bookConsultation")}
-                link="/clinic#book"
-                padding="6px 14px 6px 12px"
-                rounded={100}
-                gap={12}
-                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-                icon={{
-                  side: "right",
-                  color: "var(--color-clinical-600)",
-                  background: "#ffffff",
-                  size: 12,
-                  badgeSize: 24,
-                  padding: 4,
-                  restAngle: 0,
-                  hoverAngle: 45,
-                }}
-                border={{ borderWidth: 0 }}
-                font={{ fontSize: "0.875rem", fontWeight: 600 }}
+                href="/clinic#book"
+                variant="primary"
+                size="sm"
               />
             </div>
 
@@ -117,11 +103,11 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden animate-fade-in">
-          <div className="absolute inset-0 top-24 bg-black/20" onClick={() => setMobileOpen(false)} />            <nav className="relative bg-white border-t border-[var(--color-surface-200)] shadow-lg max-h-[calc(100vh-6rem)] overflow-y-auto" aria-label="Mobile navigation">
-            <div className="px-4 py-4 space-y-1">
+        <div className="lg:hidden border-t border-[var(--color-surface-200)] bg-white/95 backdrop-blur-md">
+          <nav className="max-w-7xl mx-auto px-4 py-4 space-y-1">
+            <div className="pt-2 pb-3 space-y-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -132,14 +118,15 @@ export default function Header() {
                   {link.label}
                 </a>
               ))}
-              <div className="pt-3 border-t border-[var(--color-surface-200)]">
-                <a
+              <div className="pt-3 border-t border-[var(--color-surface-200)] flex justify-center">
+                <Button
+                  label={t("header.bookConsultation")}
                   href="/clinic#book"
-                  className="block px-4 py-3 rounded-lg text-center bg-[var(--color-clinical-600)] text-white font-semibold min-h-[44px] flex items-center justify-center"
+                  variant="primary"
+                  size="md"
+                  className="w-full justify-center"
                   onClick={() => setMobileOpen(false)}
-                >
-                  Book Consultation
-                </a>
+                />
               </div>
             </div>
           </nav>

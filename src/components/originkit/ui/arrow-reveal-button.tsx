@@ -589,7 +589,7 @@ export default function ArrowRevealButton(props: Props) {
                 ref={buttonRef}
                 onPointerEnter={onEnter}
                 onPointerLeave={onLeave}
-                onPointerDown={() => pressTo(0.97)}
+                onPointerDown={() => pressTo(0.95)}
                 onPointerUp={() => pressTo(1)}
                 style={{
                     boxSizing: "border-box",
@@ -603,7 +603,9 @@ export default function ArrowRevealButton(props: Props) {
                     gap,
                     padding,
                     background: fill,
-                    border: "none",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255, 255, 255, 0.35)",
 
                     overflow: "hidden",
                     position: "relative",
@@ -612,7 +614,7 @@ export default function ArrowRevealButton(props: Props) {
                     textDecoration: "none",
                     whiteSpace: "nowrap",
                     userSelect: "none",
-                    boxShadow: "0 10px 24px rgba(0,0,0,0.16)",
+                    boxShadow: "inset 0px 1px 2px rgba(255, 255, 255, 0.5), inset 0px -2px 4px rgba(0, 0, 0, 0.1), 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 2px 6px rgba(0, 0, 0, 0.06)",
                 }}
             >
                 <span

@@ -507,24 +507,27 @@ export default function PainWizard() {
 
               {/* Navigation Controls */}
               <div className="flex justify-between items-center pt-2">
-                <button
+                <Button
                   type="button"
                   onClick={handlePrev}
                   disabled={currentStep === 1}
-                  className="px-5 py-2.5 rounded-full text-sm font-semibold text-[var(--color-text-secondary)] bg-[var(--color-surface-100)] hover:bg-[var(--color-surface-200)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                >
-                  ← {t("assessment.previous")}
-                </button>
-                <button
+                  label={`← ${t("assessment.previous")}`}
+                  variant="secondary"
+                  size="md"
+                  icon={false}
+                />
+                <Button
                   type="button"
                   onClick={handleNext}
                   disabled={!canAdvance}
-                  className="px-7 py-3 rounded-full text-sm font-bold text-white bg-[var(--color-clinical-600)] hover:bg-[var(--color-clinical-700)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-md hover:shadow-lg"
-                >
-                  {currentStep === totalSteps
-                    ? `${t("assessment.viewResults")} →`
-                    : `${t("assessment.next")} →`}
-                </button>
+                  label={
+                    currentStep === totalSteps
+                      ? t("assessment.viewResults")
+                      : t("assessment.next")
+                  }
+                  variant="primary"
+                  size="md"
+                />
               </div>
             </div>
           </>

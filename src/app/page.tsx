@@ -12,7 +12,7 @@ import HumanBody3DViewer from "@/components/medical/HumanBody3DViewer";
 import Logo from "@/components/ui/Logo";
 import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
 import Footer from "@/components/navigation/Footer";
-import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
+import Button from "@/components/ui/Button";
 import { useT } from "@/lib/useT";
 import { useState } from "react";
 
@@ -88,65 +88,23 @@ export default function Home() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-              <ArrowRevealButton
+              <Button
                 label={t("hero.cta.primary")}
-                link="#book"
-                padding="12px 26px 12px 22px"
-                rounded={100}
-                gap={14}
-                colors={{ fill: "#ffffff", textColor: "#0c1929", hoverTextColor: "#ffffff" }}
-                icon={{
-                  side: "right",
-                  color: "#ffffff",
-                  background: "var(--color-clinical-600)",
-                  size: 14,
-                  badgeSize: 32,
-                  padding: 8,
-                  restAngle: 0,
-                  hoverAngle: 45,
-                }}
-                border={{ borderWidth: 0 }}
-                font={{ fontSize: "1.05rem", fontWeight: 600 }}
+                href="#book"
+                variant="light"
+                size="lg"
               />
-              <ArrowRevealButton
+              <Button
                 label={t("hero.cta.secondary")}
-                link="#pain-wizard"
-                padding="12px 26px 12px 22px"
-                rounded={100}
-                gap={14}
-                colors={{ fill: "rgba(255, 255, 255, 0.12)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-                icon={{
-                  side: "right",
-                  color: "#0c1929",
-                  background: "#ffffff",
-                  size: 14,
-                  badgeSize: 32,
-                  padding: 8,
-                  restAngle: 0,
-                  hoverAngle: 45,
-                }}
-                border={{ borderColor: "rgba(255, 255, 255, 0.35)", borderWidth: 2 }}
-                font={{ fontSize: "1.05rem", fontWeight: 600 }}
+                href="#pain-wizard"
+                variant="secondary"
+                size="lg"
               />
-              <ArrowRevealButton
+              <Button
                 label="Explore 2D Body"
-                link="#body-map"
-                padding="12px 26px 12px 22px"
-                rounded={100}
-                gap={14}
-                colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-                icon={{
-                  side: "right",
-                  color: "var(--color-clinical-600)",
-                  background: "#ffffff",
-                  size: 14,
-                  badgeSize: 32,
-                  padding: 8,
-                  restAngle: 0,
-                  hoverAngle: 45,
-                }}
-                border={{ borderWidth: 0 }}
-                font={{ fontSize: "1.05rem", fontWeight: 600 }}
+                href="#body-map"
+                variant="primary"
+                size="lg"
               />
             </div>
 
@@ -182,25 +140,11 @@ export default function Home() {
             {t("painNav.subtitle")}
           </p>
           <p className="text-sm text-[var(--color-text-muted)] mb-8">{t("painNav.disclaimer")}</p>
-          <ArrowRevealButton
+          <Button
             label={t("painNav.cta")}
-            link="/pain-navigator"
-            padding="14px 30px 14px 24px"
-            rounded={100}
-            gap={16}
-            colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-            icon={{
-              side: "right",
-              color: "var(--color-clinical-600)",
-              background: "#ffffff",
-              size: 15,
-              badgeSize: 34,
-              padding: 9,
-              restAngle: 0,
-              hoverAngle: 45,
-            }}
-            border={{ borderWidth: 0 }}
-            font={{ fontSize: "1.125rem", fontWeight: 600 }}
+            href="/pain-navigator"
+            variant="primary"
+            size="lg"
           />
         </div>
       </section>
@@ -577,46 +521,18 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <ArrowRevealButton
+            <Button
               label={`📞 ${t("cta.call")}`}
-              link="tel:+919769682366"
-              padding="12px 28px 12px 24px"
-              rounded={100}
-              gap={14}
-              colors={{ fill: "#ffffff", textColor: "#0c1929", hoverTextColor: "#ffffff" }}
-              icon={{
-                side: "right",
-                color: "#ffffff",
-                background: "#0c1929",
-                size: 14,
-                badgeSize: 32,
-                padding: 8,
-                restAngle: 0,
-                hoverAngle: 45,
-              }}
-              border={{ borderWidth: 0 }}
-              font={{ fontSize: "1.05rem", fontWeight: 600 }}
+              href="tel:+919769682366"
+              variant="light"
+              size="lg"
             />
-            <ArrowRevealButton
+            <Button
               label={`💬 ${t("cta.whatsapp")}`}
-              link="https://wa.me/919769682366"
+              href="https://wa.me/919769682366"
+              variant="whatsapp"
+              size="lg"
               newTab={true}
-              padding="12px 28px 12px 24px"
-              rounded={100}
-              gap={14}
-              colors={{ fill: "#16a34a", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-              icon={{
-                side: "right",
-                color: "#16a34a",
-                background: "#ffffff",
-                size: 14,
-                badgeSize: 32,
-                padding: 8,
-                restAngle: 0,
-                hoverAngle: 45,
-              }}
-              border={{ borderWidth: 0 }}
-              font={{ fontSize: "1.05rem", fontWeight: 600 }}
             />
           </div>
 

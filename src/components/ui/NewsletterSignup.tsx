@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useT } from "@/lib/useT";
 import { isValidEmail, sanitizeInput } from "@/lib/security";
-import ArrowRevealButton from "@/components/originkit/ui/arrow-reveal-button";
+import Button from "@/components/ui/Button";
 
 export default function NewsletterSignup() {
   const t = useT();
@@ -58,25 +58,11 @@ export default function NewsletterSignup() {
           aria-label={t("newsletter.ariaLabel")}
         />
         <div className="flex justify-end sm:justify-start">
-          <ArrowRevealButton
+          <Button
             type="submit"
             label={t("newsletter.subscribe")}
-            padding="12px 24px 12px 20px"
-            rounded={100}
-            gap={16}
-            colors={{ fill: "var(--color-clinical-600)", textColor: "#ffffff", hoverTextColor: "#0c1929" }}
-            icon={{
-              side: "right",
-              color: "var(--color-clinical-600)",
-              background: "#ffffff",
-              size: 14,
-              badgeSize: 32,
-              padding: 8,
-              restAngle: 0,
-              hoverAngle: 45,
-            }}
-            border={{ borderWidth: 0 }}
-            font={{ fontSize: "0.95rem", fontWeight: 600, letterSpacing: "0.01em" }}
+            variant="primary"
+            size="md"
           />
         </div>
       </div>
