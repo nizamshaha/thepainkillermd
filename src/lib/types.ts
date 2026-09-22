@@ -172,6 +172,8 @@ export interface PatientTestimonial {
   videoDescription: string;
   consentVerified: boolean;
   dateRecorded: string;
+  playlistId?: string;
+  youtubeUrl?: string;
 }
 
 export interface VideoItem {

@@ -78,7 +78,7 @@ export default function VideoModal({ isOpen, onClose, testimonial, video }: Vide
         {videoId ? (
           <div className="relative w-full aspect-video bg-black">
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0${testimonial?.playlistId ? `&list=${testimonial.playlistId}` : ''}`}
               title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -100,7 +100,26 @@ export default function VideoModal({ isOpen, onClose, testimonial, video }: Vide
 
         {/* Clinical Metadata */}
         <div className="p-6 overflow-y-auto flex-1">
-          <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{title}</h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <h3 className="text-xl font-bold text-[var(--color-text-primary)]">{title}</h3>
+            {(testimonial?.youtubeUrl || testimonial?.playlistId) && (
+              <a
+                href={testimonial.youtubeUrl || `https://www.youtube.com/watch?v=${testimonial.videoId}&list=${testimonial.playlistId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition-colors w-fit flex-shrink-0"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+                Watch on YouTube
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
+          </div>
+
 
           {testimonial && (
             <div className="space-y-4">

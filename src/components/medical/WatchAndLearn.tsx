@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import VideoModal from "./VideoModal";
-import { testimonials, educationalVideos } from "@/data/testimonials";
+import { testimonials, educationalVideos, YOUTUBE_TESTIMONIALS_PLAYLIST_URL } from "@/data/testimonials";
 import type { PatientTestimonial, VideoItem } from "@/lib/types";
 
 type TabFilter = "all" | "testimonial" | "animation";
@@ -80,10 +80,23 @@ export default function WatchAndLearn() {
         {/* Patient Testimonials */}
         {filteredTestimonials.length > 0 && (
           <div className="mb-12">
-            <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--color-medical-500)]" />
-              Patient Recovery Stories
-            </h3>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <h3 className="text-xl font-bold text-[var(--color-text-primary)] flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[var(--color-medical-500)]" />
+                Patient Recovery Stories
+              </h3>
+              <a
+                href={YOUTUBE_TESTIMONIALS_PLAYLIST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-full border border-red-200 transition-colors w-fit"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                Watch YouTube Playlist (9+ Stories) →
+              </a>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredTestimonials.map((t) => (
                 <button
