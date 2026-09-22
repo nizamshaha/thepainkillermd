@@ -160,7 +160,9 @@ export default function VideosPage() {
                         <span className="px-2 py-0.5 text-xs font-semibold rounded bg-[var(--color-medical-100)] text-[var(--color-medical-700)]">Patient Story</span>
                         <span className="text-xs text-[var(--color-text-muted)]">{t.condition}</span>
                       </div>
-                      <h3 className="font-bold text-[var(--color-text-primary)] mb-1">{t.patientName}&apos;s Recovery</h3>
+                      <h3 className="font-bold text-[var(--color-text-primary)] mb-1 line-clamp-2">
+                        {t.title || `${t.patientName}'s Recovery`}
+                      </h3>
                       <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 italic">&ldquo;{t.quote}&rdquo;</p>
                       <p className="text-xs text-[var(--color-clinical-600)] mt-2 font-medium">{t.procedure} →</p>
                     </div>

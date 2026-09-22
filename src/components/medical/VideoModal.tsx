@@ -16,7 +16,7 @@ export default function VideoModal({ isOpen, onClose, testimonial, video }: Vide
 
   const videoId = testimonial?.videoId || video?.videoId;
   const title = testimonial
-    ? `${testimonial.patientName}'s Recovery Story — ${testimonial.condition}`
+    ? (testimonial.title || `${testimonial.patientName}'s Recovery Story — ${testimonial.condition}`)
     : video?.title || "Video";
 
   // Close on Escape

@@ -152,8 +152,8 @@ export default function WatchAndLearn() {
                       </span>
                       <span className="text-xs text-[var(--color-text-muted)]">{t.condition}</span>
                     </div>
-                    <h4 className="font-bold text-[var(--color-text-primary)] mb-1">
-                      {t.patientName}&apos;s Recovery from {t.condition}
+                    <h4 className="font-bold text-[var(--color-text-primary)] mb-1 line-clamp-2">
+                      {t.title || `${t.patientName}'s Recovery from ${t.condition}`}
                     </h4>
                     <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 italic">
                       &ldquo;{t.quote}&rdquo;

@@ -156,6 +156,7 @@ export interface SearchResult {
 
 export interface PatientTestimonial {
   id: string;
+  title?: string;
   patientName: string;
   condition: string;
   conditionSlug: string;
