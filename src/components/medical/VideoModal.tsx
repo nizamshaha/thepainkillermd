@@ -15,9 +15,19 @@ export default function VideoModal({ isOpen, onClose, testimonial, video }: Vide
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const videoId = testimonial?.videoId || video?.videoId;
+  const playlistId = testimonial?.playlistId || video?.playlistId;
   const title = testimonial
     ? (testimonial.title || `${testimonial.patientName}'s Recovery Story — ${testimonial.condition}`)
     : video?.title || "Video";
+
+  const youtubeUrl =
+    testimonial?.youtubeUrl ||
+    video?.youtubeUrl ||
+    (videoId && playlistId
+      ? `https://www.youtube.com/watch?v=${videoId}&list=${playlistId}`
+      : videoId
+      ? `https://www.youtube.com/watch?v=${videoId}`
+      : undefined);
 
   // Close on Escape
   useEffect(() => {
@@ -78,7 +88,7 @@ export default function VideoModal({ isOpen, onClose, testimonial, video }: Vide
         {videoId ? (
           <div className="relative w-full aspect-video bg-black">
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0${testimonial?.playlistId ? `&list=${testimonial.playlistId}` : ''}`}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0${playlistId ? `&list=${playlistId}` : ''}`}
               title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -102,9 +112,9 @@ export default function VideoModal({ isOpen, onClose, testimonial, video }: Vide
         <div className="p-6 overflow-y-auto flex-1">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
             <h3 className="text-xl font-bold text-[var(--color-text-primary)]">{title}</h3>
-            {(testimonial?.youtubeUrl || testimonial?.playlistId) && (
+            {youtubeUrl && (
               <a
-                href={testimonial.youtubeUrl || `https://www.youtube.com/watch?v=${testimonial.videoId}&list=${testimonial.playlistId}`}
+                href={youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition-colors w-fit flex-shrink-0"
@@ -189,7 +199,50 @@ export default function VideoModal({ isOpen, onClose, testimonial, video }: Vide
           )}
 
           {video && !testimonial && (
-            <p className="text-[var(--color-text-secondary)] leading-relaxed">{video.description}</p>
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${
+                  video.category === "animation"
+                    ? "bg-purple-100 text-purple-800"
+                    : video.category === "procedure"
+                    ? "bg-orange-100 text-orange-800"
+                    : "bg-blue-100 text-blue-800"
+                }`}>
+                  {video.category === "animation" ? "3D Medical Animation" : video.category === "procedure" ? "Clinical Procedure" : "Patient Education"}
+                </span>
+                <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700">
+                  Duration: {video.duration}
+                </span>
+                {video.relatedCondition && (
+                  <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-[var(--color-primary-100)] text-[var(--color-primary-800)] capitalize">
+                    Condition: {video.relatedCondition.replace(/-/g, " ")}
+                  </span>
+                )}
+              </div>
+
+              <div className="p-4 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
+                <h4 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
+                  Clinical Overview &amp; Key Learnings
+                </h4>
+                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
+                  {video.description}
+                </p>
+              </div>
+
+              {video.tags && video.tags.length > 0 && (
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-xs text-[var(--color-text-muted)] mr-1">Tags:</span>
+                  {video.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 rounded text-xs bg-[var(--color-surface-100)] text-[var(--color-text-secondary)] border border-[var(--color-surface-200)]"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
 
           {/* Medical disclaimer */}

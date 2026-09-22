@@ -187,6 +187,8 @@ export interface VideoItem {
   description: string;
   tags: string[];
   relatedCondition?: string;
+  playlistId?: string;
+  youtubeUrl?: string;
 }
 
 // === Schema.org Types ===
