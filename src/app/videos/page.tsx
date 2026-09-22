@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import VideoModal from "@/components/medical/VideoModal";
 import {
   testimonials,
@@ -168,7 +169,14 @@ export default function VideosPage() {
                   >
                     <div className="relative aspect-video bg-gradient-to-br from-[var(--color-primary-100)] to-[var(--color-primary-200)] overflow-hidden">
                       {t.thumbnailUrl ? (
-                        <img src={t.thumbnailUrl} alt={`${t.condition} recovery`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <Image
+                          src={t.thumbnailUrl}
+                          alt={`${t.condition} recovery`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <svg className="w-12 h-12 text-[var(--color-primary-300)]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
@@ -211,7 +219,14 @@ export default function VideosPage() {
                   >
                     <div className="relative aspect-video bg-gradient-to-br from-[var(--color-primary-100)] to-[var(--color-primary-200)] flex items-center justify-center overflow-hidden">
                       {v.thumbnailUrl ? (
-                        <img src={v.thumbnailUrl} alt={`${v.title} thumbnail`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <Image
+                          src={v.thumbnailUrl}
+                          alt={`${v.title} thumbnail`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <svg className="w-12 h-12 text-[var(--color-primary-300)]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
