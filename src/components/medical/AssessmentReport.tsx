@@ -67,9 +67,25 @@ export default function AssessmentReport({
   const durationKey = (answers[3] as string) || "chronic";
   const intensity = (answers[4] as number) ?? 5;
   const radiates = (answers[5] as string) || "no";
-  const radiationPattern = (answers[6] as string[]) || [];
-  const aggravating = (answers[7] as string[]) || [];
-  const sensoryChanges = (answers[8] as string[]) || [];
+
+  const radiationPattern: string[] = useMemo(() => {
+    const val = answers[6];
+    if (Array.isArray(val)) return val as string[];
+    return [];
+  }, [answers]);
+
+  const aggravating: string[] = useMemo(() => {
+    const val = answers[7];
+    if (Array.isArray(val)) return val as string[];
+    return [];
+  }, [answers]);
+
+  const sensoryChanges: string[] = useMemo(() => {
+    const val = answers[8];
+    if (Array.isArray(val)) return val as string[];
+    return [];
+  }, [answers]);
+
   const motorWeakness = (answers[9] as string) || "no";
 
   // Localized dictionary lookups mapping neutral IDs to localized copy
