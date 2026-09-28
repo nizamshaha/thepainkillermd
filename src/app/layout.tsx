@@ -6,6 +6,7 @@ import { LanguageProvider } from "@/lib/LanguageContext";
 import CookieConsent from "@/components/ui/CookieConsent";
 import WhatsAppChatWidget from "@/components/ui/WhatsAppChatWidget";
 import { sanitizeJsonLd } from "@/lib/security";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -117,6 +118,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
           <CookieConsent />
           <WhatsAppChatWidget />
+          <Analytics />
         </LanguageProvider>
       </body>
     </html>
