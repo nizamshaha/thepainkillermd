@@ -511,10 +511,10 @@ export default function PainWizard() {
                   type="button"
                   onClick={handlePrev}
                   disabled={currentStep === 1}
-                  label={`← ${t("assessment.previous")}`}
-                  variant="secondary"
+                  label={t("assessment.previous")}
+                  variant="primary"
                   size="md"
-                  icon={false}
+                  iconPosition="left"
                 />
                 <Button
                   type="button"

@@ -24,6 +24,7 @@ export interface ButtonProps {
   newTab?: boolean;
   size?: "sm" | "md" | "lg";
   icon?: React.ReactNode | boolean;
+  iconPosition?: "left" | "right";
   rounded?: number;
   hoverTextColor?: string;
   ariaLabel?: string;
@@ -47,6 +48,7 @@ export default function Button({
   newTab = false,
   size = "md",
   icon = true,
+  iconPosition = "right",
   ariaLabel,
 }: ButtonProps) {
   const targetLink = href || link;
@@ -217,6 +219,44 @@ export default function Button({
     .filter(Boolean)
     .join(" ");
 
+  const renderBadge = (dir: "left" | "right") => (
+    <span
+      className={`relative z-10 flex items-center justify-center rounded-full transition-all duration-300 transform ${
+        dir === "left"
+          ? "group-hover:-translate-x-1 group-hover:-rotate-45"
+          : "group-hover:translate-x-1 group-hover:rotate-45"
+      } flex-shrink-0 ${sizeStyles.badge} ${currentVariant.badge} ${currentVariant.badgeHover}`}
+      aria-hidden="true"
+    >
+      {typeof icon === "object" && React.isValidElement(icon) ? (
+        icon
+      ) : (
+        <svg
+          className="transition-transform duration-300"
+          style={{ width: sizeStyles.iconSize, height: sizeStyles.iconSize }}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2.5}
+        >
+          {dir === "left" ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+            />
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+            />
+          )}
+        </svg>
+      )}
+    </span>
+  );
+
   const renderInner = () => (
     <>
       {/* 3D Top Specular Light Reflection / Glint */}
@@ -225,37 +265,16 @@ export default function Button({
         aria-hidden="true"
       />
 
+      {/* Left Icon Badge */}
+      {icon && iconPosition === "left" && renderBadge("left")}
+
       {/* Button Label Content */}
       <span className="relative z-10 transition-colors duration-200">
         {content}
       </span>
 
-      {/* Tactile Micro-Interaction Arrow / Icon Badge */}
-      {icon && (
-        <span
-          className={`relative z-10 flex items-center justify-center rounded-full transition-all duration-300 transform group-hover:translate-x-1 group-hover:rotate-45 flex-shrink-0 ${sizeStyles.badge} ${currentVariant.badge} ${currentVariant.badgeHover}`}
-          aria-hidden="true"
-        >
-          {typeof icon === "object" && React.isValidElement(icon) ? (
-            icon
-          ) : (
-            <svg
-              className="transition-transform duration-300"
-              style={{ width: sizeStyles.iconSize, height: sizeStyles.iconSize }}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
-            </svg>
-          )}
-        </span>
-      )}
+      {/* Right Icon Badge */}
+      {icon && iconPosition !== "left" && renderBadge("right")}
     </>
   );
 
