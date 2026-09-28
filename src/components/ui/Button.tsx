@@ -90,22 +90,22 @@ export default function Button({
       shadowActive: string;
     }
   > = {
-    // Clinical Blue 3D Glass — primary clinical action
+    // Liquid Glass Primary — Dark Navy Blue Base with Refractive Blue Bleed
     primary: {
-      base: "bg-gradient-to-br from-[var(--color-clinical-600)]/90 via-[var(--color-clinical-700)]/85 to-[var(--color-primary-800)]/80",
-      hover: "hover:from-[var(--color-clinical-500)]/95 hover:to-[var(--color-clinical-700)]/90",
-      active: "active:from-[var(--color-clinical-700)] active:to-[var(--color-primary-900)]",
-      text: "text-white font-semibold drop-shadow-sm",
-      border: "border border-white/35 hover:border-white/55",
-      sheen: "from-white/0 via-white/70 to-white/0",
-      badge: "bg-white/20 text-white border border-white/30",
-      badgeHover: "group-hover:bg-white group-hover:text-[var(--color-clinical-700)]",
+      base: "bg-gradient-to-b from-[#112a4f] via-[#0c203c] to-[#08172c]",
+      hover: "hover:from-[#173a6b] hover:via-[#122e54] hover:to-[#0c2242]",
+      active: "active:from-[#091728] active:via-[#071322] active:to-[#050e18]",
+      text: "text-white font-semibold [text-shadow:0px_1px_2px_rgba(0,0,0,0.5)]",
+      border: "border border-white/20 hover:border-white/35",
+      sheen: "from-white/0 via-white/80 to-white/0",
+      badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.4)]",
+      badgeHover: "group-hover:bg-white/25 group-hover:text-white group-hover:border-white/45",
       shadow:
-        "shadow-[inset_0px_1px_2px_rgba(255,255,255,0.5),inset_0px_-2px_4px_rgba(0,0,0,0.2),0_8px_32px_0_rgba(31,38,135,0.18),0_2px_6px_rgba(0,0,0,0.06)]",
+        "shadow-[inset_0px_4px_6px_rgba(255,255,255,0.4),inset_0px_1px_1px_rgba(255,255,255,0.8),inset_0px_-4px_6px_rgba(0,0,0,0.5),0px_10px_24px_-4px_rgba(59,130,246,0.6),0px_4px_12px_rgba(37,99,235,0.35)]",
       shadowHover:
-        "hover:shadow-[inset_0px_1px_3px_rgba(255,255,255,0.7),inset_0px_-2px_4px_rgba(0,0,0,0.25),0_12px_36px_0_rgba(31,38,135,0.25),0_4px_10px_rgba(0,0,0,0.08)]",
+        "hover:shadow-[inset_0px_4px_6px_rgba(255,255,255,0.5),inset_0px_1px_1px_rgba(255,255,255,0.95),inset_0px_-4px_6px_rgba(0,0,0,0.45),0px_14px_32px_-4px_rgba(59,130,246,0.85),0px_6px_18px_rgba(37,99,235,0.5)]",
       shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.25),inset_0px_-1px_2px_rgba(255,255,255,0.2),0_4px_14px_0_rgba(31,38,135,0.1)]",
+        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.5),inset_0px_-1px_2px_rgba(255,255,255,0.3),0px_6px_16px_rgba(59,130,246,0.4)]",
     },
 
     // Frosted Light 3D Glass — High-contrast on dark surfaces (Hero, Dark CTA banners)
@@ -131,35 +131,35 @@ export default function Button({
       base: "bg-white/15",
       hover: "hover:bg-white/28",
       active: "active:bg-white/35",
-      text: "text-white font-semibold drop-shadow-sm",
-      border: "border border-white/30 hover:border-white/50",
-      sheen: "from-white/0 via-white/50 to-white/0",
-      badge: "bg-white/15 text-white border border-white/25",
-      badgeHover: "group-hover:bg-white group-hover:text-[#0c1929]",
+      text: "text-white font-semibold [text-shadow:0px_1px_2px_rgba(0,0,0,0.5)]",
+      border: "border border-white/20 hover:border-white/40",
+      sheen: "from-white/0 via-white/60 to-white/0",
+      badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.3)]",
+      badgeHover: "group-hover:bg-white/30 group-hover:text-white group-hover:border-white/45",
       shadow:
-        "shadow-[inset_0px_1px_2px_rgba(255,255,255,0.4),inset_0px_-2px_4px_rgba(0,0,0,0.12),0_8px_32px_0_rgba(0,0,0,0.15),0_2px_6px_rgba(0,0,0,0.06)]",
+        "shadow-[inset_0px_3px_5px_rgba(255,255,255,0.35),inset_0px_1px_1px_rgba(255,255,255,0.7),inset_0px_-3px_5px_rgba(0,0,0,0.35),0_8px_24px_rgba(0,0,0,0.15)]",
       shadowHover:
-        "hover:shadow-[inset_0px_1px_3px_rgba(255,255,255,0.6),inset_0px_-2px_4px_rgba(0,0,0,0.15),0_12px_36px_0_rgba(0,0,0,0.22),0_4px_10px_rgba(0,0,0,0.08)]",
+        "hover:shadow-[inset_0px_3px_5px_rgba(255,255,255,0.45),inset_0px_1px_1px_rgba(255,255,255,0.85),inset_0px_-3px_5px_rgba(0,0,0,0.3),0_12px_32px_rgba(0,0,0,0.22)]",
       shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.2),inset_0px_-1px_2px_rgba(255,255,255,0.2),0_4px_14px_0_rgba(0,0,0,0.1)]",
+        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.3),inset_0px_-1px_2px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.1)]",
     },
 
-    // WhatsApp Emerald 3D Glass
+    // WhatsApp Emerald Liquid Glass
     whatsapp: {
-      base: "bg-gradient-to-br from-emerald-600/90 via-green-600/85 to-emerald-800/80",
-      hover: "hover:from-emerald-500/95 hover:to-green-600/90",
-      active: "active:from-emerald-700 active:to-emerald-900",
-      text: "text-white font-semibold drop-shadow-sm",
-      border: "border border-white/35 hover:border-white/55",
-      sheen: "from-white/0 via-white/70 to-white/0",
-      badge: "bg-white/20 text-white border border-white/30",
-      badgeHover: "group-hover:bg-white group-hover:text-emerald-700",
+      base: "bg-gradient-to-b from-[#0e5c38] via-[#09482b] to-[#05301c]",
+      hover: "hover:from-[#137346] hover:via-[#0c5936] hover:to-[#073d24]",
+      active: "active:from-[#062c19] active:to-[#03190e]",
+      text: "text-white font-semibold [text-shadow:0px_1px_2px_rgba(0,0,0,0.5)]",
+      border: "border border-white/20 hover:border-white/35",
+      sheen: "from-white/0 via-white/80 to-white/0",
+      badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.4)]",
+      badgeHover: "group-hover:bg-white/25 group-hover:text-white group-hover:border-white/45",
       shadow:
-        "shadow-[inset_0px_1px_2px_rgba(255,255,255,0.5),inset_0px_-2px_4px_rgba(0,0,0,0.18),0_8px_32px_0_rgba(22,163,74,0.25),0_2px_6px_rgba(0,0,0,0.06)]",
+        "shadow-[inset_0px_4px_6px_rgba(255,255,255,0.4),inset_0px_1px_1px_rgba(255,255,255,0.8),inset_0px_-4px_6px_rgba(0,0,0,0.5),0px_10px_24px_-4px_rgba(34,197,94,0.6),0px_4px_12px_rgba(22,163,74,0.35)]",
       shadowHover:
-        "hover:shadow-[inset_0px_1px_3px_rgba(255,255,255,0.7),inset_0px_-2px_4px_rgba(0,0,0,0.22),0_12px_36px_0_rgba(22,163,74,0.35),0_4px_10px_rgba(0,0,0,0.08)]",
+        "hover:shadow-[inset_0px_4px_6px_rgba(255,255,255,0.5),inset_0px_1px_1px_rgba(255,255,255,0.95),inset_0px_-4px_6px_rgba(0,0,0,0.45),0px_14px_32px_-4px_rgba(34,197,94,0.85),0px_6px_18px_rgba(22,163,74,0.5)]",
       shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.22),inset_0px_-1px_2px_rgba(255,255,255,0.25),0_4px_14px_0_rgba(22,163,74,0.15)]",
+        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.5),inset_0px_-1px_2px_rgba(255,255,255,0.3),0px_6px_16px_rgba(34,197,94,0.4)]",
     },
 
     // Refractive Glass Outline
@@ -262,6 +262,12 @@ export default function Button({
       {/* 3D Top Specular Light Reflection / Glint */}
       <span
         className={`absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r ${currentVariant.sheen} pointer-events-none opacity-85 group-hover:opacity-100 transition-opacity duration-300`}
+        aria-hidden="true"
+      />
+
+      {/* Liquid Glass curved overhead dome reflection */}
+      <span
+        className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/12 to-transparent rounded-t-full pointer-events-none"
         aria-hidden="true"
       />
 

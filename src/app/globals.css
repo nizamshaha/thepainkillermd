@@ -367,7 +367,7 @@ section + section {
   }
 }
 
-/* === Reusable Button Utilities with 3D Glassmorphism & Contrast === */
+/* === Reusable Button Utilities with Liquid Glass Aesthetic === */
 .btn-primary {
   position: relative;
   display: inline-flex;
@@ -375,40 +375,43 @@ section + section {
   justify-content: center;
   padding: 0.75rem 1.75rem;
   border-radius: var(--radius-full);
-  background: linear-gradient(135deg, rgba(25, 118, 210, 0.90) 0%, rgba(13, 71, 161, 0.80) 100%);
+  background: linear-gradient(180deg, #112a4f 0%, #0c203c 50%, #08172c 100%);
   color: #ffffff !important;
   font-weight: 600;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow:
-    inset 0px 1px 2px rgba(255, 255, 255, 0.5),
-    inset 0px -2px 4px rgba(0, 0, 0, 0.2),
-    0 8px 32px 0 rgba(31, 38, 135, 0.18),
-    0 2px 6px rgba(0, 0, 0, 0.06);
+    inset 0px 4px 6px rgba(255, 255, 255, 0.4),
+    inset 0px 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0px -4px 6px rgba(0, 0, 0, 0.5),
+    0px 10px 24px -4px rgba(59, 130, 246, 0.6),
+    0px 4px 12px rgba(37, 99, 235, 0.35);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
 }
 .btn-primary:hover {
-  background: linear-gradient(135deg, rgba(33, 150, 243, 0.95) 0%, rgba(25, 118, 210, 0.90) 100%);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, #173a6b 0%, #122e54 50%, #0c2242 100%);
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.35);
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.55);
   box-shadow:
-    inset 0px 1px 3px rgba(255, 255, 255, 0.7),
-    inset 0px -2px 4px rgba(0, 0, 0, 0.25),
-    0 12px 36px 0 rgba(31, 38, 135, 0.25),
-    0 4px 10px rgba(0, 0, 0, 0.08);
+    inset 0px 4px 6px rgba(255, 255, 255, 0.5),
+    inset 0px 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0px -4px 6px rgba(0, 0, 0, 0.45),
+    0px 14px 32px -4px rgba(59, 130, 246, 0.85),
+    0px 6px 18px rgba(37, 99, 235, 0.5);
 }
 .btn-primary:active {
+  background: linear-gradient(180deg, #091728 0%, #071322 100%);
   transform: scale(0.95) translateY(1px);
   box-shadow:
-    inset 0px 2px 4px rgba(0, 0, 0, 0.25),
-    inset 0px -1px 2px rgba(255, 255, 255, 0.2),
-    0 4px 14px 0 rgba(31, 38, 135, 0.1);
+    inset 0px 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0px -1px 2px rgba(255, 255, 255, 0.3),
+    0px 6px 16px rgba(59, 130, 246, 0.4);
 }
 
 .btn-secondary {
@@ -498,34 +501,42 @@ section + section {
   -webkit-user-select: none;
   user-select: none;
   border-radius: var(--radius-full);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(180deg, #112a4f 0%, #0c203c 50%, #08172c 100%);
+  color: #ffffff !important;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
   box-shadow:
-    inset 0px 1px 2px rgba(255, 255, 255, 0.5),
-    inset 0px -2px 4px rgba(0, 0, 0, 0.1),
-    0 8px 32px 0 rgba(31, 38, 135, 0.15),
-    0 2px 6px rgba(0, 0, 0, 0.06);
+    inset 0px 4px 6px rgba(255, 255, 255, 0.4),
+    inset 0px 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0px -4px 6px rgba(0, 0, 0, 0.5),
+    0px 10px 24px -4px rgba(59, 130, 246, 0.6),
+    0px 4px 12px rgba(37, 99, 235, 0.35);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 .btn-glass-3d:hover {
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: linear-gradient(180deg, #173a6b 0%, #122e54 50%, #0c2242 100%);
+  color: #ffffff !important;
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.35);
   box-shadow:
-    inset 0px 1px 3px rgba(255, 255, 255, 0.7),
-    inset 0px -2px 4px rgba(0, 0, 0, 0.15),
-    0 12px 36px 0 rgba(31, 38, 135, 0.22),
-    0 4px 10px rgba(0, 0, 0, 0.08);
+    inset 0px 4px 6px rgba(255, 255, 255, 0.5),
+    inset 0px 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0px -4px 6px rgba(0, 0, 0, 0.45),
+    0px 14px 32px -4px rgba(59, 130, 246, 0.85),
+    0px 6px 18px rgba(37, 99, 235, 0.5);
 }
 .btn-glass-3d:active {
+  background: linear-gradient(180deg, #091728 0%, #071322 100%);
   transform: scale(0.95) translateY(1px);
   box-shadow:
-    inset 0px 2px 4px rgba(0, 0, 0, 0.2),
-    inset 0px -1px 2px rgba(255, 255, 255, 0.25),
-    0 4px 14px 0 rgba(31, 38, 135, 0.1);
+    inset 0px 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0px -1px 2px rgba(255, 255, 255, 0.3),
+    0px 6px 16px rgba(59, 130, 246, 0.4);
 }
 .btn-glass-3d:disabled {
   opacity: 0.5;
