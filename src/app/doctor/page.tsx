@@ -17,8 +17,8 @@ export default function DoctorPage() {
           </div>
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold mb-2">DR. SHAHNAWAZ F SHAH</h1>
-            <p className="text-[var(--color-clinical-300)] text-lg mb-4">{t("doctor.specialty")}</p>
-            <p className="text-white/70">MBBS, MD — Pain Medicine Specialist</p>
+            <p className="text-[var(--color-clinical-300)] text-lg mb-2">{t("doctor.specialty")}</p>
+            <p className="text-white/80 font-medium text-sm sm:text-base">M.B.B.S., M.D. (Anaesthesiology) • FIAPM • FCPM-MUHS • FPM</p>
           </div>
         </div>
       </section>
@@ -29,6 +29,43 @@ export default function DoctorPage() {
           <p className="text-[var(--color-text-secondary)] leading-relaxed text-lg">
             {t("doctor.bio")}
           </p>
+        </section>
+
+        {/* Education & Qualifications */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("doctor.educationTitle")}</h2>
+          <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)] shadow-sm">
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-bold text-[var(--color-text-primary)] text-base">{t("doctor.degree1")}</h3>
+                  <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">Specialization in Anaesthesiology and Acute/Critical Pain Care</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-bold text-[var(--color-text-primary)] text-base">{t("doctor.degree2")}</h3>
+                  <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">Fellowship recognizing clinical excellence in interventional pain medicine</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-bold text-[var(--color-text-primary)] text-base">{t("doctor.degree3")}</h3>
+                  <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">Comprehensive chronic pain medicine fellowship accredited by Maharashtra University of Health Sciences</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-bold text-[var(--color-text-primary)] text-base">{t("doctor.degree4")}</h3>
+                  <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">Specialized interventional training in multimodal pain care and regenerative therapies</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </section>
 
         <section className="mb-12">
@@ -70,11 +107,6 @@ export default function DoctorPage() {
             ))}
           </div>
         </section>
-
-        <div className="text-xs text-[var(--color-text-muted)] leading-relaxed border-t border-[var(--color-surface-200)] pt-6">
-          <strong>Note:</strong> Specific professional qualifications, affiliations, and publications will be
-          populated once verified credentials are provided by the project owner.
-        </div>
       </div>
     </>
   );

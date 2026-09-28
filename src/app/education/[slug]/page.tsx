@@ -198,8 +198,11 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                   <h3 className="font-bold text-[var(--color-text-primary)]">
                     Dr. Shahnawaz F Shah
                   </h3>
-                  <p className="text-sm text-[var(--color-clinical-600)] mb-2">
+                  <p className="text-sm text-[var(--color-clinical-600)] font-medium">
                     {t("doctor.specialty")}
+                  </p>
+                  <p className="text-xs text-[var(--color-text-muted)] mb-2">
+                    MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM
                   </p>
                   <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                     For personalized evaluation and treatment, consult with Dr. Shah.

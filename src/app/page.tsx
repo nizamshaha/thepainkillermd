@@ -83,6 +83,7 @@ export default function Home() {
               <div>
                 <p className="font-bold text-white uppercase tracking-wide">DR. SHAHNAWAZ F SHAH</p>
                 <p>{t("doctor.specialty")}</p>
+                <p className="text-xs text-white/60">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
               </div>
             </div>
 
@@ -392,15 +393,61 @@ export default function Home() {
               <PhysicianAvatar size="xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
+              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-1">
                 DR. SHAHNAWAZ F SHAH
               </h3>
-              <p className="text-[var(--color-clinical-600)] font-medium mb-4">
+              <p className="text-[var(--color-clinical-600)] font-semibold text-sm sm:text-base mb-2">
                 {t("doctor.specialty")}
               </p>
-              <p className="text-[var(--color-text-secondary)] leading-relaxed mb-6">
+
+              {/* Verified Qualifications Badges */}
+              <div className="flex flex-wrap items-center gap-1.5 mb-4">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
+                  MBBS
+                </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
+                  M.D. (Anaes)
+                </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
+                  FIAPM
+                </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
+                  FCPM
+                </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
+                  FPM
+                </span>
+              </div>
+
+              <p className="text-[var(--color-text-secondary)] leading-relaxed mb-5">
                 {t("doctor.bio")}
               </p>
+
+              {/* Education & Qualifications */}
+              <div className="mb-6 p-4 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] shadow-sm">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-clinical-700)] mb-3 flex items-center gap-2">
+                  <span className="text-sm leading-none">🎓</span>
+                  <span>{t("doctor.educationTitle")}</span>
+                </h4>
+                <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                  <li className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                    <span>{t("doctor.degree1")}</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                    <span>{t("doctor.degree2")}</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                    <span>{t("doctor.degree3")}</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
+                    <span>{t("doctor.degree4")}</span>
+                  </li>
+                </ul>
+              </div>
 
               {/* Practice pillars */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

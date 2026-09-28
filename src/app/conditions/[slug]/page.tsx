@@ -185,7 +185,8 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
             <PhysicianAvatar size="lg" />
             <div>
               <h3 className="font-bold text-[var(--color-text-primary)]">DR. SHAHNAWAZ F SHAH</h3>
-              <p className="text-sm text-[var(--color-clinical-600)] mb-2">{t("doctor.specialty")}</p>
+              <p className="text-sm text-[var(--color-clinical-600)] font-medium">{t("doctor.specialty")}</p>
+              <p className="text-xs text-[var(--color-text-muted)] mb-2">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                 {t("condition.drSpecializes")} <strong>{condition.name.toLowerCase()}</strong> {t("condition.evidenceBased")}
               </p>
