@@ -2025,11 +2025,53 @@ export const translations: TranslationSet = {
   },
 };
 
-export const locales: { code: Locale; label: string; flag: string }[] = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "hi", label: "हिन्दी", flag: "🇮🇳" },
-  { code: "mr", label: "मराठी", flag: "🇮🇳" },
-  { code: "gu", label: "ગુજરાતી", flag: "🇮🇳" },
+export interface LocaleConfig {
+  code: Locale;
+  label: string;
+  nativeName: string;
+  flag: string;
+  countryCode: "IN" | "GB";
+  region: string;
+  regionLabel: string;
+}
+
+export const locales: LocaleConfig[] = [
+  {
+    code: "en",
+    label: "English",
+    nativeName: "English",
+    flag: "🇮🇳",
+    countryCode: "IN",
+    region: "India & Global",
+    regionLabel: "Global / India",
+  },
+  {
+    code: "hi",
+    label: "हिन्दी",
+    nativeName: "हिन्दी (Hindi)",
+    flag: "🇮🇳",
+    countryCode: "IN",
+    region: "भारत (National)",
+    regionLabel: "India (National)",
+  },
+  {
+    code: "gu",
+    label: "ગુજરાતી",
+    nativeName: "ગુજરાતી (Gujarati)",
+    flag: "🇮🇳",
+    countryCode: "IN",
+    region: "ગુજરાત (Gujarat)",
+    regionLabel: "Gujarat, India",
+  },
+  {
+    code: "mr",
+    label: "मराठी",
+    nativeName: "मराठी (Marathi)",
+    flag: "🇮🇳",
+    countryCode: "IN",
+    region: "महाराष्ट्र (Maharashtra)",
+    regionLabel: "Maharashtra, India",
+  },
 ];
 
 export function t(key: string, locale: Locale = "en"): string {

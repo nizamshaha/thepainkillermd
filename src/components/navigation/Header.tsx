@@ -6,6 +6,7 @@ import SearchModal from "@/components/medical/SearchModal";
 import Logo from "@/components/ui/Logo";
 import LanguageToggle from "@/components/ui/LanguageToggle";
 import Button from "@/components/ui/Button";
+import Flag from "@/components/ui/Flag";
 import { useT } from "@/lib/useT";
 
 export default function Header() {
@@ -44,8 +45,36 @@ export default function Header() {
       }`}
       role="banner"
     >
+      {/* Top Region & Clinic Strip */}
+      <div className="bg-[var(--color-primary-950)] text-white/90 text-xs py-1.5 px-4 sm:px-6 lg:px-8 border-b border-white/10 hidden md:block">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Flag country="IN" size="sm" />
+            <span className="font-semibold text-white/95">
+              Dr. Shahnawaz F Shah
+            </span>
+            <span className="text-white/40">•</span>
+            <span className="text-white/75">Interventional Spine & Pain Clinic</span>
+            <span className="text-white/40">•</span>
+            <span className="text-[var(--color-clinical-300)] font-medium">Surat, Gujarat, India</span>
+          </div>
+          <div className="flex items-center gap-4 text-[11px] text-white/75">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>In-Person & Virtual Consultations</span>
+            </span>
+            <a
+              href="tel:+919769682366"
+              className="text-white/90 hover:text-white font-semibold transition-colors"
+            >
+              📞 +91 97696 82366
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div className="w-full pl-2 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
-        <div className="flex items-center justify-between h-24">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="shrink-0" aria-label="THE PAINKILLER MD — Home">
             <Logo size="md" variant="dark" />
@@ -107,7 +136,13 @@ export default function Header() {
       {mobileOpen && (
         <div className="lg:hidden border-t border-[var(--color-surface-200)] bg-white/95 backdrop-blur-md">
           <nav className="max-w-7xl mx-auto px-4 py-4 space-y-1">
-            <div className="pt-2 pb-3 space-y-1">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] text-xs text-[var(--color-text-secondary)] mb-2">
+              <Flag country="IN" size="sm" />
+              <span className="font-semibold text-[var(--color-text-primary)]">Surat, Gujarat, India</span>
+              <span className="text-[var(--color-text-muted)]">•</span>
+              <span>In-Person & Online</span>
+            </div>
+            <div className="pt-1 pb-3 space-y-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}

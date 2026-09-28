@@ -1,6 +1,7 @@
 "use client";
 
 import Logo from "@/components/ui/Logo";
+import Flag from "@/components/ui/Flag";
 import { useT } from "@/lib/useT";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
@@ -16,7 +17,11 @@ export default function Footer() {
             {/* Brand */}
             <div>
               <Logo size="md" variant="light" />
-              <p className="text-sm text-white/60 leading-relaxed mt-3">
+              <div className="flex items-center gap-2 mt-2.5 text-xs text-white/80">
+                <Flag country="IN" size="sm" />
+                <span className="font-medium">Surat, Gujarat, India</span>
+              </div>
+              <p className="text-sm text-white/60 leading-relaxed mt-2.5">
                 {t("footer.brand")}
               </p>
             </div>
