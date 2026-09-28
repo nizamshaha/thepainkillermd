@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/navigation/Header";
-import Footer from "@/components/navigation/Footer";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import CookieConsent from "@/components/ui/CookieConsent";
 import WhatsAppChatWidget from "@/components/ui/WhatsAppChatWidget";
