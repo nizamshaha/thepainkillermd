@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @next/next/no-img-element */
 "use client"
 
 import * as React from "react"
@@ -58,7 +59,7 @@ type Props = {
     newTab?: boolean
     style?: React.CSSProperties
     className?: string
-    onClick?: React.MouseEventHandler<any>
+    onClick?: React.MouseEventHandler<HTMLElement>
     disabled?: boolean
     type?: "button" | "submit" | "reset"
     ariaLabel?: string

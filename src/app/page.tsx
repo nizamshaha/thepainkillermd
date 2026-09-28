@@ -9,7 +9,6 @@ import SpinalStenosis from "@/components/medical/svgs/SpinalStenosis";
 import WatchAndLearn from "@/components/medical/WatchAndLearn";
 import HumanBody3DViewer from "@/components/medical/HumanBody3DViewer";
 // import PainNavigator from "@/components/medical/PainNavigator";
-import Logo from "@/components/ui/Logo";
 import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
 import Footer from "@/components/navigation/Footer";
 import Button from "@/components/ui/Button";

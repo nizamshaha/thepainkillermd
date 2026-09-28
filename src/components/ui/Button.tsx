@@ -17,13 +17,13 @@ export interface ButtonProps {
   variant?: ButtonVariant;
   href?: string;
   link?: string;
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: React.MouseEventHandler<HTMLElement>;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   className?: string;
   newTab?: boolean;
   size?: "sm" | "md" | "lg";
-  icon?: React.ReactNode | boolean | any;
+  icon?: React.ReactNode | boolean;
   rounded?: number;
   hoverTextColor?: string;
   ariaLabel?: string;

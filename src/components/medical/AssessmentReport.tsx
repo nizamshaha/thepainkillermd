@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import type { WizardResult } from "@/lib/types";
 import { useT } from "@/lib/useT";
 import Button from "@/components/ui/Button";
@@ -73,70 +73,70 @@ export default function AssessmentReport({
   const motorWeakness = (answers[9] as string) || "no";
 
   // Localized dictionary lookups mapping neutral IDs to localized copy
-  const getRegionName = (id: string) => {
+  const getRegionName = useCallback((id: string) => {
     const key = `assessment.options.location.${id}`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return t(`assessment.region.${id}`) || id;
-  };
+  }, [t]);
 
-  const getQualityName = (id: string) => {
+  const getQualityName = useCallback((id: string) => {
     const key = `assessment.options.quality.${id}`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return t(`assessment.quality.${id}`) || id;
-  };
+  }, [t]);
 
-  const getDurationName = (id: string) => {
+  const getDurationName = useCallback((id: string) => {
     const key = `assessment.options.duration.${id}`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return t(`assessment.duration.${id}`) || id;
-  };
+  }, [t]);
 
-  const getDurationDesc = (id: string) => {
+  const getDurationDesc = useCallback((id: string) => {
     const key = `assessment.options.duration.${id}.desc`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return id === "chronic" ? "Involves central neuroplastic patterns" : "Acute/Subacute symptom pattern";
-  };
+  }, [t]);
 
-  const getRadiationPatternName = (id: string) => {
+  const getRadiationPatternName = useCallback((id: string) => {
     const key = `assessment.options.radiationPattern.${id}`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return id;
-  };
+  }, [t]);
 
-  const getAggravatingName = (id: string) => {
+  const getAggravatingName = useCallback((id: string) => {
     const key = `assessment.options.aggravating.${id}`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return id;
-  };
+  }, [t]);
 
-  const getSensoryName = (id: string) => {
+  const getSensoryName = useCallback((id: string) => {
     const key = `assessment.options.sensory.${id}`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return id;
-  };
+  }, [t]);
 
-  const getPathwayName = (p: string) => {
+  const getPathwayName = useCallback((p: string) => {
     const key = `assessment.report.pathway.${p}`;
     const translated = t(key);
     if (translated && translated !== key) return translated;
     return p.charAt(0).toUpperCase() + p.slice(1);
-  };
+  }, [t]);
 
   // Intensity descriptive label
-  const getIntensityLabel = (score: number) => {
+  const getIntensityLabel = useCallback((score: number) => {
     if (score === 0) return t("assessment.scale.0");
     if (score <= 3) return t("assessment.scale.2");
     if (score <= 6) return t("assessment.scale.4");
     if (score <= 8) return t("assessment.scale.7");
     return t("assessment.scale.10");
-  };
+  }, [t]);
 
   // Localized Dynamic Summary mapping neutral state keys
   const localizedSummary = useMemo(() => {
@@ -159,7 +159,7 @@ export default function AssessmentReport({
       `Based on your responses, your pain in ${regionNames} with ${qualityNames} characteristics ` +
       `(rated ${intensity}/10, ${durationLabel}) suggests ${pathwayNames} pain mechanism(s).`
     );
-  }, [locations, qualities, durationKey, intensity, result.possiblePathways, t]);
+  }, [locations, qualities, durationKey, intensity, result.possiblePathways, t, getRegionName, getQualityName, getDurationName, getPathwayName]);
 
   // Localized Red Flag notices
   const redFlagsList: string[] = useMemo(() => {
@@ -259,6 +259,14 @@ export default function AssessmentReport({
     localizedSummary,
     redFlagsList,
     t,
+    getAggravatingName,
+    getDurationName,
+    getIntensityLabel,
+    getPathwayName,
+    getQualityName,
+    getRadiationPatternName,
+    getRegionName,
+    getSensoryName,
   ]);
 
   // Generates dedicated mailto URL for clinic with subject and URL-encoded body

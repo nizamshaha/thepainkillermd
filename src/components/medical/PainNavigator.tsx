@@ -21,7 +21,6 @@ interface PinData {
 
 export default function PainNavigator() {
   const t = useT();
-  const [view, setView] = useState<"body" | "list">("body");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedAreas, setSelectedAreas] = useState<PainArea[]>([]);
   const [state, setState] = useState<NavigatorState>("explore");
