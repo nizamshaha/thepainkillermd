@@ -90,22 +90,19 @@ export default function Button({
       shadowActive: string;
     }
   > = {
-    // Liquid Glass Primary — Dark Navy Blue Base with Refractive Blue Bleed
+    // Liquid Glass Primary — Dark Navy Blue Base with Refractive Blue Bleed & Physical 3D Casing
     primary: {
-      base: "bg-gradient-to-b from-[#112a4f] via-[#0c203c] to-[#08172c]",
-      hover: "hover:from-[#173a6b] hover:via-[#122e54] hover:to-[#0c2242]",
-      active: "active:from-[#091728] active:via-[#071322] active:to-[#050e18]",
-      text: "text-white font-semibold [text-shadow:0px_1px_2px_rgba(0,0,0,0.5)]",
-      border: "border border-white/20 hover:border-white/35",
-      sheen: "from-white/0 via-white/80 to-white/0",
+      base: "btn-liquid-glass",
+      hover: "",
+      active: "",
+      text: "text-white font-semibold",
+      border: "",
+      sheen: "",
       badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.4)]",
       badgeHover: "group-hover:bg-white/25 group-hover:text-white group-hover:border-white/45",
-      shadow:
-        "shadow-[inset_0px_4px_6px_rgba(255,255,255,0.4),inset_0px_1px_1px_rgba(255,255,255,0.8),inset_0px_-4px_6px_rgba(0,0,0,0.5),0px_10px_24px_-4px_rgba(59,130,246,0.6),0px_4px_12px_rgba(37,99,235,0.35)]",
-      shadowHover:
-        "hover:shadow-[inset_0px_4px_6px_rgba(255,255,255,0.5),inset_0px_1px_1px_rgba(255,255,255,0.95),inset_0px_-4px_6px_rgba(0,0,0,0.45),0px_14px_32px_-4px_rgba(59,130,246,0.85),0px_6px_18px_rgba(37,99,235,0.5)]",
-      shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.5),inset_0px_-1px_2px_rgba(255,255,255,0.3),0px_6px_16px_rgba(59,130,246,0.4)]",
+      shadow: "",
+      shadowHover: "",
+      shadowActive: "",
     },
 
     // Frosted Light 3D Glass — High-contrast on dark surfaces (Hero, Dark CTA banners)
@@ -259,17 +256,13 @@ export default function Button({
 
   const renderInner = () => (
     <>
-      {/* 3D Top Specular Light Reflection / Glint */}
-      <span
-        className={`absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r ${currentVariant.sheen} pointer-events-none opacity-85 group-hover:opacity-100 transition-opacity duration-300`}
-        aria-hidden="true"
-      />
-
-      {/* Liquid Glass curved overhead dome reflection */}
-      <span
-        className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/12 to-transparent rounded-t-full pointer-events-none"
-        aria-hidden="true"
-      />
+      {/* 3D Top Specular Light Reflection / Glint (for variants with explicit sheen) */}
+      {currentVariant.sheen ? (
+        <span
+          className={`absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r ${currentVariant.sheen} pointer-events-none opacity-85 group-hover:opacity-100 transition-opacity duration-300`}
+          aria-hidden="true"
+        />
+      ) : null}
 
       {/* Left Icon Badge */}
       {icon && iconPosition === "left" && renderBadge("left")}
