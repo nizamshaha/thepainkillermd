@@ -59,68 +59,95 @@ export default function Home() {
       <SearchModal />
 
       {/* === SECTION 1: Hero === */}
-      <section id="hero" className="relative bg-gradient-to-br from-[var(--color-primary-900)] via-[var(--color-primary-800)] to-[var(--color-primary-700)] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          <div className="max-w-3xl">
-            {/* Trust badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-6">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse-subtle" />
-              {t("hero.credential")}
-            </div>
+      <section id="hero" className="relative bg-gradient-to-br from-[var(--color-primary-900)] via-[var(--color-primary-800)] to-[var(--color-primary-700)] text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column: Heading, Badges, CTAs, and Trust Stats */}
+            <div className="flex flex-col items-start text-left">
+              {/* Trust badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-6">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse-subtle" />
+                {t("hero.credential")}
+              </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              {t("hero.headline")}
-            </h1>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                {t("hero.headline")}
+              </h1>
 
-            <p className="text-lg sm:text-xl text-white/80 max-w-2xl mb-4 leading-relaxed">
-              {t("hero.subtitle")}
-            </p>
+              <p className="text-lg sm:text-xl text-white/80 max-w-xl mb-6 leading-relaxed">
+                {t("hero.subtitle")}
+              </p>
 
-            {/* Physician credentials */}
-            <div className="flex items-center gap-3 mb-8 text-sm text-white/70">
-              <PhysicianAvatar size="sm" />
-              <div>
-                <p className="font-bold text-white uppercase tracking-wide">DR. SHAHNAWAZ F SHAH</p>
-                <p>{t("doctor.specialty")}</p>
-                <p className="text-xs text-white/60">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
+              {/* Physician credentials */}
+              <div className="flex items-center gap-3 mb-8 text-sm text-white/70">
+                <PhysicianAvatar size="sm" />
+                <div>
+                  <p className="font-bold text-white uppercase tracking-wide">DR. SHAHNAWAZ F SHAH</p>
+                  <p>{t("doctor.specialty")}</p>
+                  <p className="text-xs text-white/60">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-start w-full sm:w-auto">
+                <Button
+                  label={t("hero.cta.primary")}
+                  href="#book"
+                  variant="light"
+                  size="lg"
+                />
+                <Button
+                  label={t("hero.cta.secondary")}
+                  href="#pain-wizard"
+                  variant="secondary"
+                  size="lg"
+                />
+                <Button
+                  label="Explore 2D Body"
+                  href="#body-map"
+                  variant="primary"
+                  size="lg"
+                />
+              </div>
+
+              {/* Trust metrics */}
+              <div className="grid grid-cols-3 gap-6 mt-10 pt-8 border-t border-white/10 w-full">
+                <div>
+                  <p className="text-2xl sm:text-3xl font-bold">20+</p>
+                  <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.conditions")}</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-bold">15+</p>
+                  <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.experience")}</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-bold">10K+</p>
+                  <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.patients")}</p>
+                </div>
               </div>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-              <Button
-                label={t("hero.cta.primary")}
-                href="#book"
-                variant="light"
-                size="lg"
-              />
-              <Button
-                label={t("hero.cta.secondary")}
-                href="#pain-wizard"
-                variant="secondary"
-                size="lg"
-              />
-              <Button
-                label="Explore 2D Body"
-                href="#body-map"
-                variant="primary"
-                size="lg"
-              />
-            </div>
+            {/* Right Column: Balanced Visual Space with Doctor / Clinical imagery */}
+            <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
+              <div className="relative aspect-[4/3] sm:aspect-[14/11] lg:aspect-[5/4] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 backdrop-blur-md group">
+                <img
+                  src="/doctor-photo.png"
+                  alt="Dr. Shahnawaz F Shah — Evidence-Based Pain Specialist"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-950)]/85 via-[var(--color-primary-950)]/20 to-transparent pointer-events-none" />
 
-            {/* Trust metrics */}
-            <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
-              <div>
-                <p className="text-2xl font-bold">20+</p>
-                <p className="text-sm text-white/60">{t("hero.stats.conditions")}</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold">15+</p>
-                <p className="text-sm text-white/60">{t("hero.stats.experience")}</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold">10K+</p>
-                <p className="text-sm text-white/60">{t("hero.stats.patients")}</p>
+                {/* Floating Refractive Glass Overlay Tag */}
+                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/25 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+                  <div>
+                    <p className="font-bold text-sm tracking-wide text-white">Dr. Shahnawaz F Shah</p>
+                    <p className="text-xs text-white/80">Consultant Spine &amp; Chronic Pain Specialist</p>
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-semibold self-start sm:self-auto">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>In-Person &amp; Virtual</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -129,23 +156,25 @@ export default function Home() {
 
       {/* === SECTION 1.5: Pain Navigator CTA === */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-            {t("hero.credential")}
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
-            {t("painNav.title")}
-          </h2>
-          <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-6">
-            {t("painNav.subtitle")}
-          </p>
-          <p className="text-sm text-[var(--color-text-muted)] mb-8">{t("painNav.disclaimer")}</p>
-          <Button
-            label={t("painNav.cta")}
-            href="/pain-navigator"
-            variant="primary"
-            size="lg"
-          />
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
+              {t("hero.credential")}
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+              {t("painNav.title")}
+            </h2>
+            <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-6">
+              {t("painNav.subtitle")}
+            </p>
+            <p className="text-sm text-[var(--color-text-muted)] mb-8">{t("painNav.disclaimer")}</p>
+            <Button
+              label={t("painNav.cta")}
+              href="/pain-navigator"
+              variant="primary"
+              size="lg"
+            />
+          </div>
         </div>
       </section>
 
@@ -253,7 +282,7 @@ export default function Home() {
 
       {/* === SECTION 6: Treatment Options Spectrum === */}
       <section id="treatment" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.treatment")}
@@ -337,7 +366,7 @@ export default function Home() {
 
       {/* === SECTION 8: Pain Red Flags === */}
       <section id="red-flags" className="py-16 px-4 sm:px-6 lg:px-8 bg-red-50">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-[var(--color-alert-critical)] font-bold text-sm mb-4">
               🚨 CRITICAL SAFETY INFORMATION
@@ -350,7 +379,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 max-w-4xl mx-auto">
             {redFlags.map((rf) => (
               <div
                 key={rf.title}
@@ -377,7 +406,7 @@ export default function Home() {
 
       {/* === SECTION 9: Meet Dr. Shah === */}
       <section id="about" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.doctor")}
@@ -507,7 +536,7 @@ export default function Home() {
 
       {/* === SECTION 12: Clinic Experience === */}
       <section id="clinic" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.clinic")}
@@ -558,33 +587,35 @@ export default function Home() {
 
       {/* === SECTION 13: Final CTA === */}
       <section id="book" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            {t("cta.title")}
-          </h2>
-          <p className="text-lg text-white/80 mb-8">
-            {t("cta.description")}
-          </p>
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              {t("cta.title")}
+            </h2>
+            <p className="text-lg text-white/80 mb-8">
+              {t("cta.description")}
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              label={`📞 ${t("cta.call")}`}
-              href="tel:+919769682366"
-              variant="light"
-              size="lg"
-            />
-            <Button
-              label={`💬 ${t("cta.whatsapp")}`}
-              href="https://wa.me/919769682366"
-              variant="whatsapp"
-              size="lg"
-              newTab={true}
-            />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                label={`📞 ${t("cta.call")}`}
+                href="tel:+919769682366"
+                variant="light"
+                size="lg"
+              />
+              <Button
+                label={`💬 ${t("cta.whatsapp")}`}
+                href="https://wa.me/919769682366"
+                variant="whatsapp"
+                size="lg"
+                newTab={true}
+              />
+            </div>
+
+            <p className="mt-6 text-sm text-white/50">
+              {t("footer.bookOnline")}
+            </p>
           </div>
-
-          <p className="mt-6 text-sm text-white/50">
-            {t("footer.bookOnline")}
-          </p>
         </div>
       </section>
 
