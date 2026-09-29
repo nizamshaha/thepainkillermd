@@ -28,13 +28,13 @@ export default function ConditionsPage() {
       <Breadcrumbs items={[{ label: t("nav.conditions") }]} />
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">{t("index.painConditions")}</h1>
-          <p className="text-lg text-[var(--color-text-secondary)] mb-10 max-w-2xl">
+          <h1 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-3">{t("index.painConditions")}</h1>
+          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] mb-10 max-w-2xl">
             {t("index.evidenceBased")}
           </p>
           {Object.entries(grouped).map(([cat, items]) => (
             <section key={cat} className="mb-10">
-              <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">{categoryLabels[cat] || cat}</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)] mb-4">{categoryLabels[cat] || cat}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {items.map((c) => (
                   <a key={c.slug} href={`/conditions/${c.slug}`} className="group relative p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-xl hover:shadow-[var(--color-clinical-500)]/5 hover:border-[var(--color-clinical-300)] hover:-translate-y-1 transition-all duration-300 overflow-hidden">

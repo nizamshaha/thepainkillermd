@@ -60,36 +60,36 @@ export default function Home() {
 
       {/* === SECTION 1: Hero === */}
       <section id="hero" className="relative bg-gradient-to-br from-[var(--color-primary-900)] via-[var(--color-primary-800)] to-[var(--color-primary-700)] text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
           <div className="flex flex-col items-center justify-center text-center w-full">
             {/* Centered Typography & Profile Badge */}
             <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
               {/* Trust badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-6">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse-subtle" />
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-sm sm:text-base font-medium mb-8">
+                <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse-subtle" />
                 {t("hero.credential")}
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-center">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-8 text-center tracking-tight">
                 {t("hero.headline")}
               </h1>
 
-              <p className="text-lg sm:text-xl text-white/80 max-w-2xl mb-6 leading-relaxed text-center">
+              <p className="text-xl sm:text-2xl text-white/85 max-w-3xl mb-8 leading-relaxed text-center font-normal">
                 {t("hero.subtitle")}
               </p>
 
               {/* Physician credentials */}
-              <div className="flex items-center justify-center gap-3 mb-8 text-sm text-white/70 mx-auto text-left">
-                <PhysicianAvatar size="sm" />
+              <div className="flex items-center justify-center gap-4 mb-10 text-white/80 mx-auto text-left">
+                <PhysicianAvatar size="md" />
                 <div>
-                  <p className="font-bold text-white uppercase tracking-wide">DR. SHAHNAWAZ F SHAH</p>
-                  <p>{t("doctor.specialty")}</p>
-                  <p className="text-xs text-white/60">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
+                  <p className="font-bold text-white uppercase tracking-wide text-base sm:text-lg">DR. SHAHNAWAZ F SHAH</p>
+                  <p className="text-sm sm:text-base text-white/90">{t("doctor.specialty")}</p>
+                  <p className="text-xs sm:text-sm text-white/70">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
                 </div>
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-wrap justify-center items-center gap-4 mt-8">
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mt-8">
                 <Button
                   label={t("hero.cta.primary")}
                   href="#book"
@@ -112,18 +112,18 @@ export default function Home() {
             </div>
 
             {/* Distributed Stats */}
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16 w-full mt-16 border-t border-white/10 pt-8">
-              <div className="text-center min-w-[120px]">
-                <p className="text-2xl sm:text-3xl font-bold">20+</p>
-                <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.conditions")}</p>
+            <div className="flex flex-wrap justify-center gap-10 md:gap-20 w-full mt-16 md:mt-20 border-t border-white/10 pt-10">
+              <div className="text-center min-w-[140px]">
+                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">20+</p>
+                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.conditions")}</p>
               </div>
-              <div className="text-center min-w-[120px]">
-                <p className="text-2xl sm:text-3xl font-bold">15+</p>
-                <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.experience")}</p>
+              <div className="text-center min-w-[140px]">
+                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">15+</p>
+                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.experience")}</p>
               </div>
-              <div className="text-center min-w-[120px]">
-                <p className="text-2xl sm:text-3xl font-bold">10K+</p>
-                <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.patients")}</p>
+              <div className="text-center min-w-[140px]">
+                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">10K+</p>
+                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.patients")}</p>
               </div>
             </div>
           </div>
@@ -131,16 +131,16 @@ export default function Home() {
       </section>
 
       {/* === SECTION 1.5: Pain Navigator CTA === */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]">
+      <section className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("hero.credential")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("painNav.title")}
             </h2>
-            <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-6">
+            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-6">
               {t("painNav.subtitle")}
             </p>
             <p className="text-sm text-[var(--color-text-muted)] mb-8">{t("painNav.disclaimer")}</p>
@@ -161,16 +161,16 @@ export default function Home() {
       <SensationExplorer />
 
       {/* === SECTION 4: Understand Pain — Neurobiology === */}
-      <section id="understand-pain" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="understand-pain" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.painScience")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("pain.title")}
             </h2>
-            <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
               {t("pain.subtitle")}
             </p>
           </div>
@@ -181,7 +181,7 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(230,81,0,0.1)" }}>
                 <span className="text-2xl">🦴</span>
               </div>
-              <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{t("pain.nociceptive")}</h3>
+              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{t("pain.nociceptive")}</h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 {t("pain.nociceptiveDesc")}
               </p>
@@ -191,7 +191,7 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(106,27,154,0.1)" }}>
                 <span className="text-2xl">⚡</span>
               </div>
-              <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{t("pain.neuropathic")}</h3>
+              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{t("pain.neuropathic")}</h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 {t("pain.neuropathicDesc")}
               </p>
@@ -201,7 +201,7 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(0,105,92,0.1)" }}>
                 <span className="text-2xl">🧠</span>
               </div>
-              <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{t("pain.nociplastic")}</h3>
+              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{t("pain.nociplastic")}</h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 {t("pain.nociplasticDesc")}
               </p>
@@ -217,16 +217,16 @@ export default function Home() {
       </section>
 
       {/* === SECTION 5: Conditions Directory === */}
-      <section id="conditions" className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="conditions" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.conditions")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("conditions.title")}
             </h2>
-            <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
               {t("conditions.subtitle")}
             </p>
           </div>
@@ -241,7 +241,7 @@ export default function Home() {
               >
                 <div className="absolute top-0 left-0 w-full h-1 rounded-t-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(90deg, ${c.color}, transparent)` }} />
                 <div className="w-3 h-3 rounded-full mb-3 ring-2 ring-offset-2 ring-transparent group-hover:ring-offset-white transition-all duration-300" style={{ background: c.color, ['--tw-ring-color' as string]: c.color }} />
-                <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">
+                <h3 className="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">
                   {c.name}
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3">
@@ -257,16 +257,16 @@ export default function Home() {
       </section>
 
       {/* === SECTION 6: Treatment Options Spectrum === */}
-      <section id="treatment" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="treatment" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.treatment")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("treatment.title")}
             </h2>
-            <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
               {t("treatment.subtitle")}
             </p>
           </div>
@@ -284,7 +284,7 @@ export default function Home() {
                   {tItem.step}
                 </div>
                 <div>
-                  <h3 className="font-bold text-[var(--color-text-primary)] text-lg mb-1">
+                  <h3 className="font-bold text-[var(--color-text-primary)] text-xl mb-1.5">
                     {tItem.titleKey}
                   </h3>
                   <p className="text-[var(--color-text-secondary)]">
@@ -298,16 +298,16 @@ export default function Home() {
       </section>
 
       {/* === SECTION 7: Pain Procedures === */}
-      <section id="procedures" className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="procedures" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.procedures")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("procedures.title")}
             </h2>
-            <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
               {t("procedures.subtitle")}
             </p>
           </div>
@@ -326,7 +326,7 @@ export default function Home() {
                 href={`/procedures/${p.slug}`}
                 className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-all"
               >
-                <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">
                   {p.name}
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)]">{p.desc}</p>
@@ -341,16 +341,16 @@ export default function Home() {
       </section>
 
       {/* === SECTION 8: Pain Red Flags === */}
-      <section id="red-flags" className="py-16 px-4 sm:px-6 lg:px-8 bg-red-50">
+      <section id="red-flags" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-red-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-[var(--color-alert-critical)] font-bold text-sm mb-4">
               🚨 CRITICAL SAFETY INFORMATION
             </div>
-            <h2 className="text-3xl font-bold text-[var(--color-alert-critical)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-alert-critical)] mb-4">
               {t("redflags.title")}
             </h2>
-            <p className="text-[var(--color-text-secondary)] max-w-xl mx-auto">
+            <p className="text-lg text-[var(--color-text-secondary)] max-w-xl mx-auto">
               {t("redflags.subtitle")}
             </p>
           </div>
@@ -381,13 +381,13 @@ export default function Home() {
       </section>
 
       {/* === SECTION 9: Meet Dr. Shah === */}
-      <section id="about" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="about" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.doctor")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("doctor.title")}
             </h2>
           </div>
@@ -397,10 +397,10 @@ export default function Home() {
               <PhysicianAvatar size="xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-1">
+              <h3 className="text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)] mb-2">
                 DR. SHAHNAWAZ F SHAH
               </h3>
-              <p className="text-[var(--color-clinical-600)] font-semibold text-sm sm:text-base mb-2">
+              <p className="text-[var(--color-clinical-600)] font-semibold text-base sm:text-lg mb-3">
                 {t("doctor.specialty")}
               </p>
 
@@ -423,7 +423,7 @@ export default function Home() {
                 </span>
               </div>
 
-              <p className="text-[var(--color-text-secondary)] leading-relaxed mb-5">
+              <p className="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed mb-6">
                 {t("doctor.bio")}
               </p>
 
@@ -473,13 +473,13 @@ export default function Home() {
       </section>
 
       {/* === SECTION 10: Education / Articles === */}
-      <section id="education" className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="education" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.education")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("education.title")}
             </h2>
           </div>
@@ -493,7 +493,7 @@ export default function Home() {
                   </span>
                   <span className="text-xs text-[var(--color-text-muted)]">{a.readTime} read</span>
                 </div>
-                <h3 className="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-clinical-600)] transition-colors">{a.title}</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-clinical-600)] transition-colors">{a.title}</h3>
                 <p className="text-sm text-[var(--color-text-secondary)]">{a.excerpt}</p>
                 <span className="inline-block mt-4 text-sm font-medium text-[var(--color-clinical-600)]">
                   {t("common.readMore")} →
@@ -511,13 +511,13 @@ export default function Home() {
       <PainWizard />
 
       {/* === SECTION 12: Clinic Experience === */}
-      <section id="clinic" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="clinic" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
               {t("section.clinic")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               {t("clinic.title")}
             </h2>
           </div>
@@ -537,7 +537,7 @@ export default function Home() {
                 <div className="w-10 h-10 rounded-full bg-[var(--color-clinical-500)] text-white font-bold text-sm flex items-center justify-center mx-auto mb-3">
                   {s.step}
                 </div>
-                <h4 className="font-bold text-[var(--color-text-primary)] mb-1">{t(s.titleKey)}</h4>
+                <h4 className="text-base sm:text-lg font-bold text-[var(--color-text-primary)] mb-1">{t(s.titleKey)}</h4>
                 <p className="text-xs text-[var(--color-text-secondary)]">{t(s.descKey)}</p>
               </div>
             ))}
@@ -562,17 +562,17 @@ export default function Home() {
       </section>
 
       {/* === SECTION 13: Final CTA === */}
-      <section id="book" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white">
+      <section id="book" className="py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
               {t("cta.title")}
             </h2>
-            <p className="text-lg text-white/80 mb-8">
+            <p className="text-xl sm:text-2xl text-white/85 mb-10 max-w-2xl mx-auto">
               {t("cta.description")}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
               <Button
                 label={`📞 ${t("cta.call")}`}
                 href="tel:+919769682366"

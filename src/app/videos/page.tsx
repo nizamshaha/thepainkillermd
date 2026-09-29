@@ -62,15 +62,15 @@ export default function VideosPage() {
     <div className="min-h-screen">
       <Breadcrumbs items={[{ label: t("nav.videos") }]} />
       {/* Header */}
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-16 px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
           <p className="text-sm font-semibold text-[var(--color-clinical-300)] uppercase tracking-wider mb-2">
             Video Hub
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-3">
             {t("videos.title")}
           </h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
             Hear directly from patients who found relief through evidence-based pain medicine,
             and explore 3D anatomical walkthroughs and procedure animations.
           </p>

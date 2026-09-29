@@ -164,7 +164,7 @@ export default function SensationExplorer() {
   return (
     <section
       id="sensation-explorer"
-      className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]"
+      className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]"
       aria-labelledby="sensation-title"
     >
       <div className="max-w-7xl mx-auto">
@@ -175,11 +175,11 @@ export default function SensationExplorer() {
           </p>
           <h2
             id="sensation-title"
-            className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3"
+            className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4"
           >
             What Does Your Pain Feel Like?
           </h2>
-          <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
             Explore different pain qualities and understand their neurobiological mechanisms.
           </p>
         </div>

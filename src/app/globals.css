@@ -95,10 +95,10 @@ body {
 }
 
 /* === Typography Scale === */
-h1 { font-size: 2.25rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
-h2 { font-size: 1.75rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; }
-h3 { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
-h4 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+h1 { font-size: 2.75rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+h2 { font-size: 2.125rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; }
+h3 { font-size: 1.625rem; font-weight: 600; line-height: 1.3; }
+h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.35; }
 
 /* === Focus Styles — WCAG 2.2 AA === */
 :focus-visible {

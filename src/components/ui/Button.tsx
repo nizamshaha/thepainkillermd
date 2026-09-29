@@ -62,14 +62,14 @@ export default function Button({
       iconSize: 11,
     },
     md: {
-      btn: "px-6 py-3 text-sm tracking-wide gap-2.5",
-      badge: "w-6 h-6",
-      iconSize: 13,
+      btn: "px-6 py-3.5 text-base tracking-wide gap-3",
+      badge: "w-7 h-7",
+      iconSize: 14,
     },
     lg: {
-      btn: "px-7 py-3.5 text-base tracking-wide gap-3",
-      badge: "w-7 h-7",
-      iconSize: 15,
+      btn: "px-8 py-4 text-lg tracking-wide gap-3.5",
+      badge: "w-8 h-8",
+      iconSize: 17,
     },
   }[size];
 
@@ -116,9 +116,9 @@ export default function Button({
       badge: "bg-[#0c1929]/10 text-[#0c1929] border border-[#0c1929]/15",
       badgeHover: "group-hover:bg-[#0c1929] group-hover:text-white",
       shadow:
-        "shadow-[inset_0px_1px_2px_rgba(255,255,255,0.9),inset_0px_-2px_4px_rgba(0,0,0,0.08),0_8px_32px_0_rgba(31,38,135,0.15),0_2px_6px_rgba(0,0,0,0.04)]",
+        "shadow-[inset_0px_1.5px_2px_rgba(255,255,255,0.95),inset_0px_-2px_4px_rgba(0,0,0,0.10),0_10px_32px_0_rgba(31,38,135,0.18),0_2px_8px_rgba(0,0,0,0.06)]",
       shadowHover:
-        "hover:shadow-[inset_0px_1px_3px_rgba(255,255,255,1),inset_0px_-2px_4px_rgba(0,0,0,0.12),0_12px_36px_0_rgba(31,38,135,0.22),0_4px_10px_rgba(0,0,0,0.06)]",
+        "hover:shadow-[inset_0px_1.5px_3px_rgba(255,255,255,1),inset_0px_-3px_5px_rgba(0,0,0,0.14),0_16px_40px_0_rgba(31,38,135,0.25),0_4px_12px_rgba(0,0,0,0.08)]",
       shadowActive:
         "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.15),inset_0px_-1px_2px_rgba(255,255,255,0.4),0_4px_14px_0_rgba(31,38,135,0.08)]",
     },
@@ -134,9 +134,9 @@ export default function Button({
       badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.3)]",
       badgeHover: "group-hover:bg-white/30 group-hover:text-white group-hover:border-white/45",
       shadow:
-        "shadow-[inset_0px_3px_5px_rgba(255,255,255,0.35),inset_0px_1px_1px_rgba(255,255,255,0.7),inset_0px_-3px_5px_rgba(0,0,0,0.35),0_8px_24px_rgba(0,0,0,0.15)]",
+        "shadow-[inset_0px_3px_6px_rgba(255,255,255,0.40),inset_0px_1px_1px_rgba(255,255,255,0.75),inset_0px_-3px_6px_rgba(0,0,0,0.40),0_10px_28px_rgba(0,0,0,0.20)]",
       shadowHover:
-        "hover:shadow-[inset_0px_3px_5px_rgba(255,255,255,0.45),inset_0px_1px_1px_rgba(255,255,255,0.85),inset_0px_-3px_5px_rgba(0,0,0,0.3),0_12px_32px_rgba(0,0,0,0.22)]",
+        "hover:shadow-[inset_0px_3px_6px_rgba(255,255,255,0.50),inset_0px_1px_1px_rgba(255,255,255,0.90),inset_0px_-3px_6px_rgba(0,0,0,0.35),0_14px_36px_rgba(0,0,0,0.26)]",
       shadowActive:
         "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.3),inset_0px_-1px_2px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.1)]",
     },
@@ -152,9 +152,9 @@ export default function Button({
       badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.4)]",
       badgeHover: "group-hover:bg-white/25 group-hover:text-white group-hover:border-white/45",
       shadow:
-        "shadow-[inset_0px_4px_6px_rgba(255,255,255,0.4),inset_0px_1px_1px_rgba(255,255,255,0.8),inset_0px_-4px_6px_rgba(0,0,0,0.5),0px_10px_24px_-4px_rgba(34,197,94,0.6),0px_4px_12px_rgba(22,163,74,0.35)]",
+        "shadow-[inset_0px_4px_6px_rgba(255,255,255,0.45),inset_0px_1px_1px_rgba(255,255,255,0.85),inset_0px_-4px_6px_rgba(0,0,0,0.50),0px_12px_28px_-4px_rgba(34,197,94,0.65),0px_4px_14px_rgba(22,163,74,0.40)]",
       shadowHover:
-        "hover:shadow-[inset_0px_4px_6px_rgba(255,255,255,0.5),inset_0px_1px_1px_rgba(255,255,255,0.95),inset_0px_-4px_6px_rgba(0,0,0,0.45),0px_14px_32px_-4px_rgba(34,197,94,0.85),0px_6px_18px_rgba(22,163,74,0.5)]",
+        "hover:shadow-[inset_0px_4px_6px_rgba(255,255,255,0.55),inset_0px_1px_1px_rgba(255,255,255,0.95),inset_0px_-4px_6px_rgba(0,0,0,0.45),0px_16px_36px_-4px_rgba(34,197,94,0.85),0px_6px_20px_rgba(22,163,74,0.50)]",
       shadowActive:
         "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.5),inset_0px_-1px_2px_rgba(255,255,255,0.3),0px_6px_16px_rgba(34,197,94,0.4)]",
     },

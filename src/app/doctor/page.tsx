@@ -10,30 +10,30 @@ export default function DoctorPage() {
     <>
       <Breadcrumbs items={[{ label: t("nav.about") }]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-16 px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
           <div className="shrink-0">
             <PhysicianAvatar size="xl" />
           </div>
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold mb-2">DR. SHAHNAWAZ F SHAH</h1>
-            <p className="text-[var(--color-clinical-300)] text-lg mb-2">{t("doctor.specialty")}</p>
-            <p className="text-white/80 font-medium text-sm sm:text-base">M.B.B.S., M.D. (Anaesthesiology) • FIAPM • FCPM-MUHS • FPM</p>
+            <h1 className="text-4xl sm:text-5xl font-bold mb-3">DR. SHAHNAWAZ F SHAH</h1>
+            <p className="text-[var(--color-clinical-300)] text-xl mb-2">{t("doctor.specialty")}</p>
+            <p className="text-white/80 font-medium text-base sm:text-lg">M.B.B.S., M.D. (Anaesthesiology) • FIAPM • FCPM-MUHS • FPM</p>
           </div>
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("doctor.clinicPhilosophy")}</h2>
-          <p className="text-[var(--color-text-secondary)] leading-relaxed text-lg">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <section className="mb-14">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4">{t("doctor.clinicPhilosophy")}</h2>
+          <p className="text-[var(--color-text-secondary)] leading-relaxed text-lg sm:text-xl">
             {t("doctor.bio")}
           </p>
         </section>
 
         {/* Education & Qualifications */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("doctor.educationTitle")}</h2>
+        <section className="mb-14">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-6">{t("doctor.educationTitle")}</h2>
           <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)] shadow-sm">
             <ul className="space-y-4">
               <li className="flex items-start gap-3">

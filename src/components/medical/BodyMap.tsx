@@ -375,7 +375,7 @@ export default function BodyMap() {
   return (
     <section
       id="body-map"
-      className="py-16 px-4 sm:px-6 lg:px-8"
+      className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
       aria-labelledby="body-map-title"
     >
       <div className="max-w-7xl mx-auto">
@@ -386,11 +386,11 @@ export default function BodyMap() {
           </p>
           <h2
             id="body-map-title"
-            className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3"
+            className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4"
           >
             Where Does It Hurt?
           </h2>
-          <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
             Select a region on the body map to explore conditions affecting that area.
             Click or use keyboard arrows to navigate.
           </p>

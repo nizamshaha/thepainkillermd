@@ -44,7 +44,7 @@ export default function WatchAndLearn() {
     : [];
 
   return (
-    <section id="videos" className="py-16 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="watch-title">
+    <section id="videos" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="watch-title">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
@@ -53,11 +53,11 @@ export default function WatchAndLearn() {
           </p>
           <h2
             id="watch-title"
-            className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-3"
+            className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4"
           >
             Watch &amp; Learn
           </h2>
-          <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
             Hear directly from patients who found relief, and explore 3D anatomical walkthroughs and procedure animations.
           </p>
         </div>

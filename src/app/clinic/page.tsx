@@ -20,10 +20,10 @@ export default function ClinicPage() {
     <>
       <Breadcrumbs items={[{ label: t("nav.clinic") }]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-16 px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">{t("clinic.title")}</h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">{t("clinic.title")}</h1>
+          <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
             A calm, professional environment designed for comfortable consultation and advanced interventional procedures.
           </p>
         </div>
