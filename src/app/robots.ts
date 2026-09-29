@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/admin/"],
       },
     ],
-    sitemap: "https://thepainkillermd.com/sitemap.xml",
+    sitemap: "https://thepainkillermd.in/sitemap.xml",
   };
 }

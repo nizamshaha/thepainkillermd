@@ -258,7 +258,7 @@ export default function AssessmentReport({
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
       `${assuranceMessage}\n\n` +
       `*${t("assessment.report.disclaimer")}*\n` +
-      `https://thepainkillermd.com`
+      `https://thepainkillermd.in`
     );
   }, [
     patientData,

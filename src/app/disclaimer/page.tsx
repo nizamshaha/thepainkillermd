@@ -12,7 +12,7 @@ export default function DisclaimerPage() {
         <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Medical Disclaimer</h1>
         <div className="prose prose-stone max-w-none text-[var(--color-text-secondary)] space-y-4 leading-relaxed">
           <p>
-            The information provided on this website (thepainkillermd.com) is for educational and informational
+            The information provided on this website (thepainkillermd.in) is for educational and informational
             purposes only. It is not intended as a substitute for professional medical advice, diagnosis, or treatment.
           </p>
           <p>

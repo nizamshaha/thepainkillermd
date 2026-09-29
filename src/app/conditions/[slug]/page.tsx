@@ -10,7 +10,7 @@ import ConditionFAQ from "./ConditionFAQ";
 import RelatedContent from "./RelatedContent";
 import { useT } from "@/lib/useT";
 import { notFound } from "next/navigation";
-import { validateSlug } from "@/lib/security";
+import { validateSlug, sanitizeJsonLd } from "@/lib/security";
 
 // Generate static params for all conditions
 export default function ConditionPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,8 +32,68 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
     severe: "bg-red-100 text-red-800 border-red-200",
   };
 
+  const conditionSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalCondition",
+    name: condition.name,
+    description: condition.overview,
+    url: `https://thepainkillermd.in/conditions/${condition.slug}`,
+    signOrSymptom: condition.symptoms.map((s) => ({
+      "@type": "MedicalSignOrSymptom",
+      name: s,
+    })),
+    possibleTreatment: condition.treatmentOptions.map((item) => ({
+      "@type": "MedicalTherapy",
+      name: item,
+    })),
+    riskFactor: condition.causes.map((c) => ({
+      "@type": "MedicalRiskFactor",
+      name: c,
+    })),
+    associatedAnatomy: {
+      "@type": "AnatomicalStructure",
+      name: condition.category,
+    },
+    recognizingAuthority: {
+      "@type": "Organization",
+      name: "Indian Academy of Pain Medicine (IAPM)",
+    },
+  };
+
+  const faqSchema =
+    condition.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: condition.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
+
   return (
     <>
+      {/* Structured Data: MedicalCondition & FAQPage Rich Snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: sanitizeJsonLd(conditionSchema),
+        }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: sanitizeJsonLd(faqSchema),
+          }}
+        />
+      )}
+
       <Breadcrumbs items={[
         { label: t("nav.conditions"), href: "/conditions" },
         { label: condition.name },

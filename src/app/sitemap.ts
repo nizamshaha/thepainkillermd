@@ -4,7 +4,7 @@ import { procedures } from "@/data/procedures";
 import { medications } from "@/data/medications";
 import { allPainAreas } from "@/data/painAreasFull";
 
-const BASE_URL = "https://thepainkillermd.com";
+const BASE_URL = "https://thepainkillermd.in";
 const LANGUAGES = ["en", "hi", "mr", "gu"] as const;
 
 function withAlternates(path: string): MetadataRoute.Sitemap[number] {

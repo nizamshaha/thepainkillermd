@@ -7,7 +7,7 @@ import { conditions } from "@/data/conditions";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { useT } from "@/lib/useT";
 import ContentDiscovery from "@/components/ui/ContentDiscovery";
-import { validateSlug } from "@/lib/security";
+import { validateSlug, sanitizeJsonLd } from "@/lib/security";
 
 export default function ProcedurePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -28,8 +28,40 @@ export default function ProcedurePage({ params }: { params: Promise<{ slug: stri
 
   const evidence = evidenceColors[proc.evidenceLevel] || evidenceColors.moderate;
 
+  const procedureSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalProcedure",
+    name: proc.name,
+    description: proc.description,
+    url: `https://thepainkillermd.in/procedures/${proc.slug}`,
+    howPerformed: proc.technique.join("; "),
+    indication: proc.indications.map((ind) => ({
+      "@type": "MedicalIndication",
+      name: ind,
+    })),
+    procedureType: "Percutaneous Interventional",
+    bodyLocation: proc.category,
+    performer: {
+      "@type": "Physician",
+      name: "Dr. Shahnawaz F Shah",
+      url: "https://thepainkillermd.in/doctor",
+    },
+    recognizingAuthority: {
+      "@type": "Organization",
+      name: "Indian Academy of Pain Medicine (IAPM) & World Institute of Pain (WIP)",
+    },
+  };
+
   return (
     <>
+      {/* Structured Data: MedicalProcedure Rich Snippet */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: sanitizeJsonLd(procedureSchema),
+        }}
+      />
+
       <Breadcrumbs items={[
         { label: t("nav.procedures"), href: "/procedures" },
         { label: proc.name },
