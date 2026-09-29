@@ -58,72 +58,80 @@ export default function Home() {
       {/* Global Search Modal */}
       <SearchModal />
 
-      {/* === SECTION 1: Hero === */}
-      <section id="hero" className="relative bg-gradient-to-br from-[var(--color-primary-900)] via-[var(--color-primary-800)] to-[var(--color-primary-700)] text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
-          <div className="flex flex-col items-center justify-center text-center w-full">
-            {/* Centered Typography & Profile Badge */}
-            <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-              {/* Trust badge */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-sm sm:text-base font-medium mb-8">
-                <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse-subtle" />
-                {t("hero.credential")}
-              </div>
+      {/* === SECTION 1: Hero — Full-Screen Fluid Adaptive Layout === */}
+      <section
+        id="hero"
+        className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-gradient-to-br from-[var(--color-primary-900)] via-[var(--color-primary-800)] to-[var(--color-primary-700)] text-white overflow-hidden"
+      >
+        <div className="w-full max-w-[3840px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 flex-1 flex flex-col justify-between py-6 sm:py-8 lg:py-10">
+          {/* Top Zone: Pinned Accreditation / Trust Badge */}
+          <div className="w-full flex justify-center pt-2 sm:pt-4 flex-shrink-0">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-sm sm:text-base font-medium shadow-sm">
+              <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse-subtle" />
+              {t("hero.credential")}
+            </div>
+          </div>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-8 text-center tracking-tight">
-                {t("hero.headline")}
-              </h1>
+          {/* Middle Zone: Absorbs Empty Vertical Real Estate (my-auto) */}
+          <div className="my-auto w-full max-w-[1400px] mx-auto flex flex-col items-center justify-center text-center py-6 sm:py-8">
+            <h1 className="fluid-hero font-extrabold leading-[1.08] tracking-tight mb-5 sm:mb-7 text-center text-white drop-shadow-sm max-w-5xl">
+              {t("hero.headline")}
+            </h1>
 
-              <p className="text-xl sm:text-2xl text-white/85 max-w-3xl mb-8 leading-relaxed text-center font-normal">
-                {t("hero.subtitle")}
-              </p>
+            <p className="fluid-subtitle text-white/85 max-w-4xl mx-auto mb-7 sm:mb-9 leading-relaxed text-center font-normal">
+              {t("hero.subtitle")}
+            </p>
 
-              {/* Physician credentials */}
-              <div className="flex items-center justify-center gap-4 mb-10 text-white/80 mx-auto text-left">
-                <PhysicianAvatar size="md" />
-                <div>
-                  <p className="font-bold text-white uppercase tracking-wide text-base sm:text-lg">DR. SHAHNAWAZ F SHAH</p>
-                  <p className="text-sm sm:text-base text-white/90">{t("doctor.specialty")}</p>
-                  <p className="text-xs sm:text-sm text-white/70">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
-                </div>
-              </div>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mt-8">
-                <Button
-                  label={t("hero.cta.primary")}
-                  href="#book"
-                  variant="light"
-                  size="lg"
-                />
-                <Button
-                  label={t("hero.cta.secondary")}
-                  href="#pain-wizard"
-                  variant="secondary"
-                  size="lg"
-                />
-                <Button
-                  label="Explore 2D Body"
-                  href="#body-map"
-                  variant="primary"
-                  size="lg"
-                />
+            {/* Physician credentials badge */}
+            <div className="flex items-center justify-center gap-4 mb-8 sm:mb-10 text-white/80 mx-auto text-left bg-white/5 border border-white/15 rounded-full px-5 py-2.5 backdrop-blur-md shadow-md">
+              <PhysicianAvatar size="md" />
+              <div>
+                <p className="font-bold text-white uppercase tracking-wide text-sm sm:text-base lg:text-lg">DR. SHAHNAWAZ F SHAH</p>
+                <p className="text-xs sm:text-sm lg:text-base text-white/90">{t("doctor.specialty")}</p>
+                <p className="text-[11px] sm:text-xs text-white/60">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
               </div>
             </div>
 
-            {/* Distributed Stats */}
-            <div className="flex flex-wrap justify-center gap-10 md:gap-20 w-full mt-16 md:mt-20 border-t border-white/10 pt-10">
-              <div className="text-center min-w-[140px]">
-                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">20+</p>
-                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.conditions")}</p>
+            {/* Fluid CTA Buttons */}
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 w-full max-w-3xl">
+              <Button
+                label={t("hero.cta.primary")}
+                href="#book"
+                variant="light"
+                size="lg"
+                className="flex-1 min-w-[220px]"
+              />
+              <Button
+                label={t("hero.cta.secondary")}
+                href="#pain-wizard"
+                variant="secondary"
+                size="lg"
+                className="flex-1 min-w-[200px]"
+              />
+              <Button
+                label="Explore 2D Body"
+                href="#body-map"
+                variant="primary"
+                size="lg"
+                className="flex-1 min-w-[200px]"
+              />
+            </div>
+          </div>
+
+          {/* Bottom Zone: Pinned to Screen Bottom with Distributed Stat Cards */}
+          <div className="w-full border-t border-white/10 pt-6 pb-4 sm:pb-6 mt-auto flex-shrink-0">
+            <div className="flex flex-wrap justify-between items-center gap-4 sm:gap-6 lg:gap-8 w-full max-w-[1600px] mx-auto px-2 sm:px-4">
+              <div className="flex-1 min-w-[150px] text-center px-4 py-3 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 shadow-lg shadow-black/10">
+                <p className="fluid-stat font-extrabold text-white tracking-tight">20+</p>
+                <p className="text-xs sm:text-sm lg:text-base text-white/70 mt-1 font-semibold uppercase tracking-wider">{t("hero.stats.conditions")}</p>
               </div>
-              <div className="text-center min-w-[140px]">
-                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">15+</p>
-                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.experience")}</p>
+              <div className="flex-1 min-w-[150px] text-center px-4 py-3 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 shadow-lg shadow-black/10">
+                <p className="fluid-stat font-extrabold text-white tracking-tight">15+</p>
+                <p className="text-xs sm:text-sm lg:text-base text-white/70 mt-1 font-semibold uppercase tracking-wider">{t("hero.stats.experience")}</p>
               </div>
-              <div className="text-center min-w-[140px]">
-                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">10K+</p>
-                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.patients")}</p>
+              <div className="flex-1 min-w-[150px] text-center px-4 py-3 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 shadow-lg shadow-black/10">
+                <p className="fluid-stat font-extrabold text-white tracking-tight">10K+</p>
+                <p className="text-xs sm:text-sm lg:text-base text-white/70 mt-1 font-semibold uppercase tracking-wider">{t("hero.stats.patients")}</p>
               </div>
             </div>
           </div>
@@ -561,23 +569,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* === SECTION 13: Final CTA === */}
-      <section id="book" className="py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+      {/* === SECTION 13: Final CTA — Fluid Full-Screen Adaptive Section === */}
+      <section id="book" className="min-h-[60dvh] flex flex-col justify-center items-center py-20 px-4 sm:px-8 lg:px-12 bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white w-full">
+        <div className="w-full max-w-[3840px] mx-auto text-center my-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="fluid-h1 font-extrabold mb-6 tracking-tight">
               {t("cta.title")}
             </h2>
-            <p className="text-xl sm:text-2xl text-white/85 mb-10 max-w-2xl mx-auto">
+            <p className="fluid-subtitle text-white/85 mb-10 max-w-3xl mx-auto">
               {t("cta.description")}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-xl mx-auto w-full">
               <Button
                 label={`📞 ${t("cta.call")}`}
                 href="tel:+919769682366"
                 variant="light"
                 size="lg"
+                className="flex-1 w-full sm:w-auto min-w-[200px]"
               />
               <Button
                 label={`💬 ${t("cta.whatsapp")}`}
@@ -585,10 +594,11 @@ export default function Home() {
                 variant="whatsapp"
                 size="lg"
                 newTab={true}
+                className="flex-1 w-full sm:w-auto min-w-[200px]"
               />
             </div>
 
-            <p className="mt-6 text-sm text-white/50">
+            <p className="mt-8 text-sm text-white/50">
               {t("footer.bookOnline")}
             </p>
           </div>

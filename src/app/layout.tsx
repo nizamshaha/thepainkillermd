@@ -102,7 +102,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-[100dvh] flex flex-col w-full">
         {/* Skip Navigation — WCAG 2.2 AA */}
         <a href="#main-content" className="skip-link">
           Skip to main content
@@ -111,7 +111,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LanguageProvider>
           <Header />
 
-          <main id="main-content" className="flex-1" role="main">
+          <main id="main-content" className="flex-1 flex flex-col w-full" role="main">
             {children}
           </main>
 
