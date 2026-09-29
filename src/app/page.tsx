@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import BodyMap from "@/components/medical/BodyMap";
 import SensationExplorer from "@/components/medical/SensationExplorer";
 import PainWizard from "@/components/medical/PainWizard";
@@ -62,25 +61,25 @@ export default function Home() {
       {/* === SECTION 1: Hero === */}
       <section id="hero" className="relative bg-gradient-to-br from-[var(--color-primary-900)] via-[var(--color-primary-800)] to-[var(--color-primary-700)] text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column: Heading, Badges, CTAs, and Trust Stats */}
-            <div className="flex flex-col items-start text-left">
+          <div className="flex flex-col items-center justify-center text-center w-full">
+            {/* Centered Typography & Profile Badge */}
+            <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
               {/* Trust badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-6">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse-subtle" />
                 {t("hero.credential")}
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-center">
                 {t("hero.headline")}
               </h1>
 
-              <p className="text-lg sm:text-xl text-white/80 max-w-xl mb-6 leading-relaxed">
+              <p className="text-lg sm:text-xl text-white/80 max-w-2xl mb-6 leading-relaxed text-center">
                 {t("hero.subtitle")}
               </p>
 
               {/* Physician credentials */}
-              <div className="flex items-center gap-3 mb-8 text-sm text-white/70">
+              <div className="flex items-center justify-center gap-3 mb-8 text-sm text-white/70 mx-auto text-left">
                 <PhysicianAvatar size="sm" />
                 <div>
                   <p className="font-bold text-white uppercase tracking-wide">DR. SHAHNAWAZ F SHAH</p>
@@ -90,7 +89,7 @@ export default function Home() {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-start w-full sm:w-auto">
+              <div className="flex flex-wrap justify-center items-center gap-4 mt-8">
                 <Button
                   label={t("hero.cta.primary")}
                   href="#book"
@@ -110,48 +109,21 @@ export default function Home() {
                   size="lg"
                 />
               </div>
-
-              {/* Trust metrics */}
-              <div className="grid grid-cols-3 gap-6 mt-10 pt-8 border-t border-white/10 w-full">
-                <div>
-                  <p className="text-2xl sm:text-3xl font-bold">20+</p>
-                  <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.conditions")}</p>
-                </div>
-                <div>
-                  <p className="text-2xl sm:text-3xl font-bold">15+</p>
-                  <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.experience")}</p>
-                </div>
-                <div>
-                  <p className="text-2xl sm:text-3xl font-bold">10K+</p>
-                  <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.patients")}</p>
-                </div>
-              </div>
             </div>
 
-            {/* Right Column: Balanced Visual Space with Doctor / Clinical imagery */}
-            <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
-              <div className="relative aspect-[4/3] sm:aspect-[14/11] lg:aspect-[5/4] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 backdrop-blur-md group">
-                <Image
-                  src="/doctor-photo.png"
-                  alt="Dr. Shahnawaz F Shah — Evidence-Based Pain Specialist"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                  priority
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-950)]/85 via-[var(--color-primary-950)]/20 to-transparent pointer-events-none" />
-
-                {/* Floating Refractive Glass Overlay Tag */}
-                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/25 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
-                  <div>
-                    <p className="font-bold text-sm tracking-wide text-white">Dr. Shahnawaz F Shah</p>
-                    <p className="text-xs text-white/80">Consultant Spine &amp; Chronic Pain Specialist</p>
-                  </div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-semibold self-start sm:self-auto">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>In-Person &amp; Virtual</span>
-                  </div>
-                </div>
+            {/* Distributed Stats */}
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16 w-full mt-16 border-t border-white/10 pt-8">
+              <div className="text-center min-w-[120px]">
+                <p className="text-2xl sm:text-3xl font-bold">20+</p>
+                <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.conditions")}</p>
+              </div>
+              <div className="text-center min-w-[120px]">
+                <p className="text-2xl sm:text-3xl font-bold">15+</p>
+                <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.experience")}</p>
+              </div>
+              <div className="text-center min-w-[120px]">
+                <p className="text-2xl sm:text-3xl font-bold">10K+</p>
+                <p className="text-xs sm:text-sm text-white/60">{t("hero.stats.patients")}</p>
               </div>
             </div>
           </div>
