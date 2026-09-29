@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import BodyMap from "@/components/medical/BodyMap";
 import SensationExplorer from "@/components/medical/SensationExplorer";
 import PainWizard from "@/components/medical/PainWizard";
@@ -130,9 +131,12 @@ export default function Home() {
             {/* Right Column: Balanced Visual Space with Doctor / Clinical imagery */}
             <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
               <div className="relative aspect-[4/3] sm:aspect-[14/11] lg:aspect-[5/4] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 backdrop-blur-md group">
-                <img
+                <Image
                   src="/doctor-photo.png"
                   alt="Dr. Shahnawaz F Shah — Evidence-Based Pain Specialist"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  priority
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-950)]/85 via-[var(--color-primary-950)]/20 to-transparent pointer-events-none" />
