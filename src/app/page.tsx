@@ -89,22 +89,24 @@ export default function Home() {
             </dl>
           </div>
 
-          {/* Portrait + spine */}
-          <div className="lg:col-span-5 relative mx-auto w-full max-w-[26rem]">
-            <HeroSpine className="absolute -left-10 sm:-left-20 top-6 h-[88%] w-auto z-10" />
-            <div className="relative ml-10 sm:ml-14 rounded-t-[999px] rounded-b-[2rem] overflow-hidden bg-gradient-to-b from-[#3a2f7a] via-[#5a4bb0] to-[#c9c2ee] aspect-[4/5]">
-              <Image
-                src="/doctor-photo.png"
-                alt="Dr. Shahnawaz F Shah"
-                width={376}
-                height={354}
-                priority
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[112%] max-w-none h-auto"
-              />
-            </div>
-            <div className="relative z-20 -mt-10 ml-4 sm:ml-6 mr-4 rounded-2xl bg-white text-[var(--ink)] px-5 py-4 shadow-[var(--shadow-xl)]">
-              <p className="font-display text-xl leading-tight">Dr. Shahnawaz F Shah</p>
-              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">MBBS, MD (Anaesthesiology), FIAPM, FCPM, FPM</p>
+          {/* Spine + portrait: two separate columns with clear space between them */}
+          <div className="lg:col-span-5 mx-auto w-full max-w-[30rem] flex items-center gap-4 sm:gap-10">
+            <HeroSpine className="shrink-0 h-[15rem] sm:h-[24rem] w-auto" />
+            <div className="relative flex-1 min-w-0">
+              <div className="relative rounded-t-[999px] rounded-b-[2rem] overflow-hidden bg-gradient-to-b from-[#3a2f7a] via-[#5a4bb0] to-[#c9c2ee] aspect-[4/5]">
+                <Image
+                  src="/doctor-photo.png"
+                  alt="Dr. Shahnawaz F Shah"
+                  width={376}
+                  height={354}
+                  priority
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[112%] max-w-none h-auto"
+                />
+              </div>
+              <div className="relative z-20 -mt-10 sm:mx-3 rounded-2xl bg-white text-[var(--ink)] px-4 py-3 sm:px-5 sm:py-4 shadow-[var(--shadow-xl)]">
+                <p className="font-display text-lg sm:text-xl leading-tight">Dr. Shahnawaz F Shah</p>
+                <p className="mt-1 text-[13px] sm:text-sm leading-snug text-[var(--color-text-secondary)]">MBBS, MD (Anaesthesiology), FIAPM, FCPM, FPM</p>
+              </div>
             </div>
           </div>
         </div>

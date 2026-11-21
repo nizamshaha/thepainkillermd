@@ -14,11 +14,11 @@ export default function HeroSpine({ className = "" }: { className?: string }) {
     return item;
   });
   const painIndex = 16; // L4
-  const cx = 60;
+  const cx = 50;
   const totalH = y + 50;
 
   return (
-    <svg viewBox={`0 0 200 ${totalH}`} className={className} role="img" aria-label="Illustration of the spine with a highlighted lower-back segment">
+    <svg viewBox={`0 0 ${cx + 135} ${totalH}`} className={className} role="img" aria-label="Illustration of the spine with a highlighted lower-back segment">
       <defs>
         <linearGradient id="vert" x1="0" x2="1">
           <stop offset="0" stopColor="#ffffff" stopOpacity="0.30" />
@@ -62,9 +62,9 @@ export default function HeroSpine({ className = "" }: { className?: string }) {
         return (
           <g className="spine-vertebra" style={{ animationDelay: "1100ms" }}>
             <circle cx={cx} cy={py} r="14" fill="none" stroke="#ff5d6e" strokeWidth="2" className="spine-pain-ring" />
-            <line x1={cx + p.w / 2 + 12} y1={py} x2={150} y2={py} stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
-            <circle cx={150} cy={py} r="2.5" fill="#fff" />
-            <text x={156} y={py + 4} fill="#fff" fontSize="11" fontFamily="var(--font-body)" fontWeight="600">L4–L5</text>
+            <line x1={cx + p.w / 2 + 12} y1={py} x2={cx + 80} y2={py} stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+            <circle cx={cx + 80} cy={py} r="2.5" fill="#fff" />
+            <text x={cx + 87} y={py + 4} fill="#fff" fontSize="11" fontFamily="var(--font-body)" fontWeight="600">L4–L5</text>
           </g>
         );
       })()}
