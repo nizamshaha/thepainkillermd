@@ -103,7 +103,7 @@ export default function Home() {
                   className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[112%] max-w-none h-auto"
                 />
               </div>
-              <div className="relative z-20 -mt-10 sm:mx-3 rounded-2xl bg-white text-[var(--ink)] px-4 py-3 sm:px-5 sm:py-4 shadow-[var(--shadow-xl)]">
+              <div className="relative z-20 mt-4 rounded-2xl bg-white text-[var(--ink)] px-4 py-3 sm:px-5 sm:py-4 shadow-[var(--shadow-xl)]">
                 <p className="font-display text-lg sm:text-xl leading-tight">Dr. Shahnawaz F Shah</p>
                 <p className="mt-1 text-[13px] sm:text-sm leading-snug text-[var(--color-text-secondary)]">MBBS, MD (Anaesthesiology), FIAPM, FCPM, FPM</p>
               </div>
