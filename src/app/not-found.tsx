@@ -24,42 +24,42 @@ export default function NotFound() {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
           <Link
             href="/"
-            className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all text-center"
+            className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
             <span className="text-2xl block mb-1">🏠</span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Home</span>
           </Link>
           <Link
             href="/pain-navigator"
-            className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all text-center"
+            className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
             <span className="text-2xl block mb-1">🗺️</span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Pain Navigator</span>
           </Link>
           <Link
             href="/conditions"
-            className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all text-center"
+            className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
             <span className="text-2xl block mb-1">📋</span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Conditions</span>
           </Link>
           <Link
             href="/procedures"
-            className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all text-center"
+            className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
             <span className="text-2xl block mb-1">💉</span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Procedures</span>
           </Link>
           <Link
             href="/doctor"
-            className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all text-center"
+            className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
             <span className="text-2xl block mb-1">👨‍⚕️</span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Dr. Shah</span>
           </Link>
           <Link
             href="/clinic"
-            className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all text-center"
+            className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
             <span className="text-2xl block mb-1">🏥</span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Clinic</span>

@@ -8,19 +8,19 @@ export default function CookiePolicyPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: t("breadcrumb.cookiePolicy") }]} />
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-[var(--color-text-primary)] mb-6">Cookie Policy</h1>
-        <div className="prose prose-stone max-w-none text-[var(--color-text-secondary)] space-y-4 leading-relaxed text-sm">
+      <div className="max-w-3xl mx-auto px-5 sm:px-6 pt-10 pb-24">
+        <h1 className="hero-line text-[var(--ink)] mb-10 !text-[clamp(2.4rem,3.6vw+0.8rem,4rem)]">Cookie Policy</h1>
+        <div className="prose prose-stone max-w-none text-[var(--grey)] space-y-4 leading-[1.7] text-[17px] rounded-[1.75rem] bg-[var(--mist)] p-7 sm:p-10 reveal">
           <p>
             This website uses minimal cookies to ensure proper functionality. We do not use tracking
             cookies or third-party advertising cookies.
           </p>
-          <h2 className="text-lg text-[var(--color-text-primary)]">Essential Cookies</h2>
+          <h2 className="!text-[1.4rem] !leading-tight !tracking-[-0.02em] text-[var(--ink)] pt-4">Essential Cookies</h2>
           <p>
             Necessary cookies are used for basic website functionality and are always active.
             They cannot be disabled.
           </p>
-          <h2 className="text-lg text-[var(--color-text-primary)]">Third-Party Cookies</h2>
+          <h2 className="!text-[1.4rem] !leading-tight !tracking-[-0.02em] text-[var(--ink)] pt-4">Third-Party Cookies</h2>
           <p>
             Embedded YouTube videos may set cookies when played. These are subject to YouTube&apos;s
             own cookie policy.

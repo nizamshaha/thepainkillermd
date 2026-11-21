@@ -2,6 +2,9 @@
 
 import { procedures } from "@/data/procedures";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import PageHero from "@/components/apple/PageHero";
+import Catalog from "@/components/apple/Catalog";
+import Button from "@/components/ui/Button";
 import { useT } from "@/lib/useT";
 
 const categoryLabels: Record<string, string> = {
@@ -16,26 +19,15 @@ export default function ProceduresPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: t("nav.procedures") }]} />
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-[var(--color-text-primary)] mb-3">{t("index.painProcedures")}</h1>
-          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            {t("index.imageGuided")}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {procedures.map((p) => (
-              <a key={p.slug} href={`/procedures/${p.slug}`} className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg hover:border-[var(--color-clinical-300)] transition-all">
-                <span className="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-[var(--color-primary-50)] text-[var(--color-primary-700)] mb-2">
-                  {categoryLabels[p.category] || p.category}
-                </span>
-                <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] mb-2">{p.name}</h3>
-                <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3">{p.description}</p>
-                <span className="inline-block mt-3 text-sm font-medium text-[var(--color-clinical-600)]">{t("common.learnMore")} →</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PageHero kicker="Image-guided, minimally invasive" title={t("index.painProcedures")} subtitle={t("index.imageGuided")}>
+        <Button label={t("hero.cta.primary")} href="/#book" variant="primary" />
+      </PageHero>
+      <Catalog
+        items={procedures.map((p) => ({ href: `/procedures/${p.slug}`, title: p.name, desc: p.description, group: p.category }))}
+        groupLabels={categoryLabels}
+        placeholder="Search procedures, e.g. epidural"
+        ctaLabel={t("common.learnMore")}
+      />
     </>
   );
 }

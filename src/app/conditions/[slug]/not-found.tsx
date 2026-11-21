@@ -29,7 +29,7 @@ export default function ConditionNotFound() {
             <Link
               key={c.slug}
               href={`/conditions/${c.slug}`}
-              className="group p-3 rounded-lg border border-[var(--color-surface-200)] bg-white hover:shadow-md hover:border-[var(--color-clinical-300)] transition-all text-left"
+              className="group p-3 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-left reveal lift"
             >
               <h3 className="font-semibold text-[var(--color-text-primary)] text-sm group-hover:text-[var(--color-clinical-600)] transition-colors">
                 {c.name}

@@ -62,7 +62,7 @@ export default function VideosPage() {
     <div className="min-h-screen">
       <Breadcrumbs items={[{ label: t("nav.videos") }]} />
       {/* Header */}
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-20 pb-20 sm:pt-24 sm:pb-28 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
           <p className="text-sm font-semibold text-[var(--color-clinical-300)] uppercase tracking-wider mb-2">
             Video Hub
@@ -164,7 +164,7 @@ export default function VideosPage() {
                   <button
                     key={t.id}
                     onClick={() => openTestimonial(t)}
-                    className="group text-left rounded-xl overflow-hidden border border-[var(--color-surface-200)] bg-white hover:shadow-xl transition-all"
+                    className="group text-left rounded-[1.5rem] overflow-hidden ring-1 ring-[var(--hairline)] bg-white transition-all reveal lift"
                     aria-label={`Watch ${t.patientName}'s recovery story`}
                   >
                     <div className="relative aspect-video bg-gradient-to-br from-[var(--color-primary-100)] to-[var(--color-primary-200)] overflow-hidden">
@@ -214,7 +214,7 @@ export default function VideosPage() {
                   <button
                     key={v.id}
                     onClick={() => openVideo(v)}
-                    className="group text-left rounded-xl overflow-hidden border border-[var(--color-surface-200)] bg-white hover:shadow-xl transition-all"
+                    className="group text-left rounded-[1.5rem] overflow-hidden ring-1 ring-[var(--hairline)] bg-white transition-all reveal lift"
                     aria-label={`Play ${v.title}`}
                   >
                     <div className="relative aspect-video bg-gradient-to-br from-[var(--color-primary-100)] to-[var(--color-primary-200)] flex items-center justify-center overflow-hidden">

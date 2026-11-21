@@ -51,7 +51,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
         { label: area.name },
       ]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-12 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-16 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <span className="text-4xl mb-3 block">{area.icon}</span>
           <h1 className="mb-3">{area.name}</h1>
@@ -60,7 +60,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.causes")}</h2>
           <p className="text-sm text-[var(--color-text-muted)] italic mb-3">Some common possible causes include:</p>
           <ul className="space-y-2">
@@ -73,7 +73,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
           </ul>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.symptoms")}</h2>
           <ul className="space-y-2">
             {area.symptoms.map((s, i) => (
@@ -85,7 +85,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
           </ul>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-medical-700)] mb-4">What Can You Try at Home?</h2>
           <ul className="space-y-2">
             {area.selfCare.map((s, i) => (
@@ -108,7 +108,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
           </ul>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.treatment")}</h2>
           <p className="text-[var(--color-text-secondary)] mb-3">Treatment depends on the cause, severity, examination findings and individual patient needs.</p>
           <div className="flex flex-wrap gap-2">
@@ -121,11 +121,11 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
         </section>
 
         {area.faq.length > 0 && (
-          <section className="mb-10">
+          <section className="mb-10 reveal">
             <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.faq")}</h2>
             <div className="space-y-3">
               {area.faq.map((f, i) => (
-                <div key={i} className="p-4 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
+                <div key={i} className="p-4 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)] reveal">
                   <p className="font-semibold text-[var(--color-text-primary)] mb-1">{f.question}</p>
                   <p className="text-sm text-[var(--color-text-secondary)]">{f.answer}</p>
                 </div>
@@ -153,7 +153,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
           ]}
         />
 
-        <div className="mt-10 p-8 rounded-xl bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white text-center">
+        <div className="mt-10 p-8 rounded-[1.75rem] reveal page-stage text-white text-center">
           <h3 className="text-xl font-bold mb-2">{t("cta.title")}</h3>
           <p className="text-white/80 mb-1">Dr Shahnawaz F Shah</p>
           <p className="text-sm text-white/60 mb-6">{t("doctor.specialty")}</p>

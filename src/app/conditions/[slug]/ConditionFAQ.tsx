@@ -17,7 +17,7 @@ export default function ConditionFAQ({ items }: { items: FAQItem[] }) {
         return (
           <div
             key={i}
-            className="rounded-lg border border-[var(--color-surface-200)] overflow-hidden"
+            className="rounded-[1.5rem] ring-1 ring-[var(--hairline)] overflow-hidden reveal"
             role="listitem"
           >
             <button

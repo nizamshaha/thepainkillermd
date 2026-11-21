@@ -4,6 +4,8 @@ import { use } from "react";
 import { conditions, getConditionBySlug } from "@/data/conditions";
 import { procedures } from "@/data/procedures";
 import { medications } from "@/data/medications";
+import LivePainFigure from "@/components/medical/LivePainFigure";
+import SymptomChecker from "@/components/apple/SymptomChecker";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
 import ConditionFAQ from "./ConditionFAQ";
@@ -100,8 +102,9 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
       ]} />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+      <section className="page-stage text-white pt-16 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1.3fr_0.7fr] gap-10 items-center">
+          <div>
           <div className="flex items-center gap-3 mb-4">
             <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${severityColors[condition.severity]}`}>
               {t(`condition.${condition.severity}Severity`)} — {t("condition.severity")}
@@ -110,25 +113,29 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
           </div>
           <h1 className="mb-4">{condition.name}</h1>
           <p className="text-lg text-white/80 leading-relaxed">{condition.overview}</p>
+          </div>
+          {condition.bodyRegions.length > 0 && (
+            <div className="hero-portrait rounded-[1.75rem] bg-white/95 p-5 text-[var(--ink)]">
+              <LivePainFigure
+                regions={condition.bodyRegions}
+                qualities={[condition.category === "nerve" || /sciatica|radiculopathy|neuralgia/.test(condition.slug) ? "shooting" : condition.category === "joint" ? "aching" : "throbbing"]}
+                radiates={/sciatica|radiculopathy|stenosis/.test(condition.slug)}
+                compact
+              />
+              <p className="mt-3 text-center text-sm text-[var(--grey)]">Where {condition.name.toLowerCase()} is usually felt</p>
+            </div>
+          )}
         </div>
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Symptoms */}
-        <section className="mb-10">
-          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.symptoms")}</h2>
-          <ul className="space-y-2">
-            {condition.symptoms.map((s, i) => (
-              <li key={i} className="flex items-start gap-3 text-[var(--color-text-secondary)]">
-                <span className="mt-1.5 w-2 h-2 rounded-full bg-[var(--color-clinical-500)] flex-shrink-0" />
-                {s}
-              </li>
-            ))}
-          </ul>
+        {/* Symptoms — interactive */}
+        <section className="mb-12 reveal">
+          <SymptomChecker title={t("condition.symptoms")} symptoms={condition.symptoms} conditionName={condition.name} />
         </section>
 
         {/* Causes */}
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.causes")}</h2>
           <ul className="space-y-2">
             {condition.causes.map((c, i) => (
@@ -141,7 +148,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         </section>
 
         {/* Diagnosis */}
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.diagnosis")}</h2>
           <p className="text-[var(--color-text-secondary)] mb-3">{t("condition.diagnosisDesc")}</p>
           <ul className="space-y-2">
@@ -155,11 +162,11 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         </section>
 
         {/* Treatment */}
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.treatment")}</h2>
           <div className="space-y-3">
             {condition.treatmentOptions.map((treatment, i) => (
-              <div key={i} className="p-4 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] text-[var(--color-text-secondary)]">
+              <div key={i} className="p-4 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)] text-[var(--color-text-secondary)] reveal">
                 {treatment}
               </div>
             ))}
@@ -168,11 +175,11 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Related Procedures */}
         {conditionProcedures.length > 0 && (
-          <section className="mb-10">
+          <section className="mb-10 reveal">
             <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.relatedProcedures")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {conditionProcedures.map((p) => (
-                <a key={p.slug} href={`/procedures/${p.slug}`} className="p-4 rounded-lg border border-[var(--color-surface-200)] hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all">
+                <a key={p.slug} href={`/procedures/${p.slug}`} className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] hover:border-[var(--color-clinical-300)] transition-all reveal lift">
                   <h3 className="font-semibold text-[var(--color-text-primary)]">{p.name}</h3>
                   <p className="text-sm text-[var(--color-text-secondary)] mt-1 line-clamp-2">{p.description}</p>
                 </a>
@@ -183,11 +190,11 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Related Medications */}
         {conditionMedications.length > 0 && (
-          <section className="mb-10">
+          <section className="mb-10 reveal">
             <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.relatedMedications")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {conditionMedications.map((m) => (
-                <a key={m.slug} href={`/medications/${m.slug}`} className="p-4 rounded-lg border border-[var(--color-surface-200)] hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all">
+                <a key={m.slug} href={`/medications/${m.slug}`} className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] hover:border-[var(--color-clinical-300)] transition-all reveal lift">
                   <h3 className="font-semibold text-[var(--color-text-primary)]">{m.name}</h3>
                   <p className="text-sm text-[var(--color-text-secondary)] mt-1 line-clamp-2">{m.mechanism}</p>
                 </a>
@@ -197,7 +204,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         )}
 
         {/* Red Flags */}
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-alert-critical)] mb-4 flex items-center gap-2">
             <span>🚨</span> {t("condition.redFlags")}
           </h2>
@@ -215,7 +222,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* FAQ */}
         {condition.faq.length > 0 && (
-          <section className="mb-10">
+          <section className="mb-10 reveal">
             <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("condition.faq")}</h2>
             <ConditionFAQ items={condition.faq} />
           </section>
@@ -223,11 +230,11 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Related Conditions */}
         {relatedConditions.length > 0 && (
-          <section className="mb-10">
+          <section className="mb-10 reveal">
             <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.relatedConditions")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {relatedConditions.map((c) => (
-                <a key={c.slug} href={`/conditions/${c.slug}`} className="p-4 rounded-lg border border-[var(--color-surface-200)] hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all">
+                <a key={c.slug} href={`/conditions/${c.slug}`} className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] hover:border-[var(--color-clinical-300)] transition-all reveal lift">
                   <h3 className="font-semibold text-[var(--color-text-primary)]">{c.name}</h3>
                   <p className="text-sm text-[var(--color-text-secondary)] mt-1 line-clamp-2">{c.overview}</p>
                 </a>
@@ -240,7 +247,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         <RelatedContent currentCondition={condition} />
 
         {/* Physician Info & CTA */}
-        <section className="mb-10 p-6 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
+        <section className="mb-10 p-6 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)] reveal">
           <div className="flex items-start gap-4">
             <PhysicianAvatar size="lg" />
             <div>

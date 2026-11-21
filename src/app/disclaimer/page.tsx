@@ -8,8 +8,8 @@ export default function DisclaimerPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: t("breadcrumb.disclaimer") }]} />
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-[var(--color-text-primary)] mb-6">Medical Disclaimer</h1>
+      <div className="max-w-3xl mx-auto px-5 sm:px-6 pt-10 pb-24">
+        <h1 className="hero-line text-[var(--ink)] mb-10 !text-[clamp(2.4rem,3.6vw+0.8rem,4rem)]">Medical Disclaimer</h1>
         <div className="prose prose-stone max-w-none text-[var(--color-text-secondary)] space-y-4 leading-relaxed">
           <p>
             The information provided on this website (thepainkillermd.in) is for educational and informational

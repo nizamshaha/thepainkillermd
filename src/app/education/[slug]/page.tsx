@@ -56,7 +56,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-12 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-16 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-4">
@@ -191,7 +191,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
             )}
 
             {/* Doctor CTA */}
-            <section className="mt-10 p-6 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
+            <section className="mt-10 p-6 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)] reveal">
               <div className="flex items-start gap-4">
                 <PhysicianAvatar size="lg" />
                 <div>
@@ -252,7 +252,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="rounded-lg border border-[var(--color-surface-200)] overflow-hidden">
+    <div className="rounded-[1.5rem] ring-1 ring-[var(--hairline)] overflow-hidden reveal">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-[var(--color-surface-50)] transition-colors"

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Footer from "@/components/navigation/Footer";
-import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import Header from "@/components/navigation/Header";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import CookieConsent from "@/components/ui/CookieConsent";
@@ -185,7 +184,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <RevealOnScroll />
         {/* Skip Navigation — WCAG 2.2 AA */}
         <a href="#main-content" className="skip-link">
           Skip to main content

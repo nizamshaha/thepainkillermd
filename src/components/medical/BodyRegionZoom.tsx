@@ -26,7 +26,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
 
   if (!region) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-[90] bg-[rgba(23,15,44,0.45)] backdrop-blur-md flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl p-8 text-center max-w-md">
           <p className="text-[var(--color-text-secondary)]">Detailed view not available for this region.</p>
           <button onClick={onClose} className="mt-4 px-6 py-2 rounded-lg bg-[var(--color-clinical-600)] text-white font-semibold">
@@ -70,23 +70,23 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
   );
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-label={`Pain mapping for ${region.label}`}>
+    <div className="fixed inset-0 z-[90] bg-[rgba(23,15,44,0.45)] backdrop-blur-md flex items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-label={`Pain mapping for ${region.label}`}>
       {/* Backdrop */}
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Panel */}
-      <div className="relative bg-[#0f172a] rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10 animate-fade-in">
+      <div className="relative bg-white rounded-[2rem] w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-[var(--shadow-xl)] step-in">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-[#0f172a]/95 backdrop-blur-sm border-b border-white/10 px-5 py-4 flex items-center justify-between">
+        <div className="sticky top-0 z-10 frost border-b border-[var(--hairline)] px-5 py-4 flex items-center justify-between">
           <div>
-            <h2 className="text-lg text-white">{region.label}</h2>
-            <p className="text-xs text-white/50 mt-0.5">
+            <h2 className="text-xl font-semibold text-[var(--ink)]">{region.label}</h2>
+            <p className="text-sm text-[var(--grey)] mt-0.5">
               {pins.length === 0 ? t("zoom.tapBelow") : `${pins.length} ${t("zoom.painPointsMarked")}`}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-white/10 text-white/70 hover:bg-white/20 flex items-center justify-center transition-colors text-lg"
+            className="w-9 h-9 rounded-full bg-[var(--mist)] text-[var(--ink)] hover:bg-[var(--lavender)] flex items-center justify-center transition-colors text-lg"
             aria-label={t("zoom.close")}
           >
             ×
@@ -95,7 +95,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
 
         {/* SVG Detail View */}
         <div className="p-5">
-          <div className="bg-[#1a2332] rounded-xl p-4 border border-white/5 relative">
+          <div className="bg-[var(--mist)] rounded-[1.5rem] p-4 relative">
             <svg
               ref={svgRef}
               viewBox={region.viewBox}
@@ -111,8 +111,8 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
                 <path
                   key={i}
                   d={path.d}
-                  fill={path.fill}
-                  stroke={path.stroke}
+                  fill={i === 0 ? "#f3eefc" : "#e7defa"}
+                  stroke="#a892dc"
                   strokeWidth={(path as Record<string, unknown>).strokeWidth as number || 1.2}
                   className="pointer-events-none"
                 />
@@ -188,7 +188,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
                           width="30%"
                           height="7%"
                           rx="3"
-                          fill="rgba(15,23,42,0.95)"
+                          fill="rgba(29,27,38,0.92)"
                           stroke="rgba(239,68,68,0.3)"
                           strokeWidth="0.5"
                         />
@@ -249,10 +249,10 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
             {/* Custom pin mode toggle */}
             <button
               onClick={() => setCustomPinMode(!customPinMode)}
-              className={`absolute bottom-3 right-3 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`absolute bottom-3 right-3 px-4 h-9 rounded-full text-sm font-medium transition-all ${
                 customPinMode
-                  ? "bg-red-600 text-white shadow-lg shadow-red-600/30"
-                  : "bg-white/10 text-white/60 hover:bg-white/20"
+                  ? "bg-[#c0283a] text-white"
+                  : "bg-white text-[var(--purple-deep)] ring-1 ring-[var(--hairline)] hover:ring-[var(--lilac)]"
               }`}
             >
               {customPinMode ? `✕ ${t("zoom.cancel")}` : t("zoom.customPin")}
@@ -261,7 +261,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
 
           {/* Predefined anchor list (alternative to SVG tapping) */}
           <div className="mt-4">
-            <p className="text-xs text-white/40 uppercase tracking-wider font-semibold mb-2">{t("zoom.quickSelect")}</p>
+            <p className="text-sm text-[var(--ink)] font-semibold mb-2">{t("zoom.quickSelect")}</p>
             <div className="flex flex-wrap gap-1.5">
               {region.pinAnchors.map((anchor) => {
                 const isPinned = pins.some((p) => p.anchor.id === anchor.id);
@@ -269,10 +269,10 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
                   <button
                     key={anchor.id}
                     onClick={() => togglePin(anchor)}
-                    className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-all border ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
                       isPinned
-                        ? "bg-red-600/20 text-red-300 border-red-500/40"
-                        : "bg-white/5 text-white/50 border-white/10 hover:bg-white/10 hover:text-white/70"
+                        ? "bg-[#fff0f2] text-[#b4233a] border-[#f6c3cb]"
+                        : "bg-white text-[var(--grey)] border-[var(--hairline)] hover:text-[var(--ink)] hover:border-[var(--lilac)]"
                     }`}
                   >
                     {isPinned && "✓ "}
@@ -285,22 +285,22 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
 
           {/* Notes field */}
           <div className="mt-4">
-            <p className="text-xs text-white/40 uppercase tracking-wider font-semibold mb-2">{t("zoom.notesOptional")}</p>
+            <p className="text-sm text-[var(--ink)] font-semibold mb-2">{t("zoom.notesOptional")}</p>
             <textarea
               value={pinNotes}
               onChange={(e) => setPinNotes(e.target.value)}
               placeholder={t("zoom.notesPlaceholder")}
               rows={2}
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-red-500/50 resize-none"
+              className="w-full px-4 py-3 rounded-2xl bg-[var(--mist)] text-[var(--ink)] text-sm placeholder:text-[var(--grey)] focus:outline-none focus:ring-2 focus:ring-[var(--purple)] resize-none"
             />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 bg-[#0f172a]/95 backdrop-blur-sm border-t border-white/10 px-5 py-4 flex items-center justify-between">
+        <div className="sticky bottom-0 frost border-t border-[var(--hairline)] px-5 py-4 flex items-center justify-between">
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl border border-white/20 text-white/60 font-semibold text-sm hover:bg-white/5 transition-colors"
+            className="glass-btn glass-clear border h-10 px-5 text-sm"
           >
             {t("zoom.cancel")}
           </button>
@@ -308,14 +308,14 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
             {pins.length > 0 && (
               <button
                 onClick={() => setPins([])}
-                className="px-4 py-2.5 rounded-xl text-red-400 text-sm font-medium hover:bg-red-400/10 transition-colors"
+                className="px-4 py-2.5 rounded-full text-[#c0283a] text-sm font-medium hover:bg-[#fff0f2] transition-colors"
               >
                 {t("zoom.clearAll")}
               </button>
             )}
             <button
               onClick={() => onConfirm(regionId, pins)}
-              className="px-6 py-2.5 rounded-xl bg-[var(--color-clinical-600)] text-white font-semibold text-sm hover:bg-[var(--color-clinical-700)] transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="glass-btn glass-purple h-10 px-6 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={pins.length === 0}
             >
               {pins.length > 0 ? `${t("zoom.confirm")} (${pins.length})` : t("zoom.skipNoPins")}

@@ -21,7 +21,7 @@ export default function MedicationPage({ params }: { params: Promise<{ slug: str
     <>
       <Breadcrumbs items={[{ label: t("nav.medications"), href: "/medications" }, { label: med.name }]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-12 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-16 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <span className="text-xs text-white/50 uppercase tracking-wider">{med.category.replace("-", " ")}</span>
           <h1 className="mb-4">{med.name}</h1>
@@ -30,14 +30,14 @@ export default function MedicationPage({ params }: { params: Promise<{ slug: str
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("medication.howItWorks")}</h2>
-          <div className="p-5 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] text-[var(--color-text-secondary)] leading-relaxed">
+          <div className="p-5 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)] text-[var(--color-text-secondary)] leading-relaxed reveal">
             {med.mechanism}
           </div>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("medication.commonUses")}</h2>
           <ul className="space-y-2">
             {med.commonUses.map((u, i) => (
@@ -49,7 +49,7 @@ export default function MedicationPage({ params }: { params: Promise<{ slug: str
           </ul>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("medication.sideEffects")}</h2>
           <ul className="space-y-2">
             {med.sideEffects.map((s, i) => (
@@ -61,7 +61,7 @@ export default function MedicationPage({ params }: { params: Promise<{ slug: str
           </ul>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("medication.precautions")}</h2>
           <ul className="space-y-2">
             {med.precautions.map((p, i) => (

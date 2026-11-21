@@ -111,8 +111,8 @@ export default function Home() {
       </section>
 
       {/* ================= BODY MAP & SENSATIONS ================= */}
-      <div className="reveal"><BodyMap /></div>
-      <div className="reveal"><SensationExplorer /></div>
+      <BodyMap />
+      <SensationExplorer />
 
       {/* ================= CARE LADDER — bento ================= */}
       <section id="treatment" className="py-24 sm:py-32 bg-[var(--white)]">
@@ -285,8 +285,8 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="reveal"><WatchAndLearn /></div>
-      <div className="reveal"><PainWizard /></div>
+      <WatchAndLearn />
+      <PainWizard />
 
       {/* ================= CLINIC JOURNEY ================= */}
       <section id="clinic" className="py-24 sm:py-32 bg-[var(--white)]">

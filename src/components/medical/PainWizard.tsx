@@ -6,50 +6,7 @@ import type { WizardResult, WizardStep } from "@/lib/types";
 import { useT } from "@/lib/useT";
 import Button from "@/components/ui/Button";
 import AssessmentReport from "@/components/medical/AssessmentReport";
-
-// Step indicator dots
-function StepIndicator({
-  current,
-  total,
-  answers,
-}: {
-  current: number;
-  total: number;
-  answers: Record<number, string | string[] | number>;
-}) {
-  return (
-    <div
-      className="flex items-center justify-center gap-1.5 mb-8"
-      role="progressbar"
-      aria-valuenow={current}
-      aria-valuemin={1}
-      aria-valuemax={total}
-      aria-label={`Step ${current} of ${total}`}
-    >
-      {Array.from({ length: total }, (_, i) => {
-        const stepNum = i + 1;
-        const isComplete = answers[stepNum] !== undefined;
-        const isCurrent = stepNum === current;
-        return (
-          <div
-            key={stepNum}
-            className={`w-2.5 h-2.5 rounded-full transition-all ${
-              isCurrent
-                ? "bg-[var(--color-clinical-600)] scale-125 ring-2 ring-[var(--color-clinical-200)]"
-                : isComplete
-                ? "bg-[var(--color-medical-500)]"
-                : "bg-[var(--color-surface-300)]"
-            }`}
-            title={isComplete ? `Step ${stepNum}: Complete` : `Step ${stepNum}`}
-          />
-        );
-      })}
-      <span className="ml-3 text-xs font-semibold text-[var(--color-text-muted)]">
-        {current} / {total}
-      </span>
-    </div>
-  );
-}
+import LivePainFigure, { describePain } from "@/components/medical/LivePainFigure";
 
 // Multi-select step (used for Pain Location, Pain Quality, Radiation, Aggravating, Relieving, Red Flags)
 function MultiSelectStep({
@@ -116,7 +73,7 @@ function MultiSelectStep({
       <div className="flex items-center justify-between text-xs text-[var(--color-text-muted)] px-1">
         <span>{t("assessment.selectMultiple")}</span>
         {selected.length > 0 && (
-          <span className="font-semibold text-[var(--color-clinical-600)] bg-[var(--color-clinical-50)] px-2 py-0.5 rounded-full border border-[var(--color-clinical-200)]">
+          <span className="font-semibold text-[var(--purple)] bg-[var(--lavender)] px-2.5 py-0.5 rounded-full pop" key={selected.length}>
             {selected.length} {t("assessment.selectedCount")}
           </span>
         )}
@@ -143,10 +100,10 @@ function MultiSelectStep({
               role="checkbox"
               aria-checked={isSelected}
               onClick={() => toggle(opt.value)}
-              className={`p-3.5 rounded-xl border-2 text-left transition-all flex items-center justify-between gap-3 ${
+              className={`p-3.5 rounded-2xl text-left transition-all duration-300 flex items-center justify-between gap-3 ${
                 isSelected
-                  ? "border-[var(--color-clinical-600)] bg-[var(--color-clinical-50)] text-[var(--color-text-primary)] shadow-sm ring-1 ring-[var(--color-clinical-500)]/30"
-                  : "border-[var(--color-surface-200)] bg-white text-[var(--color-text-primary)] hover:border-[var(--color-clinical-300)] hover:bg-[var(--color-surface-50)]"
+                  ? "bg-white ring-2 ring-[var(--purple)] shadow-[var(--shadow-md)] text-[var(--ink)]"
+                  : "bg-white ring-1 ring-[var(--hairline)] text-[var(--ink)] hover:ring-[var(--lilac)] hover:-translate-y-0.5"
               }`}
             >
               <div className="flex items-center gap-2.5 min-w-0">
@@ -156,11 +113,11 @@ function MultiSelectStep({
                   </span>
                 )}
                 <div className="min-w-0">
-                  <span className="font-semibold text-sm block truncate">
+                  <span className="font-semibold text-sm block leading-snug">
                     {label}
                   </span>
                   {desc && (
-                    <span className="text-xs text-[var(--color-text-muted)] block truncate">
+                    <span className="text-xs text-[var(--color-text-muted)] block">
                       {desc}
                     </span>
                   )}
@@ -169,10 +126,10 @@ function MultiSelectStep({
 
               {/* Checkbox indicator */}
               <div
-                className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
                   isSelected
-                    ? "bg-[var(--color-clinical-600)] border-[var(--color-clinical-600)] text-white"
-                    : "border-[var(--color-surface-300)] bg-white"
+                    ? "bg-[var(--purple)] text-white pop"
+                    : "ring-1 ring-[var(--color-surface-300)] bg-white"
                 }`}
               >
                 {isSelected && (
@@ -235,10 +192,10 @@ function SelectStep({
             role="radio"
             aria-checked={isSelected}
             onClick={() => onChange(opt.value)}
-            className={`p-4 rounded-xl border-2 text-left transition-all ${
+            className={`p-5 rounded-2xl text-left transition-all duration-300 ${
               isSelected
-                ? "border-[var(--color-clinical-600)] bg-[var(--color-clinical-50)] shadow-md ring-1 ring-[var(--color-clinical-500)]/30"
-                : "border-[var(--color-surface-200)] bg-white hover:border-[var(--color-clinical-300)] hover:bg-[var(--color-surface-50)] shadow-sm"
+                ? "bg-white ring-2 ring-[var(--purple)] shadow-[var(--shadow-md)]"
+                : "bg-white ring-1 ring-[var(--hairline)] hover:ring-[var(--lilac)] hover:-translate-y-0.5"
             }`}
           >
             {opt.icon && (
@@ -280,7 +237,7 @@ function RangeStep({
 
   return (
     <div className="text-center py-4">
-      <div className="text-6xl font-black text-[var(--color-clinical-600)] mb-2 tracking-tight">
+      <div key={current} className="pop text-7xl font-semibold mb-2 tracking-[-0.04em]" style={{ color: current <= 3 ? "#157a6e" : current <= 6 ? "#c27a0c" : "#c0283a" }}>
         {current}
         <span className="text-xl text-[var(--color-text-muted)] font-normal ml-1">/10</span>
       </div>
@@ -343,12 +300,10 @@ function YesNoStep({
             role="radio"
             aria-checked={isSelected}
             onClick={() => onChange(opt.value)}
-            className={`px-8 py-4 rounded-xl border-2 text-base font-bold transition-all ${
+            className={`flex-1 px-8 py-5 rounded-2xl text-base font-semibold transition-all duration-300 ${
               isSelected
-                ? opt.value === "yes"
-                  ? "border-[var(--color-alert-warning)] bg-orange-50 text-[var(--color-alert-warning)] shadow-md ring-1 ring-orange-200"
-                  : "border-[var(--color-medical-500)] bg-green-50 text-[var(--color-medical-700)] shadow-md ring-1 ring-green-200"
-                : "border-[var(--color-surface-200)] bg-white text-[var(--color-text-primary)] hover:border-[var(--color-clinical-300)] hover:shadow-sm"
+                ? "bg-white ring-2 ring-[var(--purple)] text-[var(--purple-deep)] shadow-[var(--shadow-md)]"
+                : "bg-white ring-1 ring-[var(--hairline)] text-[var(--ink)] hover:ring-[var(--lilac)] hover:-translate-y-0.5"
             }`}
           >
             {label}
@@ -420,23 +375,35 @@ export default function PainWizard() {
     return s.question;
   };
 
+  const regions = (answers[1] as string[] | undefined) || [];
+  const qualities = (answers[2] as string[] | undefined) || [];
+  const intensity = answers[4] as number | undefined;
+  const radiates = answers[5] === "yes";
+  const radiationPattern = (answers[6] as string[] | undefined) || [];
+  const progress = result ? 100 : Math.round(((currentStep - 1) / totalSteps) * 100);
+
   if (!isOpen) {
     return (
-      <section id="pain-wizard" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8" aria-labelledby="wizard-title">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 id="wizard-title" className="text-[var(--color-text-primary)] mb-4">
-            {t("assessment.title")}
-          </h2>
-          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-xl mx-auto mb-8">
-            {t("assessment.subtitle")}
-          </p>
-          <div className="flex justify-center">
-            <Button
-              label={t("assessment.start")}
-              variant="primary"
-              size="lg"
-              onClick={() => setIsOpen(true)}
-            />
+      <section id="pain-wizard" className="py-24 sm:py-32 bg-[var(--white)]" aria-labelledby="wizard-title">
+        <div className="container-page">
+          <div className="reveal tile overflow-hidden grid lg:grid-cols-2 items-center gap-10 p-8 sm:p-14 bg-[radial-gradient(90%_120%_at_100%_0%,#efe7fd_0%,#f4f1fb_60%)]">
+            <div>
+              <p className="kicker">Interactive assessment · 2 minutes</p>
+              <h2 id="wizard-title" className="text-[var(--ink)]">{t("assessment.title")}</h2>
+              <p className="mt-5 text-lg sm:text-xl text-[var(--grey)] max-w-xl">{t("assessment.subtitle")}</p>
+              <ul className="mt-6 space-y-2 text-[15px] text-[var(--ink)]">
+                <li className="flex gap-2"><span className="text-[var(--purple)]">●</span> Watch your pain appear on the body as you answer</li>
+                <li className="flex gap-2"><span className="text-[var(--purple)]">●</span> {totalSteps} simple questions, tap to answer</li>
+                <li className="flex gap-2"><span className="text-[var(--purple)]">●</span> Get a personal report you can save or share with Dr. Shah</li>
+              </ul>
+              <div className="mt-9">
+                <Button label={t("assessment.start")} variant="primary" size="lg" onClick={() => setIsOpen(true)} />
+              </div>
+            </div>
+            <div className="rounded-[1.75rem] bg-white/70 p-6 ring-1 ring-white">
+              <LivePainFigure regions={["back", "leg"]} qualities={["shooting"]} intensity={7} radiates />
+              <p className="mt-4 text-center text-sm text-[var(--grey)]">Example: lower back pain that shoots down the leg</p>
+            </div>
           </div>
         </div>
       </section>
@@ -444,98 +411,78 @@ export default function PainWizard() {
   }
 
   return (
-    <section id="pain-wizard" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8" aria-labelledby="wizard-title">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-6">
-          <h2 id="wizard-title" className="text-[var(--color-text-primary)]">
-            {t("assessment.title")}
-          </h2>
-          <p className="disclaimer-badge justify-center mt-3">
-            {t("assessment.disclaimerBadge")}
-          </p>
+    <section id="pain-wizard" className="py-24 sm:py-32 bg-[var(--white)]" aria-labelledby="wizard-title">
+      <div className="container-page">
+        <div className="text-center mb-10">
+          <h2 id="wizard-title" className="text-[var(--ink)]">{t("assessment.title")}</h2>
+          <p className="disclaimer-badge justify-center mt-4">{t("assessment.disclaimerBadge")}</p>
         </div>
 
-        {!result ? (
-          <>
-            <StepIndicator current={currentStep} total={totalSteps} answers={answers} />
+        {/* progress */}
+        <div className="max-w-5xl mx-auto mb-8" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="Assessment progress">
+          <div className="flex justify-between text-sm text-[var(--grey)] mb-2">
+            <span>{result ? "Your report" : `${t("assessment.step")} ${currentStep} ${t("assessment.of")} ${totalSteps} · ${getStepTitle(step)}`}</span>
+            <span className="font-semibold text-[var(--purple)]">{progress}%</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-[var(--mist)] overflow-hidden">
+            <div className="h-full rounded-full bg-[linear-gradient(90deg,#8462c6,#5b2ea6)] transition-[width] duration-700 ease-out" style={{ width: `${progress}%` }} />
+          </div>
+        </div>
 
-            <div className="animate-fade-in">
-              {/* Question Header */}
-              <div className="mb-6">
-                <p className="text-xs font-bold text-[var(--color-clinical-600)] uppercase tracking-wider mb-1">
-                  {t("assessment.step")} {currentStep} {t("assessment.of")} {totalSteps}: {getStepTitle(step)}
-                </p>
-                <h3 className="text-xl sm:text-2xl font-bold text-[var(--color-text-primary)]">
-                  {getStepQuestion(step)}
-                </h3>
+        <div className={`max-w-5xl mx-auto grid gap-6 ${result ? "" : "lg:grid-cols-[0.85fr_1.15fr]"}`}>
+          {/* Live pain picture */}
+          <aside className={`rounded-[1.75rem] bg-[var(--mist)] p-6 lg:sticky lg:top-20 self-start ${result ? "" : "hidden lg:block"} ${result ? "grid md:grid-cols-[auto_1fr] gap-6 items-center w-full max-w-2xl mx-auto" : ""}`} aria-live="polite">
+            <div className={result ? "md:w-[260px]" : ""}>
+              <LivePainFigure regions={regions} qualities={qualities} intensity={intensity} radiates={radiates} radiationPattern={radiationPattern} />
+            </div>
+            <div>
+              <p className={`text-sm font-semibold text-[var(--purple)] ${result ? "" : "mt-6 text-center"}`}>Your pain picture</p>
+              <p className={`mt-1 text-[15px] text-[var(--ink)] ${result ? "" : "text-center"}`}>{describePain({ regions, qualities, intensity, radiates })}</p>
+            </div>
+          </aside>
+
+          {!result ? (
+            <div className="rounded-[1.75rem] bg-white ring-1 ring-[var(--hairline)] p-6 sm:p-8 shadow-[var(--shadow-md)]">
+              {/* compact live picture for phones */}
+              <div className="lg:hidden -mx-2 -mt-2 mb-5 rounded-2xl bg-[var(--mist)] p-3 flex items-center gap-3">
+                <div className="w-[132px] shrink-0"><LivePainFigure regions={regions} qualities={qualities} intensity={intensity} radiates={radiates} radiationPattern={radiationPattern} compact /></div>
+                <p className="text-[13px] leading-snug text-[var(--ink)]"><span className="block font-semibold text-[var(--purple)]">Your pain picture</span>{describePain({ regions, qualities, intensity, radiates })}</p>
               </div>
-
-              {/* Dynamic Step Input */}
-              <div className="mb-8">
-                {step.type === "multiselect" && (
-                  <MultiSelectStep
-                    step={step}
-                    value={currentAnswer as string[] | undefined}
-                    onChange={updateAnswer}
-                  />
-                )}
-                {step.type === "select" && (
-                  <SelectStep
-                    step={step}
-                    value={currentAnswer as string | undefined}
-                    onChange={updateAnswer}
-                  />
-                )}
-                {step.type === "range" && (
-                  <RangeStep
-                    step={step}
-                    value={currentAnswer as number | undefined}
-                    onChange={updateAnswer}
-                  />
-                )}
-                {step.type === "yesno" && (
-                  <YesNoStep
-                    step={step}
-                    value={currentAnswer as string | undefined}
-                    onChange={updateAnswer}
-                  />
-                )}
+              <div key={currentStep} className="step-in">
+                <h3 className="text-2xl sm:text-[1.75rem] !leading-tight text-[var(--ink)] mb-6">{getStepQuestion(step)}</h3>
+                <div className="mb-8">
+                  {step.type === "multiselect" && (
+                    <MultiSelectStep step={step} value={currentAnswer as string[] | undefined} onChange={updateAnswer} />
+                  )}
+                  {step.type === "select" && (
+                    <SelectStep step={step} value={currentAnswer as string | undefined} onChange={updateAnswer} />
+                  )}
+                  {step.type === "range" && (
+                    <RangeStep step={step} value={currentAnswer as number | undefined} onChange={updateAnswer} />
+                  )}
+                  {step.type === "yesno" && (
+                    <YesNoStep step={step} value={currentAnswer as string | undefined} onChange={updateAnswer} />
+                  )}
+                </div>
               </div>
-
-              {/* Navigation Controls */}
-              <div className="flex justify-between items-center pt-2">
-                <Button
-                  type="button"
-                  onClick={handlePrev}
-                  disabled={currentStep === 1}
-                  label={t("assessment.previous")}
-                  variant="primary"
-                  size="md"
-                  iconPosition="left"
-                />
+              <div className="flex justify-between items-center pt-2 border-t border-[var(--hairline)] mt-2 pt-6">
+                <Button type="button" onClick={handlePrev} disabled={currentStep === 1} label={t("assessment.previous")} variant="outline" size="md" />
                 <Button
                   type="button"
                   onClick={handleNext}
                   disabled={!canAdvance}
-                  label={
-                    currentStep === totalSteps
-                      ? t("assessment.viewResults")
-                      : t("assessment.next")
-                  }
+                  label={currentStep === totalSteps ? t("assessment.viewResults") : t("assessment.next")}
                   variant="primary"
                   size="md"
                 />
               </div>
             </div>
-          </>
-        ) : (
-          /* Render Dedicated On-Screen Assessment Report Component */
-          <AssessmentReport
-            answers={answers}
-            result={result}
-            onStartOver={handleReset}
-          />
-        )}
+          ) : (
+            <div className="step-in">
+              <AssessmentReport answers={answers} result={result} onStartOver={handleReset} />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

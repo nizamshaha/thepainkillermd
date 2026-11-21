@@ -12,6 +12,27 @@ import {
 import type { PainArea } from "@/data/painAreas";
 import { useT } from "@/lib/useT";
 import BodyRegionZoom from "./BodyRegionZoom";
+import { BODY_OUTLINE } from "./AnatomyFigure";
+
+// Hotspot positions on the anatomical figure (viewBox 0 0 100 200)
+type XY = [number, number][];
+const L = (x: number, y: number): XY => [[x, y], [100 - x, y]];
+const REGION_XY: Record<"front" | "back", Record<string, XY>> = {
+  front: {
+    headache: [[50, 7.5]], "face-pain": [[50, 17]], "neck-cervical-pain": [[50, 33.5]], "shoulder-pain": L(70.5, 43),
+    "chest-pain": [[50, 50]], "arm-pain": L(77.2, 58), "elbow-pain": L(78.6, 69), "forearm-pain": L(81, 80),
+    "wrist-pain": L(83.6, 92), "palm-pain": L(84.8, 98.5), "fingers-pain": L(84, 105), "hip-pain": L(66.5, 94),
+    "thigh-pain-anterior": L(59, 118), "knee-pain": L(58.6, 139), "leg-pain": L(58, 158), "ankle-pain": L(60.2, 181),
+    "foot-pain": L(60.8, 189),
+  },
+  back: {
+    headache: [[50, 8]], "neck-cervical-pain": [[50, 34]], "shoulder-pain": L(70.5, 43), "upper-back-pain": [[50, 47]],
+    "midback-pain": [[50, 62]], "low-back-pain": [[50, 80]], "tail-bone-pain": [[50, 98]], "buttock-pain": L(57, 104),
+    "hip-pain": L(66.5, 94), "arm-pain": L(77.2, 58), "elbow-pain": L(78.6, 69), "forearm-pain": L(81, 80),
+    "wrist-pain": L(83.6, 92), "thigh-pain-posterior": L(59, 121), "knee-pain": L(58.6, 140), "leg-pain": L(58.5, 156),
+    "ankle-pain": L(60.2, 181), "foot-pain": L(60.8, 190),
+  },
+};
 
 interface PlacedPin {
   anchor: { id: string; label: string; x: number; y: number };
@@ -294,161 +315,113 @@ export default function PainBody({ areas, selectedIds, onSelect, onPinsChange }:
         <div className="flex-1 w-full">
           <div
             ref={containerRef}
-            className="body-glow-container relative bg-gradient-to-b from-[var(--color-primary-900)] via-[#0f1d32] to-[var(--color-primary-800)] rounded-2xl p-4 sm:p-6 overflow-hidden"
-            onPointerMove={handlePointerMove}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
-            style={{ "--pointer-x": "50%", "--pointer-y": "50%" } as React.CSSProperties}
+            className="relative rounded-[1.75rem] bg-[var(--mist)] p-4 sm:p-6 overflow-hidden"
           >
-            {/* Cursor glow effect */}
-            <div
-              ref={glowRef}
-              className="body-cursor-glow pointer-events-none absolute inset-0 z-0"
-              style={{ opacity: 0 }}
-              aria-hidden="true"
-            />
-
+            {/* hovered / selected label */}
+            <p className="text-center text-sm font-medium text-[var(--ink)] h-5 mb-2" aria-live="polite">
+              {hovered ? visibleRegions.find((r) => r.id === hovered)?.label : selectedIdsFromMap.length ? `${selectedIdsFromMap.length} area${selectedIdsFromMap.length > 1 ? "s" : ""} selected` : "Tap a point on the body"}
+            </p>
             <svg
               ref={svgRef}
-              viewBox="0 0 200 500"
-              className="relative z-10 w-full max-h-[520px] mx-auto select-none"
-              role="img"
-              aria-label="Interactive body map — click a region to select your pain area"
+              viewBox="0 0 100 200"
+              className="relative z-10 w-full max-h-[540px] mx-auto select-none"
+              role="group"
+              aria-label="Interactive body map — select your pain areas"
             >
-              <title>Interactive Pain Navigator Body Map</title>
-
               <defs>
-                <filter id="glow-hover">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-                <filter id="glow-selected">
-                  <feGaussianBlur stdDeviation="6" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-                <linearGradient id="body-base" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2d3a4d" />
-                  <stop offset="100%" stopColor="#1a2332" />
+                <linearGradient id="pb-skin" x1="0" x2="1">
+                  <stop offset="0" stopColor="#e2d8f8" />
+                  <stop offset="0.5" stopColor="#ffffff" />
+                  <stop offset="1" stopColor="#dbd0f5" />
                 </linearGradient>
+                <radialGradient id="pb-glow">
+                  <stop offset="0" stopColor="#ff5d7a" stopOpacity="0.9" />
+                  <stop offset="0.5" stopColor="#d9365a" stopOpacity="0.35" />
+                  <stop offset="1" stopColor="#d9365a" stopOpacity="0" />
+                </radialGradient>
               </defs>
+              <path d={BODY_OUTLINE} fill="url(#pb-skin)" stroke="#a892dc" strokeWidth="0.45" className="pointer-events-none" />
+              {view === "back" && (
+                <g fill="#d9cdf4" className="pointer-events-none">
+                  {Array.from({ length: 22 }, (_, i) => (
+                    <rect key={i} x={50 - (2.6 + i * 0.12)} y={31 + i * 2.95} width={5.2 + i * 0.24} height={i < 5 ? 1.5 : i < 17 ? 2 : 2.6} rx="1" />
+                  ))}
+                </g>
+              )}
 
-              {/* ── Body outline silhouette ── */}
-              <path
-                d={BODY_OUTLINE_FRONT}
-                fill="url(#body-base)"
-                stroke="#3b4d65"
-                strokeWidth="1.2"
-                opacity="0.3"
-                className="pointer-events-none"
-              />
-
-              {/* ── Interactive regions ── */}
               {visibleRegions.map((region) => {
+                const pts = REGION_XY[view][region.id];
+                if (!pts) return null;
                 const sel = selections.get(region.id);
                 const isSelected = !!sel;
                 const isHovered = hovered === region.id;
                 const intensity = sel?.intensity ?? "moderate";
                 const config = INTENSITY_CONFIG[intensity];
-
-                let fillColor: string;
-                let strokeColor: string;
-                let filterVal: string;
-
-                if (isSelected) {
-                  fillColor = config.fill;
-                  strokeColor = config.stroke;
-                  filterVal = `drop-shadow(${config.glow})`;
-                } else if (isHovered) {
-                  fillColor = "rgba(239, 68, 68, 0.35)";
-                  strokeColor = "#ef4444";
-                  filterVal = "drop-shadow(0 0 8px rgba(239,68,68,0.5))";
-                } else {
-                  fillColor = "rgba(51, 65, 85, 0.15)";
-                  strokeColor = "rgba(71, 85, 105, 0.4)";
-                  filterVal = "none";
-                }
-
                 return (
-                  <path
+                  <g
                     key={region.id}
-                    d={region.front}
-                    fill={fillColor}
-                    stroke={strokeColor}
-                    strokeWidth={isSelected ? 2.5 : isHovered ? 2 : 1}
-                    className="body-region cursor-pointer"
-                    style={{
-                      filter: filterVal,
-                      transition: "fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease",
-                      animation:
-                        isSelected && intensity === "severe"
-                          ? "pain-pulse 1.5s ease-in-out infinite"
-                          : undefined,
-                    }}
-                    data-region={region.id}
-                    data-label={region.label}
+                    className="cursor-pointer outline-none"
                     onClick={() => handleRegionClick(region.id)}
-                    onPointerEnter={(e) =>
-                      handleRegionPointerEnter(region.id, region.label, e)
-                    }
-                    onPointerMove={handleRegionPointerMove}
-                    onPointerLeave={handleRegionPointerLeave}
+                    onPointerEnter={() => setHovered(region.id)}
+                    onPointerLeave={() => setHovered(null)}
                     onTouchStart={() => handleRegionTouch(region.id)}
                     onKeyDown={(e) => handleRegionKeyDown(e, region.id)}
                     tabIndex={0}
                     role="button"
-                    aria-label={`${region.label} — ${
-                      isSelected ? `selected (${intensity}) — click to deselect` : "click to select"
-                    }`}
+                    aria-label={`${region.label} — ${isSelected ? `selected (${intensity}) — click to change` : "click to select"}`}
                     aria-pressed={isSelected}
-                  />
+                  >
+                    {pts.map(([x, y], i) => (
+                      <g key={i}>
+                        <circle cx={x} cy={y} r="4.5" fill="transparent" />
+                        {(isHovered || isSelected) && (
+                          <circle cx={x} cy={y} r={isSelected ? (intensity === "severe" ? 8 : intensity === "moderate" ? 6.5 : 5) : 5} fill="url(#pb-glow)" className={isSelected && intensity === "severe" ? "anim-throb" : ""} />
+                        )}
+                        {isSelected && <circle cx={x} cy={y} r="2.8" fill="none" stroke={config.stroke} strokeWidth="0.5" className="pain-ring" />}
+                        <circle
+                          cx={x}
+                          cy={y}
+                          r={isSelected ? 1.9 : isHovered ? 1.7 : 1.25}
+                          fill={isSelected ? config.stroke : isHovered ? "#d9365a" : "#7a4fcf"}
+                          stroke="#fff"
+                          strokeWidth="0.5"
+                          className={isSelected || isHovered ? "" : "idle-dot"}
+                        />
+                      </g>
+                    ))}
+                  </g>
                 );
               })}
-
-              {/* ── SVG Tooltip ── */}
-              {tooltip && (
-                <g className="pointer-events-none" aria-hidden="true">
-                  <rect
-                    x={Math.max(5, Math.min(140, tooltip.x - 30))}
-                    y={tooltip.y - 4}
-                    width="60"
-                    height="14"
-                    rx="3"
-                    fill="rgba(15,23,42,0.95)"
-                    stroke="rgba(71,85,105,0.5)"
-                    strokeWidth="0.5"
-                  />
-                  <text
-                    x={Math.max(35, Math.min(170, tooltip.x))}
-                    y={tooltip.y + 7}
-                    textAnchor="middle"
-                    fill="#f1f5f9"
-                    fontSize="5.5"
-                    fontWeight="600"
-                    fontFamily="system-ui, -apple-system, sans-serif"
-                  >
-                    {tooltip.label}
-                  </text>
-                </g>
-              )}
             </svg>
 
-            {/* ── Selection count badge ── */}
+            {/* front / back */}
+            <div className="mt-3 flex justify-center">
+              <div className="inline-flex rounded-full bg-white p-1 ring-1 ring-[var(--hairline)]">
+                {(["front", "back"] as const).map((v) => (
+                  <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v}
+                    className={`h-8 px-4 rounded-full text-sm font-medium transition-colors ${view === v ? "bg-[var(--purple)] text-white" : "text-[var(--grey)] hover:text-[var(--ink)]"}`}>
+                    {v === "front" ? "Front" : "Back"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {selectedIdsFromMap.length > 0 && (
-              <div className="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-bold shadow-lg z-20 animate-fade-in">
+              <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[var(--purple)] text-white text-xs font-semibold z-20 pop" key={selectedIdsFromMap.length}>
                 {selectedIdsFromMap.length} selected
               </div>
             )}
           </div>
 
           <p className="text-center text-xs text-[var(--color-text-muted)] mt-3">
-            Hover to preview — body part glows red. Click to select and pinpoint exact pain location.
+            Hover to preview, tap to select and pinpoint the exact spot. Switch between front and back.
           </p>
         </div>
 
         {/* ─── Selection Panel (Desktop) ──────────────────── */}
         <div className="w-full lg:w-80 flex-shrink-0">
-          <div className="bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] rounded-xl p-5 shadow-sm">
-            <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-4 uppercase tracking-wider">
+          <div className="bg-white ring-1 ring-[var(--hairline)] rounded-[1.75rem] p-6 shadow-[var(--shadow-md)]">
+            <h3 className="text-lg font-semibold text-[var(--ink)] mb-4">
               Pain Zones
             </h3>
 
@@ -566,7 +539,7 @@ export default function PainBody({ areas, selectedIds, onSelect, onPinsChange }:
           </div>
 
           {/* ── How it works ── */}
-          <div className="mt-4 p-4 bg-[var(--color-primary-50)] border border-[var(--color-primary-200)] rounded-xl">
+          <div className="mt-4 p-5 bg-[var(--mist)] rounded-[1.5rem]">
             <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
               <strong>{t("painNav.howItWorks")}</strong> {t("painNav.howItWorksDesc")}
             </p>

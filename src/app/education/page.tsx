@@ -20,7 +20,7 @@ export default function EducationPage() {
     <>
       <Breadcrumbs items={[{ label: t("nav.education") }]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-20 pb-20 sm:pt-24 sm:pb-28 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="mb-4">{t("education.title")}</h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
@@ -30,11 +30,11 @@ export default function EducationPage() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section className="mb-12">
+        <section className="mb-12 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("index.browseByCategory")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((cat) => (
-              <div key={cat.name} className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-shadow">
+              <div key={cat.name} className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white transition-shadow reveal lift">
                 <span className="text-2xl block mb-2">{cat.icon}</span>
                 <h3 className="font-bold text-[var(--color-text-primary)] mb-1">{cat.name}</h3>
                 <p className="text-sm text-[var(--color-text-secondary)]">{cat.description}</p>
@@ -43,11 +43,11 @@ export default function EducationPage() {
           </div>
         </section>
 
-        <section className="mb-12">
+        <section className="mb-12 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("index.featuredConditions")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {conditions.slice(0, 4).map((c) => (
-              <a key={c.slug} href={`/conditions/${c.slug}`} className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-all">
+              <a key={c.slug} href={`/conditions/${c.slug}`} className="group p-5 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white transition-all reveal lift">
                 <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] mb-2">{c.name}</h3>
                 <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2">{c.overview}</p>
                 <span className="inline-block mt-2 text-sm font-medium text-[var(--color-clinical-600)]">{t("common.learnMore")} →</span>
@@ -60,7 +60,7 @@ export default function EducationPage() {
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("index.featuredProcedures")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {procedures.slice(0, 4).map((p) => (
-              <a key={p.slug} href={`/procedures/${p.slug}`} className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-all">
+              <a key={p.slug} href={`/procedures/${p.slug}`} className="group p-5 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white transition-all reveal lift">
                 <h3 className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] mb-2">{p.name}</h3>
                 <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2">{p.description}</p>
                 <span className="inline-block mt-2 text-sm font-medium text-[var(--color-clinical-600)]">{t("common.learnMore")} →</span>

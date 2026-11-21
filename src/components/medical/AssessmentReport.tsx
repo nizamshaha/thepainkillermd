@@ -328,7 +328,7 @@ export default function AssessmentReport({
   return (
     <div className="animate-fade-in space-y-6 max-w-2xl mx-auto">
       {/* Header Clinical Card */}
-      <div className="p-6 rounded-2xl bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-800)] text-white shadow-xl">
+      <div className="p-6 rounded-[1.5rem] bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-800)] text-white shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <span className="px-3.5 py-1 rounded-full bg-white/15 text-xs font-semibold tracking-wide uppercase backdrop-blur-sm border border-white/20">
             {t("assessment.report.badge")}
@@ -347,7 +347,7 @@ export default function AssessmentReport({
 
       {/* Safety Alerts (if any) */}
       {redFlagsList.length > 0 && (
-        <div className="p-5 rounded-xl bg-red-50 border-2 border-[var(--color-alert-critical)]/40 shadow-sm">
+        <div className="p-5 rounded-[1.5rem] bg-red-50 border-2 border-[var(--color-alert-critical)]/40 shadow-sm">
           <h3 className="text-base font-bold text-[var(--color-alert-critical)] mb-2 flex items-center gap-2">
             🚨 {t("assessment.report.safetyAlert")}
           </h3>
@@ -364,15 +364,15 @@ export default function AssessmentReport({
       {/* Structured Metrics Breakdown */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Pain Regions */}
-        <div className="p-5 rounded-xl bg-white border border-[var(--color-surface-200)] shadow-sm">
-          <p className="text-xs font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
+        <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
+          <p className="text-xs font-semibold text-[var(--color-clinical-600)] mb-2">
             📍 {t("assessment.report.regionsHeading")}
           </p>
           <div className="flex flex-wrap gap-2">
             {locations.map((loc) => (
               <span
                 key={loc}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[var(--color-surface-100)] text-sm font-semibold text-[var(--color-text-primary)] border border-[var(--color-surface-300)]"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[1.5rem] bg-[var(--color-surface-100)] text-sm font-semibold text-[var(--color-text-primary)] border border-[var(--color-surface-300)]"
               >
                 <span>{REGION_ICONS[loc] || "🦴"}</span>
                 {getRegionName(loc)}
@@ -382,15 +382,15 @@ export default function AssessmentReport({
         </div>
 
         {/* Pain Sensations */}
-        <div className="p-5 rounded-xl bg-white border border-[var(--color-surface-200)] shadow-sm">
-          <p className="text-xs font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
+        <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
+          <p className="text-xs font-semibold text-[var(--color-clinical-600)] mb-2">
             ⚡ {t("assessment.report.qualitiesHeading")}
           </p>
           <div className="flex flex-wrap gap-2">
             {qualities.map((qual) => (
               <span
                 key={qual}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[var(--color-surface-100)] text-sm font-semibold text-[var(--color-text-primary)] border border-[var(--color-surface-300)]"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[1.5rem] bg-[var(--color-surface-100)] text-sm font-semibold text-[var(--color-text-primary)] border border-[var(--color-surface-300)]"
               >
                 <span>{QUALITY_ICONS[qual] || "📌"}</span>
                 {getQualityName(qual)}
@@ -400,8 +400,8 @@ export default function AssessmentReport({
         </div>
 
         {/* Duration */}
-        <div className="p-5 rounded-xl bg-white border border-[var(--color-surface-200)] shadow-sm">
-          <p className="text-xs font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-1">
+        <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
+          <p className="text-xs font-semibold text-[var(--color-clinical-600)] mb-1">
             ⏱️ {t("assessment.report.durationHeading")}
           </p>
           <p className="text-base font-bold text-[var(--color-text-primary)]">
@@ -413,9 +413,9 @@ export default function AssessmentReport({
         </div>
 
         {/* Pain Intensity Scale */}
-        <div className="p-5 rounded-xl bg-white border border-[var(--color-surface-200)] shadow-sm">
+        <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
           <div className="flex justify-between items-center mb-1">
-            <p className="text-xs font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider">
+            <p className="text-xs font-semibold text-[var(--color-clinical-600)]">
               📊 {t("assessment.report.intensityHeading")}
             </p>
             <span className="text-lg font-bold text-[var(--color-clinical-600)]">
@@ -438,8 +438,8 @@ export default function AssessmentReport({
       </div>
 
       {/* Pathways Identified */}
-      <div className="p-5 rounded-xl bg-white border border-[var(--color-surface-200)] shadow-sm">
-        <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider mb-3">
+      <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
+        <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-3">
           🔬 {t("assessment.report.pathwaysHeading")}
         </h3>
         <div className="flex flex-wrap gap-2">
@@ -456,8 +456,8 @@ export default function AssessmentReport({
 
       {/* Clinical Recommendations */}
       {localizedRecommendations.length > 0 && (
-        <div className="p-5 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
-          <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
+        <div className="p-5 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)]">
+          <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-2">
             🩺 {t("assessment.report.recommendationsHeading")}
           </h3>
           <ul className="space-y-2">
@@ -472,9 +472,9 @@ export default function AssessmentReport({
       )}
 
       {/* Patient Intake Form */}
-      <div className="p-6 rounded-2xl bg-white border border-[var(--color-surface-300)] shadow-sm space-y-4">
+      <div className="p-6 rounded-[1.5rem] bg-white border border-[var(--color-surface-300)] shadow-sm space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-blue-50 text-[var(--color-clinical-600)] flex items-center justify-center text-xl flex-shrink-0 border border-blue-100">
+          <div className="w-10 h-10 rounded-full bg-[var(--lavender)] text-[var(--purple)] flex items-center justify-center text-xl flex-shrink-0">
             👤
           </div>
           <div>
@@ -490,7 +490,7 @@ export default function AssessmentReport({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
           {/* Full Name */}
           <div className="space-y-1.5 sm:col-span-2">
-            <label htmlFor="patient-name" className="block text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+            <label htmlFor="patient-name" className="block text-xs font-bold text-[var(--color-text-primary)]">
               {t("assessment.intake.nameLabel")}{" "}
               <span className="text-[var(--color-alert-critical)]">*</span>
             </label>
@@ -501,13 +501,13 @@ export default function AssessmentReport({
               value={patientData.name}
               onChange={(e) => setPatientData((prev) => ({ ...prev, name: e.target.value }))}
               placeholder={t("assessment.intake.namePlaceholder")}
-              className="w-full px-4 py-3 rounded-xl border border-[var(--color-surface-300)] bg-[var(--color-surface-50)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
+              className="w-full px-4 py-3 rounded-[1.5rem] border border-[var(--color-surface-300)] bg-[var(--mist)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
             />
           </div>
 
           {/* Mobile Number */}
           <div className="space-y-1.5">
-            <label htmlFor="patient-mobile" className="block text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+            <label htmlFor="patient-mobile" className="block text-xs font-bold text-[var(--color-text-primary)]">
               {t("assessment.intake.mobileLabel")}{" "}
               <span className="text-[var(--color-alert-critical)]">*</span>
             </label>
@@ -518,13 +518,13 @@ export default function AssessmentReport({
               value={patientData.mobile}
               onChange={(e) => setPatientData((prev) => ({ ...prev, mobile: e.target.value }))}
               placeholder={t("assessment.intake.mobilePlaceholder")}
-              className="w-full px-4 py-3 rounded-xl border border-[var(--color-surface-300)] bg-[var(--color-surface-50)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
+              className="w-full px-4 py-3 rounded-[1.5rem] border border-[var(--color-surface-300)] bg-[var(--mist)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
             />
           </div>
 
           {/* Email Address */}
           <div className="space-y-1.5">
-            <label htmlFor="patient-email" className="block text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+            <label htmlFor="patient-email" className="block text-xs font-bold text-[var(--color-text-primary)]">
               {t("assessment.intake.emailLabel")}{" "}
               <span className="text-xs font-normal text-[var(--color-text-muted)]">
                 {t("assessment.intake.optional")}
@@ -536,14 +536,14 @@ export default function AssessmentReport({
               value={patientData.email}
               onChange={(e) => setPatientData((prev) => ({ ...prev, email: e.target.value }))}
               placeholder={t("assessment.intake.emailPlaceholder")}
-              className="w-full px-4 py-3 rounded-xl border border-[var(--color-surface-300)] bg-[var(--color-surface-50)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
+              className="w-full px-4 py-3 rounded-[1.5rem] border border-[var(--color-surface-300)] bg-[var(--mist)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-clinical-500)] focus:bg-white transition-all shadow-sm"
             />
           </div>
         </div>
       </div>
 
       {/* Action / Sharing Section */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-50/70 to-indigo-50/70 border-2 border-[var(--color-clinical-200)] text-center space-y-4">
+      <div className="p-6 rounded-[1.5rem] bg-[radial-gradient(90%_120%_at_50%_0%,#efe7fd,#f4f1fb)] text-center space-y-4">
         <div>
           <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-1">
             {t("assessment.report.shareTitle")}
@@ -555,7 +555,7 @@ export default function AssessmentReport({
 
         {/* Conditional rendering: locked indicator vs transitioned buttons */}
         {!isValid ? (
-          <div className="py-4 px-5 rounded-xl bg-white/80 border border-dashed border-[var(--color-clinical-300)] text-center max-w-md mx-auto animate-fade-in shadow-sm">
+          <div className="py-4 px-5 rounded-[1.5rem] bg-white/80 border border-dashed border-[var(--color-clinical-300)] text-center max-w-md mx-auto animate-fade-in shadow-sm">
             <div className="text-2xl mb-1">🔒</div>
             <p className="text-sm font-bold text-[var(--color-text-primary)]">
               {t("assessment.intake.lockedTitle")}

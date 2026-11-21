@@ -19,10 +19,11 @@ export default function Header() {
     { label: t("header.painNavigator"), href: "/pain-navigator" },
     { label: t("header.videos"), href: "/videos" },
     { label: t("header.education"), href: "/education" },
+    { label: t("header.medications"), href: "/medications" },
     { label: t("header.aboutDrShah"), href: "/doctor" },
     { label: t("header.clinic"), href: "/clinic" },
   ];
-  const mobileExtra = [{ label: t("header.medications"), href: "/medications" }];
+  const mobileExtra: { label: string; href: string }[] = [];
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -39,25 +40,29 @@ export default function Header() {
           <span className="rounded-lg overflow-hidden ring-1 ring-black/5">
             <Image src="/logo.jpeg" alt="THE PAINKILLER MD" width={62} height={28} className="block" style={{ width: 62, height: 28 }} priority />
           </span>
-          <span className="hidden min-[420px]:block text-[15px] font-semibold tracking-[-0.02em] text-[var(--ink)]">Dr. Shahnawaz F Shah</span>
+          <span className="hidden min-[420px]:block xl:hidden 2xl:block whitespace-nowrap text-[15px] font-semibold tracking-[-0.02em] text-[var(--ink)]">Dr. Shahnawaz F Shah</span>
         </Link>
 
-        <nav className="hidden xl:flex items-center gap-7" aria-label="Main navigation">
+        <nav className="hidden xl:flex items-center gap-5 min-[1760px]:gap-7" aria-label="Main navigation">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               aria-current={active(l.href) ? "page" : undefined}
-              className={`text-[13.5px] tracking-[-0.01em] transition-colors ${active(l.href) ? "text-[var(--purple)] font-medium" : "text-[var(--ink)]/80 hover:text-[var(--purple)]"}`}
+              className={`whitespace-nowrap text-[13.5px] tracking-[-0.01em] transition-colors ${active(l.href) ? "text-[var(--purple)] font-medium" : "text-[var(--ink)]/80 hover:text-[var(--purple)]"}`}
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          <a href="tel:+919769682366" className="hidden lg:flex h-9 w-9 min-[1760px]:w-auto min-[1760px]:px-3 items-center justify-center gap-1.5 rounded-full text-[13px] font-medium text-[var(--ink)] hover:bg-[var(--lavender)] transition-colors" aria-label="Call +91 97696 82366">
+            <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
+            <span className="hidden min-[1760px]:inline whitespace-nowrap">+91 97696 82366</span>
+          </a>
           <div className="hidden sm:block [&_button]:!h-9"><LanguageToggle /></div>
-          <div className="[&_button]:!h-9 [&_button]:!w-9 [&_button]:!ring-0 [&_button]:!bg-transparent"><SearchModal /></div>
+          <div className="shrink-0 [&_button]:!h-9 [&_button]:!w-9 [&_button]:!ring-0 [&_button]:!bg-transparent hover:[&_button]:!bg-[var(--lavender)]"><SearchModal /></div>
           <div className="hidden md:block">
             <Button label={t("header.bookConsultation")} href="/#book" variant="primary" size="sm" />
           </div>

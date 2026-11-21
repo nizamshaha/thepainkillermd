@@ -20,7 +20,7 @@ export default function ClinicPage() {
     <>
       <Breadcrumbs items={[{ label: t("nav.clinic") }]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-20 pb-20 sm:pt-24 sm:pb-28 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="mb-4">{t("clinic.title")}</h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
@@ -30,11 +30,11 @@ export default function ClinicPage() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section className="mb-12">
+        <section className="mb-12 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-6 text-center">{t("clinic.firstVisit")}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
             {firstVisitSteps.map((s) => (
-              <div key={s.step} className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)] text-center">
+              <div key={s.step} className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] text-center reveal">
                 <div className="w-10 h-10 rounded-full bg-[var(--color-clinical-500)] text-white font-bold text-sm flex items-center justify-center mx-auto mb-2">
                   {s.step}
                 </div>
@@ -46,17 +46,17 @@ export default function ClinicPage() {
         </section>
 
         <section className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
+          <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">📍 {t("clinic.location")}</h3>
             <p className="text-[var(--color-text-secondary)]">Surat, Gujarat, India</p>
             <p className="text-sm text-[var(--color-text-muted)] mt-2">Detailed address to be provided by clinic owner.</p>
           </div>
-          <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
+          <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">🕐 {t("clinic.hours")}</h3>
             <p className="text-[var(--color-text-secondary)]">Monday — Saturday: 10:00 AM — 6:00 PM</p>
             <p className="text-sm text-[var(--color-text-muted)] mt-2">Sunday &amp; Public Holidays: Closed</p>
           </div>
-          <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
+          <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">🏥 {t("clinic.facilities")}</h3>
             <ul className="space-y-1.5 text-sm text-[var(--color-text-secondary)]">
               <li>• Fluoroscopy-guided procedure suite</li>
@@ -65,7 +65,7 @@ export default function ClinicPage() {
               <li>• Recovery area</li>
             </ul>
           </div>
-          <div className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)]">
+          <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">📞 {t("clinic.contact")}</h3>
             <div className="space-y-2">
               <a href="tel:+919769682366" className="flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] transition-colors">
@@ -78,7 +78,7 @@ export default function ClinicPage() {
           </div>
         </section>
 
-        <section id="book" className="mb-12 p-8 rounded-xl bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white text-center">
+        <section id="book" className="mb-12 p-8 rounded-[1.75rem] reveal page-stage text-white text-center">
           <h2 className="text-2xl mb-3">{t("clinic.bookNow")}</h2>
           <p className="text-white/80 mb-6 max-w-xl mx-auto">
             Schedule a consultation with Dr. Shahnawaz F Shah for personalized pain evaluation and treatment planning.

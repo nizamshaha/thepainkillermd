@@ -4,6 +4,7 @@ import { use } from "react";
 import { notFound } from "next/navigation";
 import { getProcedureBySlug } from "@/data/procedures";
 import { conditions } from "@/data/conditions";
+import StepPlayer from "@/components/apple/StepPlayer";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { useT } from "@/lib/useT";
 import ContentDiscovery from "@/components/ui/ContentDiscovery";
@@ -67,7 +68,7 @@ export default function ProcedurePage({ params }: { params: Promise<{ slug: stri
         { label: proc.name },
       ]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-12 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-16 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <span className={`px-3 py-1 text-xs font-semibold rounded-full ${evidence.bg} ${evidence.text}`}>
@@ -81,7 +82,7 @@ export default function ProcedurePage({ params }: { params: Promise<{ slug: stri
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("procedure.whatIsIt")}</h2>
           <p className="text-[var(--color-text-secondary)] mb-4">{proc.description}</p>
           <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">{t("condition.symptoms")}</h3>
@@ -95,26 +96,11 @@ export default function ProcedurePage({ params }: { params: Promise<{ slug: stri
           </ul>
         </section>
 
-        <section className="mb-10">
-          <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("procedure.howPerformed")}</h2>
-          <div className="relative">
-            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-[var(--color-surface-200)]" />
-            <div className="space-y-6">
-              {proc.technique.map((step, i) => (
-                <div key={i} className="flex gap-4 relative">
-                  <div className="w-10 h-10 rounded-full bg-[var(--color-clinical-500)] text-white font-bold text-sm flex items-center justify-center shrink-0 z-10">
-                    {i + 1}
-                  </div>
-                  <div className="flex-1 pt-2">
-                    <p className="text-[var(--color-text-secondary)]">{step}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <section className="mb-10 reveal">
+          <StepPlayer title={t("procedure.howPerformed")} steps={proc.technique} />
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("procedure.risks")}</h2>
           <ul className="space-y-2">
             {proc.risks.map((r, i) => (
@@ -126,7 +112,7 @@ export default function ProcedurePage({ params }: { params: Promise<{ slug: stri
           </ul>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("procedure.benefits")}</h2>
           <ul className="space-y-2">
             {proc.benefits.map((b, i) => (
@@ -138,9 +124,9 @@ export default function ProcedurePage({ params }: { params: Promise<{ slug: stri
           </ul>
         </section>
 
-        <section className="mb-10">
+        <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("procedure.recovery")}</h2>
-          <div className="p-5 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] text-[var(--color-text-secondary)] leading-relaxed">
+          <div className="p-5 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)] text-[var(--color-text-secondary)] leading-relaxed reveal">
             {proc.recovery}
           </div>
         </section>

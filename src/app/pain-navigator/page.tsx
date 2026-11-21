@@ -11,7 +11,7 @@ export default function PainNavigatorPage() {
     <div className="min-h-screen">
       <Breadcrumbs items={[{ label: t("nav.painNavigator") }]} />
 
-      <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <section className="page-stage text-white pt-20 pb-20 sm:pt-24 sm:pb-28 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="mb-4">
             {t("painNav.title")}
