@@ -1,157 +1,167 @@
-export default function NervePathway() {
+"use client";
+
+import { useEffect, useState } from "react";
+
+// "How a slipped disc causes leg pain" — four plain-language steps, each with
+// its own clear illustration. Medical terms are kept as small secondary labels.
+
+const BONE = "#f3eefc";
+const BONE_LINE = "#a892dc";
+const DISC = "#c4aef0";
+const NERVE = "#f2b630";
+const NERVE_LINE = "#c98d10";
+const PAIN = "#d9365a";
+
+function StepDisc() {
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-4 text-center">
-        Nerve Pain Pathway — Radiculopathy
-      </h3>
-      <svg viewBox="0 0 800 350" className="w-full" role="img" aria-label="Diagram showing nerve pain pathway from disc herniation through cytokine release, ectopic firing, to dermatomal radiation">
-        <title>Nerve Pain Pathway Diagram</title>
-        <desc>A 4-stage diagram: Disc herniation leads to cytokine release, which causes ectopic firing, resulting in dermatomal radiation pain.</desc>
+    <svg viewBox="0 0 200 150" className="w-full h-auto" aria-hidden="true">
+      {/* spinal cord running down behind the vertebrae */}
+      <rect x="128" y="0" width="16" height="150" rx="8" fill="#fde9b8" stroke={NERVE_LINE} strokeWidth="1" />
+      {/* vertebral bodies */}
+      <rect x="40" y="14" width="78" height="40" rx="10" fill={BONE} stroke={BONE_LINE} strokeWidth="1.5" />
+      <rect x="40" y="96" width="78" height="40" rx="10" fill={BONE} stroke={BONE_LINE} strokeWidth="1.5" />
+      {/* disc with bulge pushing backwards into the nerve */}
+      <path className="anim-bulge" d="M42 60 H112 Q128 62 132 75 Q128 88 112 90 H42 Q36 75 42 60 Z" fill={DISC} stroke="#8a6fd0" strokeWidth="1.2" />
+      {/* nerve root leaving the cord, being pressed */}
+      <path d="M136 70 Q150 78 160 96 Q170 118 186 140" fill="none" stroke={NERVE} strokeWidth="7" strokeLinecap="round" />
+      <path d="M136 70 Q150 78 160 96 Q170 118 186 140" fill="none" stroke={NERVE_LINE} strokeWidth="1" strokeLinecap="round" opacity="0.6" />
+      {/* pressure point */}
+      <circle className="anim-blink" cx="134" cy="75" r="9" fill="none" stroke={PAIN} strokeWidth="1.6" strokeDasharray="3 2" />
+      <text x="56" y="38" fontSize="10" fill="#55516a" fontWeight="600">Bone</text>
+      <text x="56" y="79" fontSize="10" fill="#3d1d78" fontWeight="600">Disc</text>
+      <text x="150" y="60" fontSize="10" fill="#8a5a00" fontWeight="600">Nerve</text>
+    </svg>
+  );
+}
 
-        {/* Background */}
-        <rect width="800" height="350" fill="#f8f9fa" rx="12" />
+function StepInflamed() {
+  return (
+    <svg viewBox="0 0 200 150" className="w-full h-auto" aria-hidden="true">
+      <defs>
+        <radialGradient id="np-swell">
+          <stop offset="0" stopColor={PAIN} stopOpacity="0.45" />
+          <stop offset="1" stopColor={PAIN} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <ellipse className="anim-throb" cx="100" cy="75" rx="70" ry="42" fill="url(#np-swell)" />
+      <path d="M10 95 Q60 60 100 75 Q140 90 190 55" fill="none" stroke={NERVE} strokeWidth="14" strokeLinecap="round" />
+      <path d="M10 95 Q60 60 100 75 Q140 90 190 55" fill="none" stroke="#e0661f" strokeWidth="14" strokeLinecap="round" opacity="0.35" />
+      {/* inflammatory chemicals */}
+      {[[70, 45], [88, 38], [118, 46], [132, 104], [76, 108], [104, 112], [146, 62], [56, 74]].map(([x, y], i) => (
+        <circle key={i} className="anim-float" style={{ animationDelay: `${i * -0.4}s` }} cx={x} cy={y} r={i % 2 ? 3 : 4} fill={PAIN} opacity="0.75" />
+      ))}
+      <text x="100" y="140" fontSize="10" textAnchor="middle" fill="#9b1c3c" fontWeight="600">Swelling around the nerve</text>
+    </svg>
+  );
+}
 
-        {/* Stage 1: Disc Herniation */}
-        <g transform="translate(30, 40)">
-          <rect width="165" height="270" rx="10" fill="white" stroke="#e4e7ec" strokeWidth="1.5" />
-          <rect width="165" height="36" rx="10" fill="#1565c0" />
-          <rect y="26" width="165" height="10" fill="#1565c0" />
-          <text x="82" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">STAGE 1</text>
-          <text x="82" y="58" textAnchor="middle" fill="#1a1d23" fontSize="12" fontWeight="600">Disc Herniation</text>
+function StepSignals() {
+  return (
+    <svg viewBox="0 0 200 150" className="w-full h-auto" aria-hidden="true">
+      <path d="M10 100 H190" stroke={NERVE} strokeWidth="12" strokeLinecap="round" />
+      <path d="M10 100 H190" stroke={NERVE_LINE} strokeWidth="1" opacity="0.5" />
+      {/* healthy quiet signal vs. abnormal bursts */}
+      <path d="M12 52 H50 l5 -10 l5 10 H92 l4 -26 l4 34 l4 -30 l4 30 l4 -38 l4 40 l4 -28 l4 28 l4 -34 l4 34 H188" fill="none" stroke={PAIN} strokeWidth="2" strokeLinejoin="round" className="anim-draw" />
+      {/* sparks on the nerve */}
+      {[60, 105, 150].map((x) => (
+        <path key={x} className="anim-blink" style={{ animationDelay: `${x / 100}s` }} d={`M${x} 88 l6 8 l-5 2 l7 10`} fill="none" stroke="#7a4fcf" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      ))}
+      <text x="12" y="28" fontSize="10" fill="#55516a" fontWeight="600">Pain signals</text>
+      <text x="100" y="135" fontSize="10" textAnchor="middle" fill="#8a5a00" fontWeight="600">Irritated nerve fires on its own</text>
+    </svg>
+  );
+}
 
-          {/* Spine illustration */}
-          <g transform="translate(35, 75)">
-            {/* Vertebrae */}
-            <rect x="20" y="0" width="50" height="15" rx="3" fill="#b2d6ef" stroke="#4a8bc9" strokeWidth="1" />
-            <rect x="20" y="22" width="50" height="15" rx="3" fill="#b2d6ef" stroke="#4a8bc9" strokeWidth="1" />
-            {/* Disc (herniated) */}
-            <ellipse cx="45" cy="20" rx="25" ry="8" fill="#e65100" opacity="0.6" />
-            <ellipse cx="52" cy="20" rx="12" ry="6" fill="#c62828" opacity="0.8" />
-            {/* Compressed nerve */}
-            <path d="M65,15 Q75,10 80,20 Q85,30 80,40" fill="none" stroke="#c62828" strokeWidth="2" strokeDasharray="3,2" />
-            <circle cx="80" cy="25" r="3" fill="#c62828" />
-          </g>
-          <text x="82" y="170" textAnchor="middle" fill="#4a5568" fontSize="9.5">Nucleus pulposus protrudes</text>
-          <text x="82" y="183" textAnchor="middle" fill="#4a5568" fontSize="9.5">through annular tear,</text>
-          <text x="82" y="196" textAnchor="middle" fill="#4a5568" fontSize="9.5">compressing adjacent</text>
-          <text x="82" y="209" textAnchor="middle" fill="#4a5568" fontSize="9.5">nerve root.</text>
+function StepLeg() {
+  return (
+    <svg viewBox="0 0 200 150" className="w-full h-auto" aria-hidden="true">
+      {/* side view: lower back, buttock and leg */}
+      <path
+        d="M70 4 Q60 30 64 50 Q58 62 66 76 Q74 96 78 112 Q82 128 80 138 L104 142 Q110 140 108 136 L96 132 Q96 118 92 104 Q90 86 94 70 Q100 50 96 30 L98 4 Z"
+        fill="#efe9fb"
+        stroke={BONE_LINE}
+        strokeWidth="1.3"
+      />
+      {/* path of pain from lower back to the foot */}
+      <path d="M86 32 Q76 52 74 72 Q78 96 86 116 Q90 128 96 136" fill="none" stroke={PAIN} strokeWidth="2.4" strokeDasharray="4 3" strokeLinecap="round" className="anim-flow" />
+      <circle className="anim-blink" cx="86" cy="30" r="5" fill={PAIN} />
+      <path d="M92 132 l5 5 l-7 1" fill="none" stroke={PAIN} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="112" y="34" fontSize="10" fill="#3d1d78" fontWeight="600">Starts in</text>
+      <text x="112" y="46" fontSize="10" fill="#3d1d78" fontWeight="600">the lower back</text>
+      <text x="112" y="104" fontSize="10" fill="#9b1c3c" fontWeight="600">Felt down</text>
+      <text x="112" y="116" fontSize="10" fill="#9b1c3c" fontWeight="600">the leg</text>
+    </svg>
+  );
+}
 
-          <text x="82" y="240" textAnchor="middle" fill="#c62828" fontSize="9" fontWeight="600">Mechanical Compression</text>
-          <text x="82" y="253" textAnchor="middle" fill="#c62828" fontSize="9" fontWeight="600">+ Chemical Irritation</text>
-        </g>
+const steps = [
+  { title: "A disc bulges", text: "The soft cushion between two bones pushes out and presses on a nerve.", term: "Disc herniation", Art: StepDisc },
+  { title: "The nerve gets inflamed", text: "Chemicals from the disc irritate the nerve and make it swell.", term: "Chemical radiculitis", Art: StepInflamed },
+  { title: "It sends false pain signals", text: "The irritated nerve starts firing by itself, even without an injury.", term: "Ectopic firing", Art: StepSignals },
+  { title: "Pain travels down the leg", text: "You feel the pain along the nerve's path: buttock, thigh, calf or foot.", term: "Sciatica / radiculopathy", Art: StepLeg },
+];
 
-        {/* Arrow 1 */}
-        <g transform="translate(195, 155)">
-          <line x1="0" y1="0" x2="35" y2="0" stroke="#1565c0" strokeWidth="2" />
-          <polygon points="35,-5 45,0 35,5" fill="#1565c0" />
-        </g>
+export default function NervePathway() {
+  const [active, setActive] = useState(0);
+  const [playing, setPlaying] = useState(true);
 
-        {/* Stage 2: Cytokine Release */}
-        <g transform="translate(240, 40)">
-          <rect width="165" height="270" rx="10" fill="white" stroke="#e4e7ec" strokeWidth="1.5" />
-          <rect width="165" height="36" rx="10" fill="#6a1b9a" />
-          <rect y="26" width="165" height="10" fill="#6a1b9a" />
-          <text x="82" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">STAGE 2</text>
-          <text x="82" y="58" textAnchor="middle" fill="#1a1d23" fontSize="12" fontWeight="600">Inflammatory Cascade</text>
+  useEffect(() => {
+    if (!playing) return;
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setActive((a) => (a + 1) % steps.length), 3500);
+    return () => window.clearInterval(id);
+  }, [playing]);
 
-          {/* Cytokine visualization */}
-          <g transform="translate(20, 75)">
-            {/* Nerve fiber */}
-            <path d="M10,40 C40,35 60,45 80,38 C100,31 120,42 140,40" fill="none" stroke="#4a8bc9" strokeWidth="3" />
-            {/* Inflammatory mediators */}
-            <circle cx="30" cy="28" r="5" fill="#e65100" opacity="0.7" />
-            <circle cx="55" cy="22" r="4" fill="#c62828" opacity="0.7" />
-            <circle cx="80" cy="30" r="6" fill="#e65100" opacity="0.6" />
-            <circle cx="110" cy="25" r="4" fill="#c62828" opacity="0.7" />
-            <circle cx="125" cy="32" r="5" fill="#e65100" opacity="0.5" />
-            {/* Labels */}
-            <text x="30" y="18" textAnchor="middle" fill="#e65100" fontSize="7" fontWeight="600">TNF-α</text>
-            <text x="60" y="14" textAnchor="middle" fill="#c62828" fontSize="7" fontWeight="600">IL-1β</text>
-            <text x="90" y="18" textAnchor="middle" fill="#e65100" fontSize="7" fontWeight="600">PGE₂</text>
-            <text x="118" y="16" textAnchor="middle" fill="#c62828" fontSize="7" fontWeight="600">NGF</text>
-          </g>
-
-          <text x="82" y="170" textAnchor="middle" fill="#4a5568" fontSize="9.5">Disc material releases</text>
-          <text x="82" y="183" textAnchor="middle" fill="#4a5568" fontSize="9.5">inflammatory mediators:</text>
-          <text x="82" y="196" textAnchor="middle" fill="#4a5568" fontSize="9.5">TNF-α, IL-1β, PGE₂,</text>
-          <text x="82" y="209" textAnchor="middle" fill="#4a5568" fontSize="9.5">substance P, NGF.</text>
-
-          <text x="82" y="240" textAnchor="middle" fill="#6a1b9a" fontSize="9" fontWeight="600">Chemical Radiculitis</text>
-          <text x="82" y="253" textAnchor="middle" fill="#6a1b9a" fontSize="9" fontWeight="600">Nociceptor Sensitization</text>
-        </g>
-
-        {/* Arrow 2 */}
-        <g transform="translate(405, 155)">
-          <line x1="0" y1="0" x2="35" y2="0" stroke="#6a1b9a" strokeWidth="2" />
-          <polygon points="35,-5 45,0 35,5" fill="#6a1b9a" />
-        </g>
-
-        {/* Stage 3: Ectopic Firing */}
-        <g transform="translate(450, 40)">
-          <rect width="165" height="270" rx="10" fill="white" stroke="#e4e7ec" strokeWidth="1.5" />
-          <rect width="165" height="36" rx="10" fill="#e65100" />
-          <rect y="26" width="165" height="10" fill="#e65100" />
-          <text x="82" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">STAGE 3</text>
-          <text x="82" y="58" textAnchor="middle" fill="#1a1d23" fontSize="12" fontWeight="600">Ectopic Impulse Generation</text>
-
-          {/* Action potential visualization */}
-          <g transform="translate(10, 80)">
-            {/* Baseline */}
-            <line x1="0" y1="50" x2="145" y2="50" stroke="#e4e7ec" strokeWidth="1" strokeDasharray="4,4" />
-            {/* Normal AP */}
-            <path d="M10,50 L25,50 L30,20 L35,80 L40,50 L55,50" fill="none" stroke="#4caf50" strokeWidth="2" />
-            <text x="32" y="95" textAnchor="middle" fill="#4caf50" fontSize="7">Normal</text>
-            {/* Ectopic AP */}
-            <path d="M60,50 L70,50 L75,15 L80,85 L85,50 L95,50" fill="none" stroke="#c62828" strokeWidth="2" />
-            <path d="M88,50 L95,50 L100,10 L105,88 L110,50 L120,50" fill="none" stroke="#c62828" strokeWidth="2" />
-            <path d="M113,50 L120,50 L125,18 L130,82 L135,50 L145,50" fill="none" stroke="#c62828" strokeWidth="2" />
-            <text x="107" y="95" textAnchor="middle" fill="#c62828" fontSize="7">Ectopic</text>
-          </g>
-
-          <text x="82" y="190" textAnchor="middle" fill="#4a5568" fontSize="9.5">Sodium channel upregulation</text>
-          <text x="82" y="203" textAnchor="middle" fill="#4a5568" fontSize="9.5">in damaged axons creates</text>
-          <text x="82" y="216" textAnchor="middle" fill="#4a5568" fontSize="9.5">spontaneous, ectopic</text>
-          <text x="82" y="229" textAnchor="middle" fill="#4a5568" fontSize="9.5">nerve firing patterns.</text>
-
-          <text x="82" y="255" textAnchor="middle" fill="#e65100" fontSize="9" fontWeight="600">Ectopic Firing</text>
-          <text x="82" y="268" textAnchor="middle" fill="#e65100" fontSize="9" fontWeight="600">Spontaneous Pain Signals</text>
-        </g>
-
-        {/* Arrow 3 */}
-        <g transform="translate(615, 155)">
-          <line x1="0" y1="0" x2="35" y2="0" stroke="#c62828" strokeWidth="2" />
-          <polygon points="35,-5 45,0 35,5" fill="#c62828" />
-        </g>
-
-        {/* Stage 4: Dermatomal Radiation */}
-        <g transform="translate(660, 40)">
-          <rect width="130" height="270" rx="10" fill="white" stroke="#e4e7ec" strokeWidth="1.5" />
-          <rect width="130" height="36" rx="10" fill="#c62828" />
-          <rect y="26" width="130" height="10" fill="#c62828" />
-          <text x="65" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">STAGE 4</text>
-          <text x="65" y="58" textAnchor="middle" fill="#1a1d23" fontSize="12" fontWeight="600">Dermatomal Pain</text>
-
-          {/* Dermatome figure */}
-          <g transform="translate(25, 75)">
-            {/* Leg outline */}
-            <path d="M35,0 L40,0 L42,30 L48,80 L45,130 L30,130 L28,80 L32,30Z" fill="#f0f2f5" stroke="#718096" strokeWidth="1" />
-            {/* Pain radiation pattern */}
-            <path d="M35,10 L42,15 L48,60 L45,100 L35,100 L28,60Z" fill="#c62828" opacity="0.15" />
-            <path d="M38,20 L44,25 L46,55 L43,85 L33,85 L30,55Z" fill="#c62828" opacity="0.25" />
-            <path d="M40,30 L43,35 L44,50 L42,70 L36,70 L34,50Z" fill="#c62828" opacity="0.35" />
-            {/* Nerve root */}
-            <circle cx="40" cy="5" r="4" fill="#c62828" />
-            <path d="M40,9 L40,20" stroke="#c62828" strokeWidth="1.5" strokeDasharray="2,2" />
-          </g>
-
-          <text x="65" y="225" textAnchor="middle" fill="#4a5568" fontSize="9">Pain follows the</text>
-          <text x="65" y="237" textAnchor="middle" fill="#4a5568" fontSize="9">dermatomal distribution</text>
-          <text x="65" y="249" textAnchor="middle" fill="#4a5568" fontSize="9">of the compressed</text>
-          <text x="65" y="261" textAnchor="middle" fill="#4a5568" fontSize="9">nerve root.</text>
-
-          <text x="65" y="285" textAnchor="middle" fill="#c62828" fontSize="9" fontWeight="600">Radiating Pain</text>
-        </g>
-      </svg>
-    </div>
+  return (
+    <figure className="w-full mx-0 mb-0" aria-label="How a slipped disc causes leg pain, in four steps">
+      <figcaption className="text-center mb-8">
+        <h3 className="text-2xl text-[var(--ink)]">How a slipped disc causes leg pain</h3>
+        <p className="mt-2 text-[var(--grey)]">The most common reason for sciatica, in four steps. Tap any step to see it move.</p>
+        <button
+          type="button"
+          onClick={() => setPlaying((p) => !p)}
+          className="mt-4 inline-flex items-center gap-2 h-9 px-4 rounded-full text-sm font-medium glass-btn glass-clear border"
+          aria-pressed={playing}
+        >
+          {playing ? (
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          )}
+          {playing ? "Pause walkthrough" : "Play walkthrough"}
+        </button>
+      </figcaption>
+      <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {steps.map(({ title, text, term, Art }, i) => {
+          const on = i === active;
+          return (
+            <li key={title} className="relative">
+              <button
+                type="button"
+                onClick={() => { setActive(i); setPlaying(false); }}
+                aria-current={on ? "step" : undefined}
+                className={`anim-step ${on ? "is-active" : ""} w-full h-full text-left rounded-[1.5rem] bg-white p-5 flex flex-col transition-all duration-500 ${
+                  on ? "ring-2 ring-[var(--purple)] shadow-[var(--shadow-lg)] -translate-y-1" : "ring-1 ring-[var(--hairline)] opacity-80 hover:opacity-100"
+                }`}
+              >
+                <div className="rounded-2xl bg-[var(--canvas)] p-3">
+                  <Art />
+                </div>
+                <div className="mt-5 flex items-center gap-2">
+                  <span className={`h-7 w-7 rounded-full text-sm font-semibold flex items-center justify-center transition-colors ${on ? "bg-[var(--purple)] text-white" : "bg-[var(--lavender)] text-[var(--purple-deep)]"}`}>{i + 1}</span>
+                  <span className="text-[var(--ink)] text-lg font-semibold tracking-[-0.015em]">{title}</span>
+                </div>
+                <span className="mt-2 text-[15px] text-[var(--grey)] leading-relaxed flex-1">{text}</span>
+                <span className="mt-4 text-xs font-medium text-[var(--purple)]">Medical term: {term}</span>
+                {/* progress bar for the active step */}
+                <span className="mt-4 h-1 w-full rounded-full bg-[var(--mist)] overflow-hidden" aria-hidden="true">
+                  <span className={`block h-full bg-[var(--purple)] ${on && playing ? "step-progress" : on ? "w-full" : "w-0"}`} />
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+    </figure>
   );
 }

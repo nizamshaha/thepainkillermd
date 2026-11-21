@@ -170,7 +170,7 @@ export default function SensationExplorer() {
         </div>
 
         {/* Pathway Filter */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
           <button
             onClick={() => setFilterPathway(null)}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${

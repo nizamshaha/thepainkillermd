@@ -60,7 +60,7 @@ export default function WatchAndLearn() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {([
             { key: "all" as TabFilter, label: "All Videos & Stories" },
             { key: "testimonial" as TabFilter, label: "Patient Stories" },

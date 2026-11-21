@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Footer from "@/components/navigation/Footer";
+import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import Header from "@/components/navigation/Header";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import CookieConsent from "@/components/ui/CookieConsent";
@@ -9,20 +10,23 @@ import { sanitizeJsonLd } from "@/lib/security";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
-// Self-hosted variable fonts (no build-time dependency on Google Fonts)
+// One family, Apple-style: Inter variable (self-hosted)
 const display = localFont({
   variable: "--font-display",
   display: "swap",
-  src: [
-    { path: "../fonts/Newsreader-Variable.woff2", weight: "200 800", style: "normal" },
-    { path: "../fonts/Newsreader-Variable-Italic.woff2", weight: "200 800", style: "italic" },
-  ],
+  src: [{ path: "../fonts/Inter-Variable.woff2", weight: "100 900", style: "normal" }],
 });
-
-const body = localFont({
-  variable: "--font-body",
+const body = display;
+// Indian scripts for Hindi / Marathi and Gujarati text (used automatically as glyph fallback)
+const devanagari = localFont({
+  variable: "--font-deva",
   display: "swap",
-  src: [{ path: "../fonts/Figtree-Variable.woff2", weight: "300 900", style: "normal" }],
+  src: [{ path: "../fonts/NotoSansDevanagari-Variable.woff2", weight: "100 900", style: "normal" }],
+});
+const gujarati = localFont({
+  variable: "--font-guj",
+  display: "swap",
+  src: [{ path: "../fonts/NotoSansGujarati-Variable.woff2", weight: "100 900", style: "normal" }],
 });
 
 export const metadata: Metadata = {
@@ -80,7 +84,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} h-full antialiased`}
+      className={`${display.variable} ${devanagari.variable} ${gujarati.variable} h-full antialiased`}
     >
       <head>
         <script
@@ -181,6 +185,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
+        <RevealOnScroll />
         {/* Skip Navigation — WCAG 2.2 AA */}
         <a href="#main-content" className="skip-link">
           Skip to main content
