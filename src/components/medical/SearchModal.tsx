@@ -187,14 +187,14 @@ export default function SearchModal() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--color-surface-100)] border border-[var(--color-surface-300)] text-sm text-[var(--color-text-muted)] hover:border-[var(--color-clinical-300)] transition-colors"
+        className="flex items-center gap-2 h-10 w-10 2xl:w-auto justify-center 2xl:justify-start 2xl:pl-3.5 2xl:pr-2 rounded-full bg-white ring-1 ring-inset ring-[var(--line)] text-sm text-[var(--color-text-muted)] hover:ring-[var(--color-primary-300)] hover:text-[var(--ink)] transition"
         aria-label="Open search (Ctrl+K)"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <span>Search</span>
-        <kbd className="hidden sm:inline px-1.5 py-0.5 text-xs bg-[var(--color-surface-200)] rounded">
+        <span className="hidden 2xl:inline">Search</span>
+        <kbd className="hidden 2xl:inline px-1.5 py-0.5 text-[11px] bg-[var(--panel)] rounded-md font-sans">
           ⌘K
         </kbd>
       </button>

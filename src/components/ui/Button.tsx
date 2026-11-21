@@ -23,6 +23,7 @@ export interface ButtonProps {
   className?: string;
   newTab?: boolean;
   size?: "sm" | "md" | "lg";
+  /** Pass a node to show an icon. `true`/`false` kept for backwards compatibility (no icon). */
   icon?: React.ReactNode | boolean;
   iconPosition?: "left" | "right";
   rounded?: number;
@@ -30,11 +31,29 @@ export interface ButtonProps {
   ariaLabel?: string;
 }
 
-/**
- * 3D Glassmorphism Button for The Painkiller MD.
- * Features tactile multi-layer lighting, top specular light reflections,
- * frosted backdrop-blur glassmorphism, and physical active:scale-95 press mechanics.
- */
+const sizes = {
+  sm: "h-10 px-4 text-sm gap-2",
+  md: "h-12 px-6 text-[0.975rem] gap-2.5",
+  lg: "h-14 px-7 text-base gap-3",
+};
+
+const variants: Record<ButtonVariant, string> = {
+  // Logo red — the one action we want people to take
+  primary:
+    "bg-[var(--signal)] text-white shadow-[0_10px_24px_-12px_rgba(208,42,60,0.9)] hover:bg-[var(--signal-dark)]",
+  // On dark surfaces: quiet outlined
+  secondary:
+    "bg-white/[0.06] text-white ring-1 ring-inset ring-white/30 hover:bg-white/[0.12] hover:ring-white/50",
+  // On dark surfaces: solid white
+  light: "bg-white text-[var(--ink)] hover:bg-[var(--panel)]",
+  whatsapp:
+    "bg-[#178a4c] text-white shadow-[0_10px_24px_-12px_rgba(23,138,76,0.9)] hover:bg-[#127440]",
+  // On light surfaces
+  outline:
+    "bg-white text-[var(--ink)] ring-1 ring-inset ring-[var(--color-surface-300)] hover:ring-[var(--ink)]",
+  ghost: "bg-transparent text-[var(--iris)] hover:bg-[var(--iris-soft)]",
+};
+
 export default function Button({
   label,
   children,
@@ -47,278 +66,63 @@ export default function Button({
   className = "",
   newTab = false,
   size = "md",
-  icon = true,
-  iconPosition = "right",
+  icon,
+  iconPosition = "left",
   ariaLabel,
 }: ButtonProps) {
   const targetLink = href || link;
   const content = children || label;
+  const iconNode = icon && icon !== true ? icon : null;
 
-  // Size specifications
-  const sizeStyles = {
-    sm: {
-      btn: "px-4 py-2 text-xs tracking-wide gap-2",
-      badge: "w-5 h-5",
-      iconSize: 11,
-    },
-    md: {
-      btn: "px-6 py-3.5 text-base tracking-wide gap-3",
-      badge: "w-7 h-7",
-      iconSize: 14,
-    },
-    lg: {
-      btn: "px-8 py-4 text-lg tracking-wide gap-3.5",
-      badge: "w-8 h-8",
-      iconSize: 17,
-    },
-  }[size];
-
-  // Variant technical styling matching 3D glass specifications
-  const variantStyles: Record<
-    ButtonVariant,
-    {
-      base: string;
-      hover: string;
-      active: string;
-      text: string;
-      border: string;
-      sheen: string;
-      badge: string;
-      badgeHover: string;
-      shadow: string;
-      shadowHover: string;
-      shadowActive: string;
-    }
-  > = {
-    // Liquid Glass Primary — Dark Navy Blue Base with Refractive Blue Bleed & Physical 3D Casing
-    primary: {
-      base: "btn-liquid-glass",
-      hover: "",
-      active: "",
-      text: "text-white font-semibold",
-      border: "",
-      sheen: "",
-      badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.4)]",
-      badgeHover: "group-hover:bg-white/25 group-hover:text-white group-hover:border-white/45",
-      shadow: "",
-      shadowHover: "",
-      shadowActive: "",
-    },
-
-    // Frosted Light 3D Glass — High-contrast on dark surfaces (Hero, Dark CTA banners)
-    light: {
-      base: "bg-gradient-to-br from-white/95 via-white/88 to-blue-50/80",
-      hover: "hover:from-white hover:to-white hover:bg-white",
-      active: "active:bg-slate-100",
-      text: "text-[#0c1929] font-bold",
-      border: "border border-white/70 hover:border-white",
-      sheen: "from-white/0 via-white to-white/0",
-      badge: "bg-[#0c1929]/10 text-[#0c1929] border border-[#0c1929]/15",
-      badgeHover: "group-hover:bg-[#0c1929] group-hover:text-white",
-      shadow:
-        "shadow-[inset_0px_1.5px_2px_rgba(255,255,255,0.95),inset_0px_-2px_4px_rgba(0,0,0,0.10),0_10px_32px_0_rgba(31,38,135,0.18),0_2px_8px_rgba(0,0,0,0.06)]",
-      shadowHover:
-        "hover:shadow-[inset_0px_1.5px_3px_rgba(255,255,255,1),inset_0px_-3px_5px_rgba(0,0,0,0.14),0_16px_40px_0_rgba(31,38,135,0.25),0_4px_12px_rgba(0,0,0,0.08)]",
-      shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.15),inset_0px_-1px_2px_rgba(255,255,255,0.4),0_4px_14px_0_rgba(31,38,135,0.08)]",
-    },
-
-    // Pure Frosted Translucent Glass — Secondary actions
-    secondary: {
-      base: "bg-white/15",
-      hover: "hover:bg-white/28",
-      active: "active:bg-white/35",
-      text: "text-white font-semibold [text-shadow:0px_1px_2px_rgba(0,0,0,0.5)]",
-      border: "border border-white/20 hover:border-white/40",
-      sheen: "from-white/0 via-white/60 to-white/0",
-      badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.3)]",
-      badgeHover: "group-hover:bg-white/30 group-hover:text-white group-hover:border-white/45",
-      shadow:
-        "shadow-[inset_0px_3px_6px_rgba(255,255,255,0.40),inset_0px_1px_1px_rgba(255,255,255,0.75),inset_0px_-3px_6px_rgba(0,0,0,0.40),0_10px_28px_rgba(0,0,0,0.20)]",
-      shadowHover:
-        "hover:shadow-[inset_0px_3px_6px_rgba(255,255,255,0.50),inset_0px_1px_1px_rgba(255,255,255,0.90),inset_0px_-3px_6px_rgba(0,0,0,0.35),0_14px_36px_rgba(0,0,0,0.26)]",
-      shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.3),inset_0px_-1px_2px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.1)]",
-    },
-
-    // WhatsApp Emerald Liquid Glass
-    whatsapp: {
-      base: "bg-gradient-to-b from-[#0e5c38] via-[#09482b] to-[#05301c]",
-      hover: "hover:from-[#137346] hover:via-[#0c5936] hover:to-[#073d24]",
-      active: "active:from-[#062c19] active:to-[#03190e]",
-      text: "text-white font-semibold [text-shadow:0px_1px_2px_rgba(0,0,0,0.5)]",
-      border: "border border-white/20 hover:border-white/35",
-      sheen: "from-white/0 via-white/80 to-white/0",
-      badge: "bg-white/15 text-white border border-white/25 shadow-[inset_0px_1px_1px_rgba(255,255,255,0.4)]",
-      badgeHover: "group-hover:bg-white/25 group-hover:text-white group-hover:border-white/45",
-      shadow:
-        "shadow-[inset_0px_4px_6px_rgba(255,255,255,0.45),inset_0px_1px_1px_rgba(255,255,255,0.85),inset_0px_-4px_6px_rgba(0,0,0,0.50),0px_12px_28px_-4px_rgba(34,197,94,0.65),0px_4px_14px_rgba(22,163,74,0.40)]",
-      shadowHover:
-        "hover:shadow-[inset_0px_4px_6px_rgba(255,255,255,0.55),inset_0px_1px_1px_rgba(255,255,255,0.95),inset_0px_-4px_6px_rgba(0,0,0,0.45),0px_16px_36px_-4px_rgba(34,197,94,0.85),0px_6px_20px_rgba(22,163,74,0.50)]",
-      shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.5),inset_0px_-1px_2px_rgba(255,255,255,0.3),0px_6px_16px_rgba(34,197,94,0.4)]",
-    },
-
-    // Refractive Glass Outline
-    outline: {
-      base: "bg-white/10",
-      hover: "hover:bg-white/20",
-      active: "active:bg-white/30",
-      text: "text-[var(--color-text-primary)] hover:text-[var(--color-clinical-600)] font-semibold",
-      border: "border border-[var(--color-surface-300)]/80 hover:border-[var(--color-clinical-500)]",
-      sheen: "from-white/0 via-white/40 to-white/0",
-      badge: "bg-[var(--color-surface-200)] text-[var(--color-text-primary)] border border-white/30",
-      badgeHover: "group-hover:bg-[var(--color-clinical-600)] group-hover:text-white",
-      shadow:
-        "shadow-[inset_0px_1px_2px_rgba(255,255,255,0.4),inset_0px_-1px_3px_rgba(0,0,0,0.08),0_6px_20px_rgba(0,0,0,0.06)]",
-      shadowHover:
-        "hover:shadow-[inset_0px_1px_3px_rgba(255,255,255,0.6),inset_0px_-1px_3px_rgba(0,0,0,0.1),0_10px_28px_rgba(31,38,135,0.12)]",
-      shadowActive:
-        "active:shadow-[inset_0px_2px_4px_rgba(0,0,0,0.15),0_3px_10px_rgba(0,0,0,0.05)]",
-    },
-
-    // Ghost Glass
-    ghost: {
-      base: "bg-transparent",
-      hover: "hover:bg-white/15",
-      active: "active:bg-white/25",
-      text: "text-current font-semibold",
-      border: "border border-transparent hover:border-white/25",
-      sheen: "from-white/0 via-white/30 to-white/0",
-      badge: "bg-current/10 text-current border border-white/20",
-      badgeHover: "group-hover:scale-110",
-      shadow: "shadow-none",
-      shadowHover: "hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]",
-      shadowActive: "active:shadow-none",
-    },
-  };
-
-  const currentVariant = variantStyles[variant] || variantStyles.primary;
-
-  const combinedClasses = [
-    "group relative inline-flex items-center justify-center font-semibold rounded-full select-none cursor-pointer overflow-hidden",
-    "backdrop-blur-md hover:backdrop-blur-lg",
-    "transition-all duration-300 ease-out transform-gpu",
-    "hover:-translate-y-[1px]",
-    "active:scale-95 active:translate-y-[1px]",
-    "disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none disabled:active:scale-100 disabled:hover:translate-y-0",
-    sizeStyles.btn,
-    currentVariant.base,
-    currentVariant.hover,
-    currentVariant.active,
-    currentVariant.text,
-    currentVariant.border,
-    currentVariant.shadow,
-    currentVariant.shadowHover,
-    currentVariant.shadowActive,
+  const classes = [
+    "inline-flex items-center justify-center whitespace-nowrap rounded-full font-semibold",
+    "transition-[background-color,box-shadow,color,transform] duration-200 ease-out",
+    "active:translate-y-px disabled:opacity-50 disabled:pointer-events-none select-none",
+    sizes[size],
+    variants[variant],
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ].join(" ");
 
-  const renderBadge = (dir: "left" | "right") => (
-    <span
-      className={`relative z-10 flex items-center justify-center rounded-full transition-all duration-300 transform ${
-        dir === "left"
-          ? "group-hover:-translate-x-1 group-hover:-rotate-45"
-          : "group-hover:translate-x-1 group-hover:rotate-45"
-      } flex-shrink-0 ${sizeStyles.badge} ${currentVariant.badge} ${currentVariant.badgeHover}`}
-      aria-hidden="true"
-    >
-      {typeof icon === "object" && React.isValidElement(icon) ? (
-        icon
-      ) : (
-        <svg
-          className="transition-transform duration-300"
-          style={{ width: sizeStyles.iconSize, height: sizeStyles.iconSize }}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.5}
-        >
-          {dir === "left" ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-            />
-          )}
-        </svg>
-      )}
-    </span>
+  const iconWrap = (n: React.ReactNode) => (
+    <span className="shrink-0 inline-flex [&>svg]:w-[1.15em] [&>svg]:h-[1.15em]" aria-hidden="true">{n}</span>
   );
 
-  const renderInner = () => (
+  const inner = (
     <>
-      {/* 3D Top Specular Light Reflection / Glint (for variants with explicit sheen) */}
-      {currentVariant.sheen ? (
-        <span
-          className={`absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r ${currentVariant.sheen} pointer-events-none opacity-85 group-hover:opacity-100 transition-opacity duration-300`}
-          aria-hidden="true"
-        />
-      ) : null}
-
-      {/* Left Icon Badge */}
-      {icon && iconPosition === "left" && renderBadge("left")}
-
-      {/* Button Label Content */}
-      <span className="relative z-10 transition-colors duration-200">
-        {content}
-      </span>
-
-      {/* Right Icon Badge */}
-      {icon && iconPosition !== "left" && renderBadge("right")}
+      {iconNode && iconPosition === "left" && iconWrap(iconNode)}
+      <span>{content}</span>
+      {iconNode && iconPosition === "right" && iconWrap(iconNode)}
     </>
   );
 
-  if (targetLink && !disabled) {
-    const isExternal =
-      targetLink.startsWith("http") ||
-      targetLink.startsWith("tel:") ||
-      targetLink.startsWith("mailto:");
+  const aria = ariaLabel || (typeof label === "string" ? label : undefined);
 
-    if (isExternal || newTab) {
+  if (targetLink && !disabled) {
+    const isExternal = /^(https?:|tel:|mailto:)/.test(targetLink);
+    if (isExternal || newTab || targetLink.startsWith("#")) {
       return (
         <a
           href={targetLink}
           target={newTab ? "_blank" : undefined}
           rel={newTab ? "noopener noreferrer" : undefined}
-          className={combinedClasses}
-          aria-label={ariaLabel || (typeof label === "string" ? label : undefined)}
+          className={classes}
+          aria-label={aria}
           onClick={onClick}
         >
-          {renderInner()}
+          {inner}
         </a>
       );
     }
-
     return (
-      <Link
-        href={targetLink}
-        className={combinedClasses}
-        aria-label={ariaLabel || (typeof label === "string" ? label : undefined)}
-        onClick={onClick}
-      >
-        {renderInner()}
+      <Link href={targetLink} className={classes} aria-label={aria} onClick={onClick}>
+        {inner}
       </Link>
     );
   }
 
   return (
-    <button
-      type={type}
-      disabled={disabled}
-      onClick={onClick}
-      className={combinedClasses}
-      aria-label={ariaLabel || (typeof label === "string" ? label : undefined)}
-    >
-      {renderInner()}
+    <button type={type} disabled={disabled} onClick={onClick} className={classes} aria-label={aria}>
+      {inner}
     </button>
   );
 }

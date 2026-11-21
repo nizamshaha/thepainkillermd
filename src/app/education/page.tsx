@@ -22,7 +22,7 @@ export default function EducationPage() {
 
       <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">{t("education.title")}</h1>
+          <h1 className="mb-4">{t("education.title")}</h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
             Evidence-based articles and resources to help you understand pain, its mechanisms, and treatment approaches.
           </p>
@@ -31,7 +31,7 @@ export default function EducationPage() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("index.browseByCategory")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("index.browseByCategory")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((cat) => (
               <div key={cat.name} className="p-6 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-shadow">
@@ -44,7 +44,7 @@ export default function EducationPage() {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("index.featuredConditions")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("index.featuredConditions")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {conditions.slice(0, 4).map((c) => (
               <a key={c.slug} href={`/conditions/${c.slug}`} className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-all">
@@ -57,7 +57,7 @@ export default function EducationPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("index.featuredProcedures")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("index.featuredProcedures")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {procedures.slice(0, 4).map((p) => (
               <a key={p.slug} href={`/procedures/${p.slug}`} className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-all">

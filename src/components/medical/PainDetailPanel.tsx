@@ -33,7 +33,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
       {/* Title */}
       <div className="mb-8">
         <span className="text-3xl mb-2 block">{area.icon}</span>
-        <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">{area.name}</h2>
+        <h2 className="text-[var(--color-text-primary)] mb-2">{area.name}</h2>
         <p className="text-lg text-[var(--color-text-secondary)]">{area.description}</p>
       </div>
 

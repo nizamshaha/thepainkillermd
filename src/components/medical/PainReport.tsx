@@ -155,7 +155,7 @@ export default function PainReport({ areas, answers, onBack, pins }: Props) {
         ← Back to results
       </button>
 
-      <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">
+      <h2 className="text-2xl text-[var(--color-text-primary)] mb-2">
         📋 Your Pain Report
       </h2>
       <p className="text-sm text-[var(--color-text-muted)] mb-8">

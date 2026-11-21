@@ -67,7 +67,7 @@ export default function VideosPage() {
           <p className="text-sm font-semibold text-[var(--color-clinical-300)] uppercase tracking-wider mb-2">
             Video Hub
           </p>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-3">
+          <h1 className="mb-3">
             {t("videos.title")}
           </h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">

@@ -375,22 +375,19 @@ export default function BodyMap() {
   return (
     <section
       id="body-map"
-      className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
+      className="py-24 lg:py-32 px-4 sm:px-6 lg:px-8"
       aria-labelledby="body-map-title"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-10">
-          <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-            02. Interactive Anatomy
-          </p>
+        <div className="section-head">
           <h2
             id="body-map-title"
-            className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4"
+            className="text-[var(--color-text-primary)] mb-4"
           >
             Where Does It Hurt?
           </h2>
-          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          <p className="">
             Select a region on the body map to explore conditions affecting that area.
             Click or use keyboard arrows to navigate.
           </p>
@@ -401,7 +398,7 @@ export default function BodyMap() {
           ref={tabListRef}
           role="tablist"
           aria-label="Body regions"
-          className="flex flex-wrap justify-center gap-2 mb-8"
+          className="flex flex-wrap gap-2 mb-10"
         >
           {anatomyRegions.map((r) => (
             <button
@@ -411,10 +408,10 @@ export default function BodyMap() {
               aria-controls={`panel-${r.id}`}
               id={`tab-${r.id}`}
               tabIndex={selectedRegion === r.id ? 0 : -1}
-              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 h-10 rounded-full text-sm font-medium transition-colors ${
                 selectedRegion === r.id
-                  ? "bg-[var(--color-clinical-500)] text-white shadow-md"
-                  : "bg-[var(--color-surface-100)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-200)] border border-[var(--color-surface-300)]"
+                  ? "bg-[var(--ink)] text-white"
+                  : "bg-white text-[var(--color-text-secondary)] ring-1 ring-inset ring-[var(--line)] hover:ring-[var(--color-primary-300)] hover:text-[var(--ink)]"
               }`}
               onClick={() => handleRegionClick(r.id)}
             >

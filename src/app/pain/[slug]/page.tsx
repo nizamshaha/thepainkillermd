@@ -54,14 +54,14 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
       <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <span className="text-4xl mb-3 block">{area.icon}</span>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">{area.name}</h1>
+          <h1 className="mb-3">{area.name}</h1>
           <p className="text-lg text-white/80">{area.description}</p>
         </div>
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.causes")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.causes")}</h2>
           <p className="text-sm text-[var(--color-text-muted)] italic mb-3">Some common possible causes include:</p>
           <ul className="space-y-2">
             {area.commonCauses.map((c, i) => (
@@ -74,7 +74,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
         </section>
 
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.symptoms")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.symptoms")}</h2>
           <ul className="space-y-2">
             {area.symptoms.map((s, i) => (
               <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -86,7 +86,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
         </section>
 
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-medical-700)] mb-4">What Can You Try at Home?</h2>
+          <h2 className="text-2xl text-[var(--color-medical-700)] mb-4">What Can You Try at Home?</h2>
           <ul className="space-y-2">
             {area.selfCare.map((s, i) => (
               <li key={i} className="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -98,7 +98,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
         </section>
 
         <section className="mb-10 p-5 rounded-xl bg-red-50 border-2 border-red-200">
-          <h2 className="text-xl font-bold text-[var(--color-alert-critical)] mb-3">🚨 {t("condition.redFlags")}</h2>
+          <h2 className="text-xl text-[var(--color-alert-critical)] mb-3">🚨 {t("condition.redFlags")}</h2>
           <ul className="space-y-1.5">
             {area.redFlags.map((rf, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-red-800 font-medium">
@@ -109,7 +109,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
         </section>
 
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.treatment")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.treatment")}</h2>
           <p className="text-[var(--color-text-secondary)] mb-3">Treatment depends on the cause, severity, examination findings and individual patient needs.</p>
           <div className="flex flex-wrap gap-2">
             {area.treatmentOptions.map((treat, i) => (
@@ -122,7 +122,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
 
         {area.faq.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.faq")}</h2>
+            <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.faq")}</h2>
             <div className="space-y-3">
               {area.faq.map((f, i) => (
                 <div key={i} className="p-4 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">

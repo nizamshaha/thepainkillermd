@@ -3,14 +3,14 @@
 import BodyMap from "@/components/medical/BodyMap";
 import SensationExplorer from "@/components/medical/SensationExplorer";
 import PainWizard from "@/components/medical/PainWizard";
-import SearchModal from "@/components/medical/SearchModal";
 import NervePathway from "@/components/medical/svgs/NervePathway";
 import SpinalStenosis from "@/components/medical/svgs/SpinalStenosis";
 import WatchAndLearn from "@/components/medical/WatchAndLearn";
 import HumanBody3DViewer from "@/components/medical/HumanBody3DViewer";
 // import PainNavigator from "@/components/medical/PainNavigator";
-import PhysicianAvatar from "@/components/ui/PhysicianAvatar";
-import Footer from "@/components/navigation/Footer";
+import Image from "next/image";
+import HeroSpine from "@/components/home/HeroSpine";
+import { PhoneIcon, WhatsAppIcon, ArrowIcon, PinIcon, ClockIcon, ScanIcon, AlertIcon, CalendarIcon, CheckIcon } from "@/components/ui/Icons";
 import Button from "@/components/ui/Button";
 import { useT } from "@/lib/useT";
 import { useState } from "react";
@@ -55,448 +55,196 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Global Search Modal */}
-      <SearchModal />
+      {/* ================= HERO ================= */}
+      <section id="hero" className="relative isolate overflow-hidden bg-[var(--ink)] text-white">
+        {/* soft light behind portrait */}
+        <div className="pointer-events-none absolute -right-40 -top-40 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(closest-side,rgba(116,102,198,0.45),transparent)]" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:radial-gradient(#fff_1px,transparent_1px)] [background-size:22px_22px]" aria-hidden="true" />
 
-      {/* === SECTION 1: Hero === */}
-      <section id="hero" className="relative bg-gradient-to-br from-[var(--color-primary-900)] via-[var(--color-primary-800)] to-[var(--color-primary-700)] text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
-          <div className="flex flex-col items-center justify-center text-center w-full">
-            {/* Centered Typography & Profile Badge */}
-            <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-              {/* Trust badge */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-sm sm:text-base font-medium mb-8">
-                <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse-subtle" />
-                {t("hero.credential")}
-              </div>
+        <div className="container-page relative grid lg:grid-cols-12 gap-12 lg:gap-8 pt-14 pb-16 sm:pt-20 lg:pt-24 lg:pb-24 items-center">
+          <div className="lg:col-span-7">
+            <p className="kicker !text-[var(--color-primary-200)]">{t("doctor.specialty")}, Surat</p>
+            <h1 className="text-white max-w-[17ch]">{t("hero.headline")}</h1>
+            <p className="mt-7 text-lg sm:text-xl text-white/72 max-w-[36rem] leading-relaxed">
+              {t("hero.subtitle")}
+            </p>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-8 text-center tracking-tight">
-                {t("hero.headline")}
-              </h1>
+            <div className="mt-10 flex flex-col sm:flex-row gap-3">
+              <Button label={t("hero.cta.primary")} href="#book" variant="primary" size="lg" icon={<CalendarIcon />} />
+              <Button label={t("hero.cta.secondary")} href="/pain-navigator" variant="secondary" size="lg" />
+            </div>
 
-              <p className="text-xl sm:text-2xl text-white/85 max-w-3xl mb-8 leading-relaxed text-center font-normal">
-                {t("hero.subtitle")}
-              </p>
-
-              {/* Physician credentials */}
-              <div className="flex items-center justify-center gap-4 mb-10 text-white/80 mx-auto text-left">
-                <PhysicianAvatar size="md" />
-                <div>
-                  <p className="font-bold text-white uppercase tracking-wide text-base sm:text-lg">DR. SHAHNAWAZ F SHAH</p>
-                  <p className="text-sm sm:text-base text-white/90">{t("doctor.specialty")}</p>
-                  <p className="text-xs sm:text-sm text-white/70">MBBS, M.D. (Anaes) • FIAPM • FCPM • FPM</p>
+            <dl className="mt-14 grid grid-cols-3 max-w-xl divide-x divide-white/12 border-t border-white/12 pt-6">
+              {[
+                { v: "15+", k: t("hero.stats.experience") },
+                { v: "10,000+", k: t("hero.stats.patients") },
+                { v: "20+", k: t("hero.stats.conditions") },
+              ].map((s, i) => (
+                <div key={s.k} className={i === 0 ? "pr-4" : "px-4"}>
+                  <dt className="sr-only">{s.k}</dt>
+                  <dd className="font-display text-[1.7rem] sm:text-4xl text-white whitespace-nowrap">{s.v}</dd>
+                  <dd className="mt-1 text-[13px] sm:text-sm text-white/60 leading-snug">{s.k}</dd>
                 </div>
-              </div>
+              ))}
+            </dl>
+          </div>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mt-8">
-                <Button
-                  label={t("hero.cta.primary")}
-                  href="#book"
-                  variant="light"
-                  size="lg"
-                />
-                <Button
-                  label={t("hero.cta.secondary")}
-                  href="#pain-wizard"
-                  variant="secondary"
-                  size="lg"
-                />
-                <Button
-                  label="Explore 2D Body"
-                  href="#body-map"
-                  variant="primary"
-                  size="lg"
-                />
-              </div>
+          {/* Portrait + spine */}
+          <div className="lg:col-span-5 relative mx-auto w-full max-w-[26rem]">
+            <HeroSpine className="absolute -left-10 sm:-left-20 top-6 h-[88%] w-auto z-10" />
+            <div className="relative ml-10 sm:ml-14 rounded-t-[999px] rounded-b-[2rem] overflow-hidden bg-gradient-to-b from-[#3a2f7a] via-[#5a4bb0] to-[#c9c2ee] aspect-[4/5]">
+              <Image
+                src="/doctor-photo.png"
+                alt="Dr. Shahnawaz F Shah"
+                width={376}
+                height={354}
+                priority
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[112%] max-w-none h-auto"
+              />
             </div>
-
-            {/* Distributed Stats */}
-            <div className="flex flex-wrap justify-center gap-10 md:gap-20 w-full mt-16 md:mt-20 border-t border-white/10 pt-10">
-              <div className="text-center min-w-[140px]">
-                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">20+</p>
-                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.conditions")}</p>
-              </div>
-              <div className="text-center min-w-[140px]">
-                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">15+</p>
-                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.experience")}</p>
-              </div>
-              <div className="text-center min-w-[140px]">
-                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">10K+</p>
-                <p className="text-sm sm:text-base text-white/70 mt-1 font-medium">{t("hero.stats.patients")}</p>
-              </div>
+            <div className="relative z-20 -mt-10 ml-4 sm:ml-6 mr-4 rounded-2xl bg-white text-[var(--ink)] px-5 py-4 shadow-[var(--shadow-xl)]">
+              <p className="font-display text-xl leading-tight">Dr. Shahnawaz F Shah</p>
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">MBBS, MD (Anaesthesiology), FIAPM, FCPM, FPM</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* === SECTION 1.5: Pain Navigator CTA === */}
-      <section className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("hero.credential")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("painNav.title")}
-            </h2>
-            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-6">
-              {t("painNav.subtitle")}
-            </p>
-            <p className="text-sm text-[var(--color-text-muted)] mb-8">{t("painNav.disclaimer")}</p>
-            <Button
-              label={t("painNav.cta")}
-              href="/pain-navigator"
-              variant="primary"
-              size="lg"
-            />
+      {/* ================= PAIN NAVIGATOR BAND ================= */}
+      <section className="bg-white border-b border-[var(--line)]">
+        <div className="container-page py-8 grid md:grid-cols-[1fr_auto] gap-6 items-center">
+          <div className="flex gap-4 items-start">
+            <span className="mt-1 shrink-0 h-11 w-11 rounded-full bg-[var(--iris-soft)] text-[var(--iris)] flex items-center justify-center"><ScanIcon /></span>
+            <div>
+              <p className="font-semibold text-[var(--ink)] text-lg">{t("painNav.title")}</p>
+              <p className="text-[var(--color-text-secondary)] max-w-2xl">{t("painNav.subtitle")}</p>
+              <p className="mt-1 text-sm text-[var(--color-text-muted)]">{t("painNav.disclaimer")}</p>
+            </div>
           </div>
+          <Button label={t("painNav.cta").replace(/\s*→\s*$/, "")} href="/pain-navigator" variant="outline" size="md" icon={<ArrowIcon />} iconPosition="right" />
         </div>
       </section>
 
-      {/* === SECTION 2: Body Map === */}
+      {/* ================= BODY MAP & SENSATIONS (interactive) ================= */}
       <BodyMap />
-
-      {/* === SECTION 3: Sensation Explorer === */}
       <SensationExplorer />
 
-      {/* === SECTION 4: Understand Pain — Neurobiology === */}
-      <section id="understand-pain" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("section.painScience")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("pain.title")}
-            </h2>
-            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-              {t("pain.subtitle")}
-            </p>
+      {/* ================= UNDERSTAND PAIN ================= */}
+      <section id="understand-pain" className="py-24 lg:py-32 bg-white">
+        <div className="container-page">
+          <div className="section-head">
+            <h2>{t("pain.title")}</h2>
+            <p>{t("pain.subtitle")}</p>
           </div>
 
-          {/* Three pain pathways */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="p-6 rounded-xl border-l-4 bg-[var(--color-surface-50)]" style={{ borderColor: "var(--color-pathway-nociceptive)" }}>
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(230,81,0,0.1)" }}>
-                <span className="text-2xl">🦴</span>
+          <div className="grid md:grid-cols-3 gap-px bg-[var(--line)] rounded-[1.5rem] overflow-hidden ring-1 ring-[var(--line)] mb-16">
+            {[
+              { title: t("pain.nociceptive"), desc: t("pain.nociceptiveDesc"), color: "var(--color-pathway-nociceptive)" },
+              { title: t("pain.neuropathic"), desc: t("pain.neuropathicDesc"), color: "var(--color-pathway-neuropathic)" },
+              { title: t("pain.nociplastic"), desc: t("pain.nociplasticDesc"), color: "var(--color-pathway-nociplastic)" },
+            ].map((p) => (
+              <div key={p.title} className="bg-white p-8">
+                <span className="block h-1.5 w-10 rounded-full mb-6" style={{ background: p.color }} />
+                <h3 className="text-[var(--ink)] mb-3">{p.title}</h3>
+                <p className="text-[var(--color-text-secondary)] leading-relaxed">{p.desc}</p>
               </div>
-              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{t("pain.nociceptive")}</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                {t("pain.nociceptiveDesc")}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border-l-4 bg-[var(--color-surface-50)]" style={{ borderColor: "var(--color-pathway-neuropathic)" }}>
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(106,27,154,0.1)" }}>
-                <span className="text-2xl">⚡</span>
-              </div>
-              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{t("pain.neuropathic")}</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                {t("pain.neuropathicDesc")}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border-l-4 bg-[var(--color-surface-50)]" style={{ borderColor: "var(--color-pathway-nociplastic)" }}>
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(0,105,92,0.1)" }}>
-                <span className="text-2xl">🧠</span>
-              </div>
-              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{t("pain.nociplastic")}</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                {t("pain.nociplasticDesc")}
-              </p>
-            </div>
+            ))}
           </div>
 
-          {/* SVG Diagrams */}
-          <div className="space-y-12">
+          <div className="space-y-16">
             <NervePathway />
             <SpinalStenosis />
           </div>
         </div>
       </section>
 
-      {/* === SECTION 5: Conditions Directory === */}
-      <section id="conditions" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("section.conditions")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("conditions.title")}
-            </h2>
-            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-              {t("conditions.subtitle")}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featuredConditions.map((c, idx) => (
-              <a
-                key={c.slug}
-                href={`/conditions/${c.slug}`}
-                className="group relative p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-xl hover:shadow-[var(--color-clinical-500)]/5 hover:border-[var(--color-clinical-300)] hover:-translate-y-1 transition-all duration-300"
-                style={{ animationDelay: `${idx * 60}ms` }}
-              >
-                <div className="absolute top-0 left-0 w-full h-1 rounded-t-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(90deg, ${c.color}, transparent)` }} />
-                <div className="w-3 h-3 rounded-full mb-3 ring-2 ring-offset-2 ring-transparent group-hover:ring-offset-white transition-all duration-300" style={{ background: c.color, ['--tw-ring-color' as string]: c.color }} />
-                <h3 className="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">
-                  {c.name}
-                </h3>
-                <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3">
-                  {c.description}
-                </p>
-                <span className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-[var(--color-clinical-600)] group-hover:gap-2 transition-all duration-300">
-                  {t("common.readMore")} <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === SECTION 6: Treatment Options Spectrum === */}
-      <section id="treatment" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("section.treatment")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("treatment.title")}
-            </h2>
-            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-              {t("treatment.subtitle")}
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {treatmentLadder.map((tItem) => (
-              <div
-                key={tItem.step}
-                className="flex items-start gap-5 p-6 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)] hover:shadow-md transition-shadow"
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white font-bold text-lg"
-                  style={{ background: tItem.color }}
-                >
-                  {tItem.step}
-                </div>
-                <div>
-                  <h3 className="font-bold text-[var(--color-text-primary)] text-xl mb-1.5">
-                    {tItem.titleKey}
-                  </h3>
-                  <p className="text-[var(--color-text-secondary)]">
-                    {tItem.descriptionKey}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === SECTION 7: Pain Procedures === */}
-      <section id="procedures" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("section.procedures")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("procedures.title")}
-            </h2>
-            <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-              {t("procedures.subtitle")}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-            {[
-              { name: "Radiofrequency Ablation", desc: "Thermal neurotomy for facet joint and nerve-mediated pain.", slug: "radiofrequency-ablation" },
-              { name: "Lumbar Epidural Injection", desc: "Targeted steroid delivery for nerve root inflammation.", slug: "lumbar-epidural-injection" },
-              { name: "Medial Branch Block", desc: "Diagnostic confirmation for facet joint pain.", slug: "medial-branch-block" },
-              { name: "SI Joint Injection", desc: "Precise injection for sacroiliac joint dysfunction.", slug: "si-joint-injection" },
-              { name: "Spinal Cord Stimulation", desc: "Neuromodulation for chronic intractable pain.", slug: "spinal-cord-stimulation" },
-              { name: "Trigger Point Injection", desc: "Myofascial trigger point disruption and pain relief.", slug: "trigger-point-injection" },
-            ].map((p) => (
-              <a
-                key={p.slug}
-                href={`/procedures/${p.slug}`}
-                className="group p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg transition-all"
-              >
-                <h3 className="text-lg sm:text-xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-clinical-600)] transition-colors mb-2">
-                  {p.name}
-                </h3>
-                <p className="text-sm text-[var(--color-text-secondary)]">{p.desc}</p>
-                <span className="inline-block mt-3 text-sm font-medium text-[var(--color-clinical-600)]">
-                  {t("common.learnMore")} →
-                </span>
-              </a>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* === SECTION 8: Pain Red Flags === */}
-      <section id="red-flags" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-red-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-[var(--color-alert-critical)] font-bold text-sm mb-4">
-              🚨 CRITICAL SAFETY INFORMATION
+      {/* ================= CONDITIONS ================= */}
+      <section id="conditions" className="py-24 lg:py-32">
+        <div className="container-page">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div className="section-head !mb-0">
+              <h2>{t("conditions.title")}</h2>
+              <p>{t("conditions.subtitle")}</p>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-alert-critical)] mb-4">
-              {t("redflags.title")}
-            </h2>
-            <p className="text-lg text-[var(--color-text-secondary)] max-w-xl mx-auto">
-              {t("redflags.subtitle")}
-            </p>
+            <a href="/conditions" className="inline-flex items-center gap-2 font-semibold text-[var(--iris)] hover:gap-3 transition-all shrink-0">
+              All conditions <ArrowIcon />
+            </a>
           </div>
 
-          <div className="space-y-4 max-w-4xl mx-auto">
-            {redFlags.map((rf) => (
-              <div
-                key={rf.title}
-                className="p-5 rounded-xl border-2 border-red-200 bg-white flex items-start gap-4"
-              >
-                <span
-                  className={`inline-block px-2 py-0.5 text-xs font-bold rounded ${
-                    rf.urgency === "Emergency"
-                      ? "bg-red-600 text-white"
-                      : "bg-orange-500 text-white"
-                  }`}
-                >
-                  {rf.urgency}
-                </span>
-                <div>
-                  <h3 className="font-bold text-[var(--color-text-primary)]">{rf.title}</h3>
-                  <p className="text-sm text-[var(--color-text-secondary)]">{rf.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === SECTION 9: Meet Dr. Shah === */}
-      <section id="about" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("section.doctor")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("doctor.title")}
-            </h2>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-8 items-start">
-            <div className="w-full md:w-48 flex-shrink-0">
-              <PhysicianAvatar size="xl" />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)] mb-2">
-                DR. SHAHNAWAZ F SHAH
-              </h3>
-              <p className="text-[var(--color-clinical-600)] font-semibold text-base sm:text-lg mb-3">
-                {t("doctor.specialty")}
-              </p>
-
-              {/* Verified Qualifications Badges */}
-              <div className="flex flex-wrap items-center gap-1.5 mb-4">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
-                  MBBS
-                </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
-                  M.D. (Anaes)
-                </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
-                  FIAPM
-                </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
-                  FCPM
-                </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[var(--color-clinical-50)] text-[var(--color-clinical-800)] border border-[var(--color-clinical-200)]">
-                  FPM
-                </span>
-              </div>
-
-              <p className="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed mb-6">
-                {t("doctor.bio")}
-              </p>
-
-              {/* Education & Qualifications */}
-              <div className="mb-6 p-4 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] shadow-sm">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-clinical-700)] mb-3 flex items-center gap-2">
-                  <span className="text-sm leading-none">🎓</span>
-                  <span>{t("doctor.educationTitle")}</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
-                    <span>{t("doctor.degree1")}</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
-                    <span>{t("doctor.degree2")}</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
-                    <span>{t("doctor.degree3")}</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-clinical-600)] mt-1.5 flex-shrink-0" />
-                    <span>{t("doctor.degree4")}</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Practice pillars */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {[
-                  { titleKey: "doctor.precisions", descKey: "doctor.precisionsDesc", icon: "🔬" },
-                  { titleKey: "doctor.evidence", descKey: "doctor.evidenceDesc", icon: "📋" },
-                  { titleKey: "doctor.empowerment", descKey: "doctor.empowermentDesc", icon: "🤝" },
-                ].map((p) => (
-                  <div key={p.titleKey} className="p-4 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">
-                    <span className="text-2xl block mb-2">{p.icon}</span>
-                    <h4 className="font-semibold text-sm text-[var(--color-text-primary)]">{t(p.titleKey)}</h4>
-                    <p className="text-xs text-[var(--color-text-muted)]">{t(p.descKey)}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* === SECTION 10: Education / Articles === */}
-      <section id="education" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("section.education")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("education.title")}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {articles.map((a) => (
-              <a key={a.slug} href={`/education/${a.slug}`} className="group block p-6 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-lg hover:border-[var(--color-clinical-300)] transition-all">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-2 py-0.5 text-xs font-semibold rounded bg-[var(--color-primary-50)] text-[var(--color-primary-700)]">
-                    {a.category}
+          <ul className="grid md:grid-cols-2 gap-x-12 border-t border-[var(--line)]">
+            {featuredConditions.map((c) => (
+              <li key={c.slug} className="border-b border-[var(--line)]">
+                <a href={`/conditions/${c.slug}`} className="group flex items-start gap-5 py-6">
+                  <span className="mt-2.5 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-[var(--panel)]" style={{ background: c.color }} aria-hidden="true" />
+                  <span className="flex-1">
+                    <span className="block font-display text-2xl text-[var(--ink)] group-hover:text-[var(--iris)] transition-colors">{c.name}</span>
+                    <span className="block mt-1 text-[var(--color-text-secondary)]">{c.description}</span>
                   </span>
-                  <span className="text-xs text-[var(--color-text-muted)]">{a.readTime} read</span>
+                  <span className="mt-2 h-9 w-9 shrink-0 rounded-full ring-1 ring-[var(--line)] flex items-center justify-center text-[var(--color-text-muted)] group-hover:bg-[var(--ink)] group-hover:text-white group-hover:ring-[var(--ink)] transition-colors">
+                    <ArrowIcon />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ================= TREATMENT LADDER ================= */}
+      <section id="treatment" className="py-24 lg:py-32 bg-[var(--ink)] text-white on-dark">
+        <div className="container-page">
+          <div className="section-head">
+            <h2>{t("treatment.title")}</h2>
+            <p>{t("treatment.subtitle")}</p>
+          </div>
+
+          <ol className="grid md:grid-cols-4 gap-4 md:items-end">
+            {treatmentLadder.map((s, i) => (
+              <li
+                key={s.step}
+                className="relative rounded-[1.25rem] bg-white/[0.05] ring-1 ring-white/10 p-6 flex flex-col"
+                style={{ minHeight: `${15 + i * 3.5}rem` }}
+              >
+                <span className="font-display text-5xl text-white/25">{s.step}</span>
+                <div className="mt-auto pt-8">
+                  <span className="block h-1 w-8 rounded-full mb-4" style={{ background: i === 3 ? "var(--signal)" : `rgba(205,199,238,${0.35 + i * 0.2})` }} />
+                  <h3 className="text-white mb-2">{s.titleKey}</h3>
+                  <p className="text-white/65 text-[0.95rem] leading-relaxed">{s.descriptionKey}</p>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-clinical-600)] transition-colors">{a.title}</h3>
-                <p className="text-sm text-[var(--color-text-secondary)]">{a.excerpt}</p>
-                <span className="inline-block mt-4 text-sm font-medium text-[var(--color-clinical-600)]">
-                  {t("common.readMore")} →
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ================= PROCEDURES ================= */}
+      <section id="procedures" className="py-24 lg:py-32">
+        <div className="container-page">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div className="section-head !mb-0">
+              <h2>{t("procedures.title")}</h2>
+              <p>{t("procedures.subtitle")}</p>
+            </div>
+            <a href="/procedures" className="inline-flex items-center gap-2 font-semibold text-[var(--iris)] hover:gap-3 transition-all shrink-0">
+              All procedures <ArrowIcon />
+            </a>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { name: "Radiofrequency Ablation", desc: "Thermal neurotomy for facet joint and nerve-mediated pain.", slug: "radiofrequency-ablation", tag: "Fluoroscopy-guided" },
+              { name: "Lumbar Epidural Injection", desc: "Targeted steroid delivery for nerve root inflammation.", slug: "lumbar-epidural-injection", tag: "Fluoroscopy-guided" },
+              { name: "Medial Branch Block", desc: "Diagnostic confirmation for facet joint pain.", slug: "medial-branch-block", tag: "Diagnostic" },
+              { name: "SI Joint Injection", desc: "Precise injection for sacroiliac joint dysfunction.", slug: "si-joint-injection", tag: "Image-guided" },
+              { name: "Spinal Cord Stimulation", desc: "Neuromodulation for chronic intractable pain.", slug: "spinal-cord-stimulation", tag: "Neuromodulation" },
+              { name: "Trigger Point Injection", desc: "Myofascial trigger point disruption and pain relief.", slug: "trigger-point-injection", tag: "Ultrasound-guided" },
+            ].map((p) => (
+              <a key={p.slug} href={`/procedures/${p.slug}`} className="card group p-7 flex flex-col">
+                <span className="self-start text-[13px] font-medium text-[var(--iris)] bg-[var(--iris-soft)] rounded-full px-3 py-1">{p.tag}</span>
+                <h3 className="mt-6 text-[var(--ink)]">{p.name}</h3>
+                <p className="mt-2 text-[var(--color-text-secondary)] flex-1">{p.desc}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--ink)] group-hover:text-[var(--iris)] transition-colors">
+                  {t("common.learnMore")} <ArrowIcon />
                 </span>
               </a>
             ))}
@@ -504,99 +252,161 @@ export default function Home() {
         </div>
       </section>
 
-      {/* === SECTION 11: Watch & Learn (Client Component) === */}
-      <WatchAndLearn />
+      {/* ================= RED FLAGS ================= */}
+      <section id="red-flags" className="py-20 lg:py-24 bg-white">
+        <div className="container-page">
+          <div className="rounded-[2rem] bg-[#fff4f5] ring-1 ring-[#f3cfd4] p-8 sm:p-12 lg:p-14 grid lg:grid-cols-[0.9fr_1.1fr] gap-10">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-[var(--signal)] text-white text-sm font-semibold px-3.5 py-1.5">
+                <AlertIcon className="w-4 h-4" /> Seek care urgently
+              </span>
+              <h2 className="mt-6 text-[#7d1422]">{t("redflags.title")}</h2>
+              <p className="mt-4 text-lg text-[#6b3940] max-w-md">{t("redflags.subtitle")}</p>
+            </div>
+            <ul className="divide-y divide-[#f3cfd4] self-center">
+              {redFlags.map((rf) => (
+                <li key={rf.title} className="py-5 first:pt-0 last:pb-0 flex gap-4">
+                  <span className={`mt-1 shrink-0 text-xs font-bold uppercase tracking-wide rounded-md px-2 py-1 h-fit ${rf.urgency === "Emergency" ? "bg-[var(--signal)] text-white" : "bg-[#f9dfe2] text-[#9b1c2c]"}`}>
+                    {rf.urgency}
+                  </span>
+                  <div>
+                    <h3 className="text-[#3d0d14] text-lg">{rf.title}</h3>
+                    <p className="text-[#6b3940]">{rf.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
 
-      {/* === Pain Wizard === */}
+      {/* ================= MEET DR. SHAH ================= */}
+      <section id="about" className="py-24 lg:py-32 bg-white">
+        <div className="container-page grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="lg:col-span-5">
+            <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-[var(--panel)] to-[#d9d4f1] aspect-[5/6] max-w-md">
+              <Image src="/doctor-photo.png" alt="Dr. Shahnawaz F Shah" width={376} height={354} className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[105%] max-w-none h-auto" />
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <h2 className="text-[var(--ink)]">{t("doctor.title")}</h2>
+            <p className="mt-2 text-lg font-medium text-[var(--iris)]">{t("doctor.specialty")}</p>
+            <p className="mt-6 text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">{t("doctor.bio")}</p>
+
+            <h3 className="mt-10 text-[var(--ink)]">{t("doctor.educationTitle")}</h3>
+            <ul className="mt-4 border-t border-[var(--line)]">
+              {["doctor.degree1", "doctor.degree2", "doctor.degree3", "doctor.degree4"].map((k) => (
+                <li key={k} className="flex items-center gap-3 py-3.5 border-b border-[var(--line)] text-[var(--color-text-primary)]">
+                  <CheckIcon className="w-4 h-4 text-[var(--relief)] shrink-0" />
+                  {t(k)}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-10 grid sm:grid-cols-3 gap-6">
+              {[
+                { titleKey: "doctor.precisions", descKey: "doctor.precisionsDesc" },
+                { titleKey: "doctor.evidence", descKey: "doctor.evidenceDesc" },
+                { titleKey: "doctor.empowerment", descKey: "doctor.empowermentDesc" },
+              ].map((p) => (
+                <div key={p.titleKey} className="border-l-2 border-[var(--color-primary-200)] pl-4">
+                  <h4 className="text-[var(--ink)]">{t(p.titleKey)}</h4>
+                  <p className="mt-1 text-sm text-[var(--color-text-muted)]">{t(p.descKey)}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10">
+              <Button label="Read Dr. Shah's full profile" href="/doctor" variant="outline" icon={<ArrowIcon />} iconPosition="right" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= ARTICLES ================= */}
+      <section id="education" className="py-24 lg:py-32">
+        <div className="container-page">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div className="section-head !mb-0"><h2>{t("education.title")}</h2></div>
+            <a href="/education" className="inline-flex items-center gap-2 font-semibold text-[var(--iris)] hover:gap-3 transition-all shrink-0">
+              All articles <ArrowIcon />
+            </a>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {articles.map((a) => (
+              <a key={a.slug} href={`/education/${a.slug}`} className="card group p-7 flex flex-col">
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  <span className="font-semibold text-[var(--iris)]">{a.category}</span>
+                  <span className="mx-2">/</span>
+                  {a.readTime} read
+                </p>
+                <h3 className="mt-4 font-display !font-medium text-[1.65rem] leading-tight text-[var(--ink)] group-hover:text-[var(--iris)] transition-colors">{a.title}</h3>
+                <p className="mt-3 text-[var(--color-text-secondary)] flex-1">{a.excerpt}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--ink)]">{t("common.readMore")} <ArrowIcon /></span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= VIDEOS & ASSESSMENT ================= */}
+      <WatchAndLearn />
       <PainWizard />
 
-      {/* === SECTION 12: Clinic Experience === */}
-      <section id="clinic" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-              {t("section.clinic")}
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
-              {t("clinic.title")}
-            </h2>
+      {/* ================= CLINIC JOURNEY ================= */}
+      <section id="clinic" className="py-24 lg:py-32 bg-white">
+        <div className="container-page">
+          <div className="section-head">
+            <h2>{t("clinic.title")}</h2>
           </div>
 
-          {/* 7-Step First Visit Journey */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <ol className="relative grid sm:grid-cols-2 lg:grid-cols-7 gap-8 lg:gap-4">
+            <span className="hidden lg:block absolute left-0 right-0 top-[1.15rem] h-px bg-[var(--line)]" aria-hidden="true" />
+            {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+              <li key={n} className="relative">
+                <span className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${n === 6 ? "bg-[var(--signal)] text-white" : "bg-[var(--ink)] text-white"}`}>{n}</span>
+                <h4 className="mt-5 text-[var(--ink)]">{t(`clinic.step${n}.title`)}</h4>
+                <p className="mt-1.5 text-sm text-[var(--color-text-secondary)]">{t(`clinic.step${n}.desc`)}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-16 grid sm:grid-cols-3 rounded-[1.5rem] bg-[var(--paper)] ring-1 ring-[var(--line)] divide-y sm:divide-y-0 sm:divide-x divide-[var(--line)]">
             {[
-              { step: "01", titleKey: "clinic.step1.title", descKey: "clinic.step1.desc" },
-              { step: "02", titleKey: "clinic.step2.title", descKey: "clinic.step2.desc" },
-              { step: "03", titleKey: "clinic.step3.title", descKey: "clinic.step3.desc" },
-              { step: "04", titleKey: "clinic.step4.title", descKey: "clinic.step4.desc" },
-              { step: "05", titleKey: "clinic.step5.title", descKey: "clinic.step5.desc" },
-              { step: "06", titleKey: "clinic.step6.title", descKey: "clinic.step6.desc" },
-              { step: "07", titleKey: "clinic.step7.title", descKey: "clinic.step7.desc" },
-            ].map((s) => (
-              <div key={s.step} className="p-5 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)] text-center">
-                <div className="w-10 h-10 rounded-full bg-[var(--color-clinical-500)] text-white font-bold text-sm flex items-center justify-center mx-auto mb-3">
-                  {s.step}
+              { icon: <PinIcon />, label: t("clinic.locationLabel"), value: t("clinic.locationValue") },
+              { icon: <ClockIcon />, label: t("clinic.hoursLabel"), value: t("clinic.hoursValue") },
+              { icon: <ScanIcon />, label: t("clinic.facilitiesLabel"), value: t("clinic.facilitiesValue") },
+            ].map((d) => (
+              <div key={d.label} className="flex gap-4 p-6 sm:p-7">
+                <span className="text-[var(--iris)] mt-0.5">{d.icon}</span>
+                <div>
+                  <p className="text-sm text-[var(--color-text-muted)]">{d.label}</p>
+                  <p className="font-semibold text-[var(--ink)]">{d.value}</p>
                 </div>
-                <h4 className="text-base sm:text-lg font-bold text-[var(--color-text-primary)] mb-1">{t(s.titleKey)}</h4>
-                <p className="text-xs text-[var(--color-text-secondary)]">{t(s.descKey)}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Clinic details */}
-          <div className="mt-10 p-6 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-            <div>
-              <h4 className="font-bold text-[var(--color-text-primary)] mb-1">📍 {t("clinic.locationLabel")}</h4>
-              <p className="text-sm text-[var(--color-text-secondary)]">{t("clinic.locationValue")}</p>
+      {/* ================= BOOK ================= */}
+      <section id="book" className="relative isolate overflow-hidden bg-[var(--ink)] text-white">
+        <div className="pointer-events-none absolute -left-32 -bottom-48 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(208,42,60,0.28),transparent)]" aria-hidden="true" />
+        <div className="container-page relative py-20 lg:py-28 grid lg:grid-cols-[1.2fr_1fr] gap-10 items-end">
+          <div>
+            <h2 className="text-white max-w-[16ch]">{t("cta.title")}</h2>
+            <p className="mt-5 text-lg sm:text-xl text-white/70 max-w-xl">{t("cta.description")}</p>
+          </div>
+          <div className="lg:justify-self-end w-full lg:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button label={t("cta.call")} href="tel:+919769682366" variant="light" size="lg" icon={<PhoneIcon />} />
+              <Button label={t("cta.whatsapp")} href="https://wa.me/919769682366" variant="whatsapp" size="lg" newTab icon={<WhatsAppIcon />} />
             </div>
-            <div>
-              <h4 className="font-bold text-[var(--color-text-primary)] mb-1">🕐 {t("clinic.hoursLabel")}</h4>
-              <p className="text-sm text-[var(--color-text-secondary)]">{t("clinic.hoursValue")}</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-[var(--color-text-primary)] mb-1">🏥 {t("clinic.facilitiesLabel")}</h4>
-              <p className="text-sm text-[var(--color-text-secondary)]">{t("clinic.facilitiesValue")}</p>
-            </div>
+            <p className="mt-4 text-white/55 text-sm">+91 97696 82366 · {t("clinic.hoursValue")}</p>
           </div>
         </div>
       </section>
 
-      {/* === SECTION 13: Final CTA === */}
-      <section id="book" className="py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-              {t("cta.title")}
-            </h2>
-            <p className="text-xl sm:text-2xl text-white/85 mb-10 max-w-2xl mx-auto">
-              {t("cta.description")}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-              <Button
-                label={`📞 ${t("cta.call")}`}
-                href="tel:+919769682366"
-                variant="light"
-                size="lg"
-              />
-              <Button
-                label={`💬 ${t("cta.whatsapp")}`}
-                href="https://wa.me/919769682366"
-                variant="whatsapp"
-                size="lg"
-                newTab={true}
-              />
-            </div>
-
-            <p className="mt-6 text-sm text-white/50">
-              {t("footer.bookOnline")}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <Footer />
       {show3DViewer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="relative w-[90%] max-w-[800px] h-[90%] max-h-[800px]">

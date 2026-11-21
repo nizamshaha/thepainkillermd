@@ -21,7 +21,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
     return (
       <div className="min-h-[70vh] flex items-center justify-center px-4">
         <div className="text-center max-w-lg">
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-3">
+          <h1 className="text-2xl text-[var(--color-text-primary)] mb-3">
             {t("condition.notFound")}
           </h1>
           <p className="text-[var(--color-text-secondary)] mb-6">
@@ -65,7 +65,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
               </span>
               <span className="text-xs text-white/50">{article.readTime} read</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4">{article.title}</h1>
+            <h1 className="mb-4">{article.title}</h1>
             <p className="text-lg text-white/80 leading-relaxed mb-6">{article.excerpt}</p>
             <ShareButtons title={article.title} />
           </div>
@@ -149,7 +149,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
             {/* FAQ */}
             {article.faq.length > 0 && (
               <section id="faq" className="mt-12 mb-10 scroll-mt-24">
-                <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
+                <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">
                   {t("condition.faq")}
                 </h2>
                 <div className="space-y-3">

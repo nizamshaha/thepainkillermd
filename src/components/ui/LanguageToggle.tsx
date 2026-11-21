@@ -60,7 +60,7 @@ export default function LanguageToggle() {
         type="button"
         onPointerDown={(e) => e.stopPropagation()}
         onClick={toggle}
-        className="flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] hover:bg-[var(--color-surface-100)] border border-[var(--color-surface-200)]/80 rounded-xl transition-all min-h-[42px] shadow-2xs hover:shadow-xs active:scale-95"
+        className="flex items-center gap-1.5 h-10 px-3 text-sm font-medium text-[var(--color-text-secondary)] bg-white ring-1 ring-inset ring-[var(--line)] hover:ring-[var(--color-primary-300)] rounded-full transition"
         aria-label={`Language & Region: ${displayLocale.label} (${displayLocale.region})`}
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -69,7 +69,7 @@ export default function LanguageToggle() {
         <span className="font-bold text-xs text-[var(--color-text-primary)] uppercase tracking-wide">
           {displayLocale.code}
         </span>
-        <span className="hidden xl:inline-block text-[11px] text-[var(--color-text-muted)] font-normal border-l border-[var(--color-surface-300)] pl-2">
+        <span className="hidden">
           {displayLocale.regionLabel.split(",")[0]}
         </span>
         <svg

@@ -337,7 +337,7 @@ export default function AssessmentReport({
             Dr. Shahnawaz F Shah • Surat
           </span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+        <h2 className="text-2xl mb-2">
           {t("assessment.report.summaryHeading")}
         </h2>
         <p className="text-sm text-white/90 leading-relaxed font-medium">

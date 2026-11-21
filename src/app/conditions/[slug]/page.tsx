@@ -108,7 +108,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
             </span>
             <span className="text-xs text-white/50 uppercase tracking-wider">{condition.category}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">{condition.name}</h1>
+          <h1 className="mb-4">{condition.name}</h1>
           <p className="text-lg text-white/80 leading-relaxed">{condition.overview}</p>
         </div>
       </section>
@@ -116,7 +116,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Symptoms */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.symptoms")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.symptoms")}</h2>
           <ul className="space-y-2">
             {condition.symptoms.map((s, i) => (
               <li key={i} className="flex items-start gap-3 text-[var(--color-text-secondary)]">
@@ -129,7 +129,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Causes */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.causes")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.causes")}</h2>
           <ul className="space-y-2">
             {condition.causes.map((c, i) => (
               <li key={i} className="flex items-start gap-3 text-[var(--color-text-secondary)]">
@@ -142,7 +142,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Diagnosis */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.diagnosis")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.diagnosis")}</h2>
           <p className="text-[var(--color-text-secondary)] mb-3">{t("condition.diagnosisDesc")}</p>
           <ul className="space-y-2">
             {condition.diagnosis.map((d, i) => (
@@ -156,7 +156,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Treatment */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.treatment")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.treatment")}</h2>
           <div className="space-y-3">
             {condition.treatmentOptions.map((treatment, i) => (
               <div key={i} className="p-4 rounded-lg bg-[var(--color-surface-50)] border border-[var(--color-surface-200)] text-[var(--color-text-secondary)]">
@@ -169,7 +169,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         {/* Related Procedures */}
         {conditionProcedures.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.relatedProcedures")}</h2>
+            <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.relatedProcedures")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {conditionProcedures.map((p) => (
                 <a key={p.slug} href={`/procedures/${p.slug}`} className="p-4 rounded-lg border border-[var(--color-surface-200)] hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all">
@@ -184,7 +184,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         {/* Related Medications */}
         {conditionMedications.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.relatedMedications")}</h2>
+            <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.relatedMedications")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {conditionMedications.map((m) => (
                 <a key={m.slug} href={`/medications/${m.slug}`} className="p-4 rounded-lg border border-[var(--color-surface-200)] hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all">
@@ -198,7 +198,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
 
         {/* Red Flags */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-[var(--color-alert-critical)] mb-4 flex items-center gap-2">
+          <h2 className="text-2xl text-[var(--color-alert-critical)] mb-4 flex items-center gap-2">
             <span>🚨</span> {t("condition.redFlags")}
           </h2>
           <div className="p-5 rounded-xl bg-red-50 border-2 border-red-200">
@@ -216,7 +216,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         {/* FAQ */}
         {condition.faq.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("condition.faq")}</h2>
+            <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("condition.faq")}</h2>
             <ConditionFAQ items={condition.faq} />
           </section>
         )}
@@ -224,7 +224,7 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         {/* Related Conditions */}
         {relatedConditions.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">{t("condition.relatedConditions")}</h2>
+            <h2 className="text-2xl text-[var(--color-text-primary)] mb-4">{t("condition.relatedConditions")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {relatedConditions.map((c) => (
                 <a key={c.slug} href={`/conditions/${c.slug}`} className="p-4 rounded-lg border border-[var(--color-surface-200)] hover:border-[var(--color-clinical-300)] hover:shadow-md transition-all">

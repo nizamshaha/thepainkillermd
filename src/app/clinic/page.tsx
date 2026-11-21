@@ -22,7 +22,7 @@ export default function ClinicPage() {
 
       <section className="bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">{t("clinic.title")}</h1>
+          <h1 className="mb-4">{t("clinic.title")}</h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
             A calm, professional environment designed for comfortable consultation and advanced interventional procedures.
           </p>
@@ -31,7 +31,7 @@ export default function ClinicPage() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6 text-center">{t("clinic.firstVisit")}</h2>
+          <h2 className="text-2xl text-[var(--color-text-primary)] mb-6 text-center">{t("clinic.firstVisit")}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
             {firstVisitSteps.map((s) => (
               <div key={s.step} className="p-4 rounded-xl border border-[var(--color-surface-200)] bg-[var(--color-surface-50)] text-center">
@@ -79,7 +79,7 @@ export default function ClinicPage() {
         </section>
 
         <section id="book" className="mb-12 p-8 rounded-xl bg-gradient-to-br from-[var(--color-primary-900)] to-[var(--color-primary-700)] text-white text-center">
-          <h2 className="text-2xl font-bold mb-3">{t("clinic.bookNow")}</h2>
+          <h2 className="text-2xl mb-3">{t("clinic.bookNow")}</h2>
           <p className="text-white/80 mb-6 max-w-xl mx-auto">
             Schedule a consultation with Dr. Shahnawaz F Shah for personalized pain evaluation and treatment planning.
           </p>

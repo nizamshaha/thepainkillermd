@@ -90,7 +90,7 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
       )}
 
       {/* Title */}
-      <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">{t("result.yourPainProfile")}</h2>
+      <h2 className="text-2xl text-[var(--color-text-primary)] mb-6">{t("result.yourPainProfile")}</h2>
 
       {/* Pain Profile Summary */}
       <div className="mb-8 p-5 rounded-xl bg-[var(--color-surface-50)] border border-[var(--color-surface-200)]">

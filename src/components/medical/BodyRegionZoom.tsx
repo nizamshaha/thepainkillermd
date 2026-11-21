@@ -79,7 +79,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
         {/* Header */}
         <div className="sticky top-0 z-10 bg-[#0f172a]/95 backdrop-blur-sm border-b border-white/10 px-5 py-4 flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-white">{region.label}</h2>
+            <h2 className="text-lg text-white">{region.label}</h2>
             <p className="text-xs text-white/50 mt-0.5">
               {pins.length === 0 ? t("zoom.tapBelow") : `${pins.length} ${t("zoom.painPointsMarked")}`}
             </p>

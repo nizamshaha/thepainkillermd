@@ -424,10 +424,7 @@ export default function PainWizard() {
     return (
       <section id="pain-wizard" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8" aria-labelledby="wizard-title">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-            {t("assessment.badge")}
-          </p>
-          <h2 id="wizard-title" className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
+          <h2 id="wizard-title" className="text-[var(--color-text-primary)] mb-4">
             {t("assessment.title")}
           </h2>
           <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-xl mx-auto mb-8">
@@ -450,7 +447,7 @@ export default function PainWizard() {
     <section id="pain-wizard" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8" aria-labelledby="wizard-title">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-6">
-          <h2 id="wizard-title" className="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)]">
+          <h2 id="wizard-title" className="text-[var(--color-text-primary)]">
             {t("assessment.title")}
           </h2>
           <p className="disclaimer-badge justify-center mt-3">

@@ -37,36 +37,24 @@ function SensationCard({
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left p-5 rounded-xl border-2 transition-all ${
+      className={`w-full text-left p-4 rounded-2xl transition-[box-shadow,background-color] flex gap-3.5 items-start ${
         isSelected
-          ? "border-[var(--color-clinical-500)] bg-white shadow-lg"
-          : "border-[var(--color-surface-200)] bg-[var(--color-surface-50)] hover:border-[var(--color-clinical-300)] hover:shadow-md"
+          ? "bg-white ring-2 ring-[var(--ink)] shadow-[var(--shadow-md)]"
+          : "bg-white ring-1 ring-[var(--line)] hover:ring-[var(--color-primary-300)]"
       }`}
       aria-expanded={isSelected}
     >
-      <div className="flex items-center gap-3 mb-2">
-        <span className="text-2xl" role="img" aria-hidden="true">
-          {sensation.icon}
+      <span className="shrink-0 h-10 w-10 rounded-xl bg-[var(--panel)] flex items-center justify-center text-xl" role="img" aria-hidden="true">
+        {sensation.icon}
+      </span>
+      <span className="min-w-0">
+        <span className="block font-semibold text-[var(--ink)] leading-snug">{sensation.label}</span>
+        <span className="mt-0.5 flex items-center gap-1.5 text-xs font-medium" style={{ color: pathway.color }}>
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: pathway.color }} />
+          {pathway.label}
         </span>
-        <div className="flex-1">
-          <h3 className="font-bold text-[var(--color-text-primary)]">
-            {sensation.label}
-          </h3>
-          <span
-            className="inline-block px-2 py-0.5 text-xs font-semibold rounded-full mt-1"
-            style={{
-              background: `${pathway.color}15`,
-              color: pathway.color,
-              border: `1px solid ${pathway.color}40`,
-            }}
-          >
-            {pathway.label}
-          </span>
-        </div>
-      </div>
-      <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2">
-        {sensation.description}
-      </p>
+        <span className="mt-1.5 block text-sm text-[var(--color-text-secondary)] line-clamp-2">{sensation.description}</span>
+      </span>
     </button>
   );
 }
@@ -85,9 +73,9 @@ function SensationDetail({ sensation }: { sensation: PainSensation }) {
           <span
             className="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full mt-1"
             style={{
-              background: `${pathway.color}15`,
+              background: `color-mix(in srgb, ${pathway.color} 10%, white)`,
               color: pathway.color,
-              border: `1px solid ${pathway.color}40`,
+              border: `1px solid color-mix(in srgb, ${pathway.color} 30%, white)`,
             }}
           >
             {pathway.label} Pathway
@@ -164,34 +152,31 @@ export default function SensationExplorer() {
   return (
     <section
       id="sensation-explorer"
-      className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]"
+      className="py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-[var(--color-surface-50)]"
       aria-labelledby="sensation-title"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-10">
-          <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-            03. Pain Qualities
-          </p>
+        <div className="section-head">
           <h2
             id="sensation-title"
-            className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4"
+            className="text-[var(--color-text-primary)] mb-4"
           >
             What Does Your Pain Feel Like?
           </h2>
-          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          <p className="">
             Explore different pain qualities and understand their neurobiological mechanisms.
           </p>
         </div>
 
         {/* Pathway Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
+        <div className="flex flex-wrap gap-2 mb-6">
           <button
             onClick={() => setFilterPathway(null)}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
               !filterPathway
                 ? "bg-[var(--color-primary-900)] text-white"
-                : "bg-[var(--color-surface-200)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-300)]"
+                : "bg-white ring-1 ring-inset ring-[var(--line)] text-[var(--color-text-secondary)] hover:text-[var(--ink)]"
             }`}
           >
             All Qualities
@@ -208,7 +193,7 @@ export default function SensationExplorer() {
               style={
                 filterPathway === key
                   ? { background: pathwayInfo[key].color, borderColor: pathwayInfo[key].color }
-                  : { borderColor: `${pathwayInfo[key].color}40` }
+                  : { borderColor: `color-mix(in srgb, ${pathwayInfo[key].color} 35%, white)` }
               }
             >
               {pathwayInfo[key].label}
@@ -217,12 +202,12 @@ export default function SensationExplorer() {
         </div>
 
         {/* Pathway Legend */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
           {(Object.entries(pathwayInfo) as Array<[string, typeof pathwayInfo[keyof typeof pathwayInfo]]>).map(
             ([key, info]) => (
               <div
                 key={key}
-                className="p-4 rounded-lg border border-[var(--color-surface-200)] bg-white"
+                className="pl-4 border-l-2 border-[var(--line)]"
               >
                 <div className="flex items-center gap-2 mb-1">
                   <div
@@ -244,7 +229,7 @@ export default function SensationExplorer() {
         {/* Sensation Grid + Detail */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
           {/* Grid of sensation cards */}
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
             {filteredSensations.map((s) => (
               <SensationCard
                 key={s.id}
@@ -260,8 +245,8 @@ export default function SensationExplorer() {
             {selectedSensation ? (
               <SensationDetail sensation={selectedSensation} />
             ) : (
-              <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8 rounded-xl border-2 border-dashed border-[var(--color-surface-300)]">
-                <div className="text-4xl mb-4">🔍</div>
+              <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8 rounded-[1.5rem] bg-[var(--panel)]">
+                
                 <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
                   Select a Pain Quality
                 </h3>

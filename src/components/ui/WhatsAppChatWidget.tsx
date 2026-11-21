@@ -50,7 +50,7 @@ export default function WhatsAppChatWidget() {
   const btnCls = open ? "w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 bg-gray-700" : "w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 bg-[#25D366] hover:bg-[#20ba5a]";
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50">
       {open && (
         <div className="mb-4 w-[340px] max-w-[calc(100vw-3rem)] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
           <div className="bg-[#075e54] text-white px-4 py-3">

@@ -243,7 +243,7 @@ export default function PainMap({ onSelectPainArea, bodyImageSrc = '/images/body
 
         {/* Sidebar */}
         <aside className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg sticky top-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-5">Pain Areas</h2>
+          <h2 className="text-xl text-gray-900 dark:text-white mb-5">Pain Areas</h2>
 
           <div className="space-y-2.5">
             {PAIN_AREAS.map((area) => {

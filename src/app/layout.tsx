@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import Footer from "@/components/navigation/Footer";
 import Header from "@/components/navigation/Header";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import CookieConsent from "@/components/ui/CookieConsent";
@@ -8,14 +9,20 @@ import { sanitizeJsonLd } from "@/lib/security";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// Self-hosted variable fonts (no build-time dependency on Google Fonts)
+const display = localFont({
+  variable: "--font-display",
+  display: "swap",
+  src: [
+    { path: "../fonts/Newsreader-Variable.woff2", weight: "200 800", style: "normal" },
+    { path: "../fonts/Newsreader-Variable-Italic.woff2", weight: "200 800", style: "italic" },
+  ],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const body = localFont({
+  variable: "--font-body",
+  display: "swap",
+  src: [{ path: "../fonts/Figtree-Variable.woff2", weight: "300 900", style: "normal" }],
 });
 
 export const metadata: Metadata = {
@@ -73,7 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} h-full antialiased`}
     >
       <head>
         <script
@@ -185,6 +192,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main-content" className="flex-1" role="main">
             {children}
           </main>
+
+          <Footer />
 
           <CookieConsent />
           <WhatsAppChatWidget />

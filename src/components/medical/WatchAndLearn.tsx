@@ -44,26 +44,23 @@ export default function WatchAndLearn() {
     : [];
 
   return (
-    <section id="videos" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="watch-title">
+    <section id="videos" className="py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="watch-title">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-            11. Video Education &amp; Patient Stories
-          </p>
+        <div className="section-head">
           <h2
             id="watch-title"
-            className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] mb-4"
+            className="text-[var(--color-text-primary)] mb-4"
           >
             Watch &amp; Learn
           </h2>
-          <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          <p className="">
             Hear directly from patients who found relief, and explore 3D anatomical walkthroughs and procedure animations.
           </p>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex justify-center gap-3 mb-10">
+        <div className="flex flex-wrap gap-2 mb-10">
           {([
             { key: "all" as TabFilter, label: "All Videos & Stories" },
             { key: "testimonial" as TabFilter, label: "Patient Stories" },

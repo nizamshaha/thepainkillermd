@@ -20,7 +20,7 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
         <div className="w-16 h-16 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4 text-2xl">
           ⚠️
         </div>
-        <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">
+        <h2 className="text-2xl text-[var(--color-text-primary)] mb-2">
           Something went wrong
         </h2>
         <p className="text-sm text-[var(--color-text-secondary)] mb-6">
