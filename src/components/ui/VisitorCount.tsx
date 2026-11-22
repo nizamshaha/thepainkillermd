@@ -19,17 +19,27 @@ function load(): Promise<Counts | null> {
     isNewToday = localStorage.getItem("tpm-visited-day") !== day;
   } catch {}
   const qs = [isNew && "new=1", isNewToday && "newToday=1"].filter(Boolean).join("&");
-  request = fetch(`/api/visitors${qs ? `?${qs}` : ""}`)
-    .then((r) => r.json())
-    .then((d: { total: number | null; today: number | null }) => {
-      if (typeof d.total !== "number" || d.total < 1) return null;
-      try {
-        localStorage.setItem("tpm-visited", "1");
-        localStorage.setItem("tpm-visited-day", day);
-      } catch {}
-      return { total: d.total, today: typeof d.today === "number" ? d.today : null };
-    })
-    .catch(() => null);
+  const attempt = (): Promise<Counts | null> =>
+    fetch(`/api/visitors${qs ? `?${qs}` : ""}`)
+      .then((r) => r.json())
+      .then((d: { total: number | null; today: number | null }) => {
+        if (typeof d.total !== "number") return null;
+        try {
+          localStorage.setItem("tpm-visited", "1");
+          localStorage.setItem("tpm-visited-day", day);
+        } catch {}
+        return { total: d.total, today: typeof d.today === "number" ? d.today : null };
+      })
+      .catch(() => null);
+  // The counting service can be slow; try again a couple of times before giving up.
+  request = (async () => {
+    for (let i = 0; i < 3; i++) {
+      const c = await attempt();
+      if (c) return c;
+      await new Promise((r) => setTimeout(r, 2500 * (i + 1)));
+    }
+    return null;
+  })();
   return request;
 }
 
@@ -72,10 +82,28 @@ export default function VisitorCount() {
     });
   }, []);
 
+  // Live: refresh the numbers every 30 seconds while the page is open.
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      if (document.hidden) return;
+      fetch("/api/visitors", { cache: "no-store" })
+        .then((r) => r.json())
+        .then((d: { total: number | null; today: number | null }) => {
+          if (typeof d.total !== "number") return;
+          setCounts((prev) => ({
+            total: Math.max(prev?.total ?? 0, d.total as number),
+            today: typeof d.today === "number" ? Math.max(prev?.today ?? 0, d.today) : prev?.today ?? null,
+          }));
+        })
+        .catch(() => {});
+    }, 30000);
+    return () => window.clearInterval(id);
+  }, []);
+
   const total = useCountUp(counts?.total ?? null);
   const today = useCountUp(counts?.today ?? null);
 
-  if (!counts && failed) return null;
+  if (!counts && failed) return null; // only when there has never been any number to show
   const loading = !counts;
   const skeleton = <span className="inline-block h-3 w-8 rounded-full bg-white/15 animate-pulse" aria-hidden="true" />;
 
