@@ -406,7 +406,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .anim-squeeze-r { animation: squeeze-r 1.6s ease-in-out infinite; }
 .step-progress { animation: step-progress 3.5s linear forwards; }
 /* only the highlighted step animates, so the eye follows one idea at a time */
-.anim-step:not(.is-active) svg * { animation: none !important; }
+.anim-step:not(.is-active):not(:hover) svg * { animation: none !important; }
 /* body map points: no square focus box, use a soft ring instead */
 svg [role="button"]:focus { outline: none; }
 svg [role="button"]:focus-visible > circle:last-child { stroke: var(--purple); stroke-width: 0.9; }
@@ -457,3 +457,21 @@ svg [role="button"]:focus-visible > circle:last-child { stroke: var(--purple); s
 .step-in { animation: step-in .5s cubic-bezier(.2,.8,.2,1) both; }
 @keyframes pop { 0% { transform: scale(.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
 .pop { animation: pop .35s cubic-bezier(.2,.8,.2,1) both; }
+
+/* ---------- Hover / touch activated diagram animations ---------- */
+@keyframes hv-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+@keyframes hv-jitter { 0%,100% { transform: translate(0,0); } 25% { transform: translate(.8px,-.6px); } 75% { transform: translate(-.8px,.6px); } }
+@keyframes hv-press { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+.hv-breathe, .hv-jitter, .hv-press { transform-box: fill-box; transform-origin: center; }
+/* gentle idle so the picture never looks dead */
+.diagram-card .hv-throb { animation: throb 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+/* full motion on hover (mouse) or tap (touch) */
+.diagram-card:hover .hv-flow, .diagram-card.is-on .hv-flow { animation: dash-flow .9s linear infinite; }
+.diagram-card:hover .hv-breathe, .diagram-card.is-on .hv-breathe { animation: hv-breathe 1.6s ease-in-out infinite; }
+.diagram-card:hover .hv-jitter, .diagram-card.is-on .hv-jitter { animation: hv-jitter .35s linear infinite; }
+.diagram-card:hover .hv-press, .diagram-card.is-on .hv-press { animation: hv-press 1.4s ease-in-out infinite; }
+.diagram-card:hover .hv-squeeze-l, .diagram-card.is-on .hv-squeeze-l { animation: squeeze-l 1s ease-in-out infinite; }
+.diagram-card:hover .hv-squeeze-r, .diagram-card.is-on .hv-squeeze-r { animation: squeeze-r 1s ease-in-out infinite; }
+.diagram-card:hover .hv-throb, .diagram-card.is-on .hv-throb { animation-duration: 1.1s; }
+/* slipped-disc steps: hovering any card plays its animation too */
+.anim-step:hover svg * { animation-play-state: running; }

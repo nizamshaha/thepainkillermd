@@ -139,6 +139,7 @@ export default function NervePathway() {
               <button
                 type="button"
                 onClick={() => { setActive(i); setPlaying(false); }}
+                onTouchStart={() => { setActive(i); setPlaying(false); }}
                 aria-current={on ? "step" : undefined}
                 className={`anim-step ${on ? "is-active" : ""} w-full h-full text-left rounded-[1.5rem] bg-white p-5 flex flex-col transition-all duration-500 ${
                   on ? "ring-2 ring-[var(--purple)] shadow-[var(--shadow-lg)] -translate-y-1" : "ring-1 ring-[var(--hairline)] opacity-80 hover:opacity-100"

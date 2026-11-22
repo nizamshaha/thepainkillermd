@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 // Spinal stenosis explained with two top-down cross-sections of a lower-back
 // vertebra: healthy canal vs. narrowed canal, with plain-language labels.
 
@@ -33,17 +37,20 @@ function Vertebra({ narrowed }: { narrowed: boolean }) {
       {/* canal */}
       <circle cx="150" cy="102" r={canalR + (narrowed ? 0 : 6)} fill="#fff" stroke={BONE_LINE} strokeWidth="1.2" />
       {/* thickened ligament at the back of the canal */}
-      {narrowed && <path d="M118 84 Q150 66 182 84 Q170 92 150 90 Q130 92 118 84 Z" fill="#8a6fd0" opacity="0.85" />}
+      {narrowed && <path className="hv-press" d="M118 84 Q150 66 182 84 Q170 92 150 90 Q130 92 118 84 Z" fill="#8a6fd0" opacity="0.85" />}
       {/* nerves */}
       <circle cx="150" cy="102" r={canalR} fill="#fff7e0" stroke={NERVE_LINE} strokeWidth="1" />
+      {!narrowed && (
+        <circle cx="150" cy="102" r={canalR + 2} fill="none" stroke="#157a6e" strokeWidth="1.4" strokeDasharray="4 4" className="hv-flow" />
+      )}
       {nerves.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={narrowed ? 3.2 : 5} fill={NERVE} stroke={NERVE_LINE} strokeWidth="0.8" />
+        <circle key={i} cx={x} cy={y} r={narrowed ? 3.2 : 5} fill={NERVE} stroke={NERVE_LINE} strokeWidth="0.8" className={narrowed ? "hv-jitter" : "hv-breathe"} style={{ animationDelay: `${i * 0.12}s` }} />
       ))}
       {narrowed && (
         <>
-          <g className="anim-squeeze-l"><path d="M98 104 l16 -2 m-6 -5 l6 5 l-5 5" fill="none" stroke={PAIN} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></g>
-          <g className="anim-squeeze-r"><path d="M202 104 l-16 -2 m6 -5 l-6 5 l5 5" fill="none" stroke={PAIN} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></g>
-          <circle cx="150" cy="102" r={canalR + 5} fill="none" stroke={PAIN} strokeWidth="1.2" className="anim-throb" />
+          <g className="hv-squeeze-l"><path d="M98 104 l16 -2 m-6 -5 l6 5 l-5 5" fill="none" stroke={PAIN} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></g>
+          <g className="hv-squeeze-r"><path d="M202 104 l-16 -2 m6 -5 l-6 5 l5 5" fill="none" stroke={PAIN} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></g>
+          <circle cx="150" cy="102" r={canalR + 5} fill="none" stroke={PAIN} strokeWidth="1.2" className="hv-throb" />
         </>
       )}
       {/* labels */}
@@ -65,14 +72,15 @@ function Vertebra({ narrowed }: { narrowed: boolean }) {
 }
 
 export default function SpinalStenosis() {
+  const [touched, setTouched] = useState<string | null>(null);
   return (
     <figure className="w-full mx-0 mb-0" aria-label="Healthy spinal canal compared with a narrowed spinal canal">
       <figcaption className="text-center mb-8">
         <h3 className="text-2xl text-[var(--ink)]">What is spinal stenosis?</h3>
-        <p className="mt-2 text-[var(--grey)]">Looking down through a lower-back bone: the space for the nerves gets smaller.</p>
+        <p className="mt-2 text-[var(--grey)]">Looking down through a lower-back bone: the space for the nerves gets smaller. Hover or tap each picture to see it move.</p>
       </figcaption>
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="rounded-[1.5rem] bg-white p-6 ring-1 ring-[var(--hairline)]">
+        <div onTouchStart={() => setTouched("h")} onClick={() => setTouched(touched === "h" ? null : "h")} className={`diagram-card ${touched === "h" ? "is-on" : ""} cursor-pointer rounded-[1.5rem] bg-white p-6 ring-1 ring-[var(--hairline)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)] hover:ring-[#157a6e]`}>
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#157a6e]" />
             <h4 className="text-[var(--ink)] text-lg">Healthy spine</h4>
@@ -83,7 +91,7 @@ export default function SpinalStenosis() {
             <li>Walking and standing feel normal</li>
           </ul>
         </div>
-        <div className="rounded-[1.5rem] bg-white p-6 ring-1 ring-[#f6d3d8]">
+        <div onTouchStart={() => setTouched("s")} onClick={() => setTouched(touched === "s" ? null : "s")} className={`diagram-card ${touched === "s" ? "is-on" : ""} cursor-pointer rounded-[1.5rem] bg-white p-6 ring-1 ring-[#f6d3d8] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)] hover:ring-[#d9365a]`}>
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#d9365a]" />
             <h4 className="text-[var(--ink)] text-lg">Spinal stenosis (narrowed canal)</h4>
