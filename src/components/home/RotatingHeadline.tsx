@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 // height never jumps; only the active one is visible.
 const LINES: { code: string; label: string; text: string[] }[] = [
   { code: "en", label: "English", text: ["Understand Your Pain.", "Treat the Cause.", "Restore Function."] },
+  { code: "gu", label: "ગુજરાતી", text: ["તમારા દુખાવાને સમજો.", "કારણની સારવાર કરો.", "કાર્યક્ષમતા પુનઃસ્થાપિત કરો."] },
   { code: "hi", label: "हिन्दी", text: ["अपने दर्द को समझें।", "कारण का इलाज करें।", "कार्यक्षमता बहाल करें।"] },
   { code: "mr", label: "मराठी", text: ["तुमच्या वेदना समजून घ्या.", "कारणावर उपचार करा.", "कार्यक्षमता पुन्हा मिळवा."] },
-  { code: "gu", label: "ગુજરાતી", text: ["તમારા દુખાવાને સમજો.", "કારણની સારવાર કરો.", "કાર્યક્ષમતા પુનઃસ્થાપિત કરો."] },
 ];
 
 const HOLD_MS = 3000;
