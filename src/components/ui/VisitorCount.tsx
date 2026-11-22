@@ -2,71 +2,101 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/** Counts each browser once (remembered in localStorage) and shows the site total with a soft count-up. */
-let request: Promise<number | null> | null = null; // one request per page load
-function load(): Promise<number | null> {
+type Counts = { total: number; today: number | null };
+
+function istDay() {
+  return new Date(Date.now() + 5.5 * 3600 * 1000).toISOString().slice(0, 10);
+}
+
+// Each browser is counted once in the total and once per day (India time) in "today".
+let request: Promise<Counts | null> | null = null;
+function load(): Promise<Counts | null> {
   if (request) return request;
-  let first = false;
-  try { first = !localStorage.getItem("tpm-visited"); } catch {}
-  request = fetch(`/api/visitors${first ? "?hit=1" : ""}`)
+  let isNew = false, isNewToday = false;
+  const day = istDay();
+  try {
+    isNew = !localStorage.getItem("tpm-visited");
+    isNewToday = localStorage.getItem("tpm-visited-day") !== day;
+  } catch {}
+  const qs = [isNew && "new=1", isNewToday && "newToday=1"].filter(Boolean).join("&");
+  request = fetch(`/api/visitors${qs ? `?${qs}` : ""}`)
     .then((r) => r.json())
-    .then((d: { count: number | null }) => {
-      if (typeof d.count !== "number" || d.count < 1) return null;
-      if (first) { try { localStorage.setItem("tpm-visited", "1"); } catch {} }
-      return d.count;
+    .then((d: { total: number | null; today: number | null }) => {
+      if (typeof d.total !== "number" || d.total < 1) return null;
+      try {
+        localStorage.setItem("tpm-visited", "1");
+        localStorage.setItem("tpm-visited-day", day);
+      } catch {}
+      return { total: d.total, today: typeof d.today === "number" ? d.today : null };
     })
     .catch(() => null);
   return request;
 }
 
-export default function VisitorCount() {
-  const [total, setTotal] = useState<number | null>(null);
-  const [failed, setFailed] = useState(false);
+function useCountUp(target: number | null) {
   const [shown, setShown] = useState(0);
   const from = useRef(0);
-  const ref = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (target === null) return;
+    let raf = 0;
+    const t0 = performance.now(), dur = 1400, start = from.current;
+    const step = (t: number) => {
+      const p = Math.min(1, Math.max(0, (t - t0) / dur)), eased = 1 - Math.pow(1 - p, 3);
+      const v = Math.round(start + (target - start) * eased);
+      from.current = v; setShown(v);
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target]);
+  return shown;
+}
+
+export default function VisitorCount() {
+  const [counts, setCounts] = useState<Counts | null>(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    // Show the last known total straight away; the counting service can take a few seconds.
-    try { const c = Number(localStorage.getItem("tpm-visitors-last")); if (c > 0) setTotal(c); } catch {}
-    load().then((n) => {
-      if (n === null) { setFailed(true); return; }
-      try { localStorage.setItem("tpm-visitors-last", String(n)); } catch {}
-      setTotal((prev) => (prev === null ? n : Math.max(prev, n)));
+    // Show the last known numbers straight away, then the fresh ones.
+    try {
+      const last = JSON.parse(localStorage.getItem("tpm-visitors-last2") || "null") as (Counts & { day?: string }) | null;
+      if (last && last.total > 0) setCounts({ total: last.total, today: last.day === istDay() ? last.today : null });
+    } catch {}
+    load().then((c) => {
+      if (!c) { setFailed(true); return; }
+      try { localStorage.setItem("tpm-visitors-last2", JSON.stringify({ ...c, day: istDay() })); } catch {}
+      setCounts((prev) => ({
+        total: Math.max(prev?.total ?? 0, c.total),
+        today: c.today === null ? prev?.today ?? null : Math.max(prev?.today ?? 0, c.today),
+      }));
     });
   }, []);
 
-  useEffect(() => {
-    if (total === null || !ref.current) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) { setShown(total); return; }
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
-      io.disconnect();
-      const t0 = performance.now(), dur = 1400, start = from.current;
-      const step = (t: number) => {
-        const p = Math.min(1, Math.max(0, (t - t0) / dur)), eased = 1 - Math.pow(1 - p, 3);
-        const v = Math.round(start + (total - start) * eased);
-        from.current = v; setShown(v);
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    });
-    io.observe(ref.current);
-    return () => io.disconnect();
-  }, [total]);
+  const total = useCountUp(counts?.total ?? null);
+  const today = useCountUp(counts?.today ?? null);
 
-  if (total === null && failed) return null;
-  const loading = total === null;
+  if (!counts && failed) return null;
+  const loading = !counts;
+  const skeleton = <span className="inline-block h-3 w-8 rounded-full bg-white/15 animate-pulse" aria-hidden="true" />;
+
   return (
-    <p ref={ref} className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-[13px] text-white/70 ring-1 ring-white/15 bg-white/[0.04]" aria-live="polite" aria-label={loading ? "Loading visitor count" : `${total.toLocaleString("en-IN")} visitors`}>
-      <span className="relative flex h-2 w-2" aria-hidden="true">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--lilac)] opacity-60 motion-safe:animate-ping" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--lilac)]" />
+    <div
+      className="inline-flex items-center rounded-full ring-1 ring-white/15 bg-white/[0.04] text-[13px] text-white/70 divide-x divide-white/10"
+      aria-live="polite"
+      aria-label={loading ? "Loading visitor count" : `${counts.today ?? 0} visitors today, ${counts.total} in total`}
+    >
+      <span className="inline-flex items-center gap-2 px-4 py-1.5">
+        <span className="relative flex h-2 w-2" aria-hidden="true">
+          <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ade80] opacity-60 animate-ping" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ade80]" />
+        </span>
+        {loading || counts.today === null ? skeleton : <span className="font-semibold text-white tabular-nums">{today.toLocaleString("en-IN")}</span>}
+        <span>today</span>
       </span>
-      {loading ? <span className="inline-block h-3 w-10 rounded-full bg-white/15 motion-safe:animate-pulse" aria-hidden="true" /> : null}
-      {loading ? null : <span className="font-semibold text-white tabular-nums">{shown.toLocaleString("en-IN")}</span>}
-      <span>visitors</span>
-    </p>
+      <span className="inline-flex items-center gap-2 px-4 py-1.5">
+        {loading ? skeleton : <span className="font-semibold text-white tabular-nums">{total.toLocaleString("en-IN")}</span>}
+        <span>total visitors</span>
+      </span>
+    </div>
   );
 }

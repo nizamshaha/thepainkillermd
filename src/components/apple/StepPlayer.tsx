@@ -5,21 +5,17 @@ import { useEffect, useState } from "react";
 // Auto-playing, tappable step-through for "How it's performed".
 export default function StepPlayer({ title, steps }: { title: string; steps: string[] }) {
   const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  const playing = true; // always playing; tapping a step jumps there and carries on
   useEffect(() => {
-    if (!playing || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setActive((a) => (a + 1) % steps.length), 3200);
-    return () => window.clearInterval(id);
-  }, [playing, steps.length]);
+    const id = window.setTimeout(() => setActive((a) => (a + 1) % steps.length), 3200);
+    return () => window.clearTimeout(id);
+  }, [active, steps.length]);
 
   return (
     <div className="rounded-[1.75rem] bg-[var(--night)] text-white p-6 sm:p-8 overflow-hidden relative">
       <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(122,79,207,0.55),transparent)]" aria-hidden="true" />
       <div className="relative flex flex-wrap items-center justify-between gap-3 mb-6">
         <h2 className="!text-2xl !leading-tight text-white">{title}</h2>
-        <button type="button" onClick={() => setPlaying((p) => !p)} className="glass-btn glass-frost border h-9 px-4 text-sm" aria-pressed={playing}>
-          {playing ? "Pause" : "Play"} walkthrough
-        </button>
       </div>
 
       {/* big current step */}
@@ -36,7 +32,7 @@ export default function StepPlayer({ title, steps }: { title: string; steps: str
           <li key={i}>
             <button
               type="button"
-              onClick={() => { setActive(i); setPlaying(false); }}
+              onClick={() => setActive(i)}
               aria-label={`Step ${i + 1}: ${s}`}
               aria-current={i === active ? "step" : undefined}
               className="block w-full py-2"

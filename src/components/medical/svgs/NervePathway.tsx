@@ -103,33 +103,18 @@ const steps = [
 
 export default function NervePathway() {
   const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  const playing = true; // always playing; tapping a step jumps there and carries on
 
   useEffect(() => {
-    if (!playing) return;
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setActive((a) => (a + 1) % steps.length), 3500);
-    return () => window.clearInterval(id);
-  }, [playing]);
+    const id = window.setTimeout(() => setActive((a) => (a + 1) % steps.length), 3500);
+    return () => window.clearTimeout(id);
+  }, [active]);
 
   return (
     <figure className="w-full mx-0 mb-0" aria-label="How a slipped disc causes leg pain, in four steps">
       <figcaption className="text-center mb-8">
         <h3 className="text-2xl text-[var(--ink)]">How a slipped disc causes leg pain</h3>
         <p className="mt-2 text-[var(--grey)]">The most common reason for sciatica, in four steps. Tap any step to see it move.</p>
-        <button
-          type="button"
-          onClick={() => setPlaying((p) => !p)}
-          className="mt-4 inline-flex items-center gap-2 h-9 px-4 rounded-full text-sm font-medium glass-btn glass-clear border"
-          aria-pressed={playing}
-        >
-          {playing ? (
-            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
-          ) : (
-            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-          )}
-          {playing ? "Pause walkthrough" : "Play walkthrough"}
-        </button>
       </figcaption>
       <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {steps.map(({ title, text, term, Art }, i) => {
@@ -138,8 +123,8 @@ export default function NervePathway() {
             <li key={title} className="relative">
               <button
                 type="button"
-                onClick={() => { setActive(i); setPlaying(false); }}
-                onTouchStart={() => { setActive(i); setPlaying(false); }}
+                onClick={() => setActive(i)}
+                onTouchStart={() => setActive(i)}
                 aria-current={on ? "step" : undefined}
                 className={`anim-step ${on ? "is-active" : ""} w-full h-full text-left rounded-[1.5rem] bg-white p-5 flex flex-col transition-all duration-500 ${
                   on ? "ring-2 ring-[var(--purple)] shadow-[var(--shadow-lg)] -translate-y-1" : "ring-1 ring-[var(--hairline)] opacity-80 hover:opacity-100"
@@ -156,7 +141,7 @@ export default function NervePathway() {
                 <span className="mt-4 text-xs font-medium text-[var(--purple)]">Medical term: {term}</span>
                 {/* progress bar for the active step */}
                 <span className="mt-4 h-1 w-full rounded-full bg-[var(--mist)] overflow-hidden" aria-hidden="true">
-                  <span className={`block h-full bg-[var(--purple)] ${on && playing ? "step-progress" : on ? "w-full" : "w-0"}`} />
+                  <span key={on ? `p-${active}` : undefined} className={`block h-full bg-[var(--purple)] ${on && playing ? "step-progress" : on ? "w-full" : "w-0"}`} />
                 </span>
               </button>
             </li>

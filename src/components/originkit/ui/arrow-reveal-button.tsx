@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import { useEffect, useLayoutEffect, useRef } from "react"
-import { useAnimate, useReducedMotion, type Transition } from "motion/react"
+import { useAnimate, type Transition } from "motion/react"
 
 type Colors = {
     fill?: string
@@ -355,7 +355,7 @@ export default function ArrowRevealButton(props: Props) {
     const arrowRef = useRef<HTMLDivElement>(null)
     const hovered = useRef(false)
     const metrics = useRef({ hoverScale: 1, hoverX: 0 })
-    const reducedMotion = useReducedMotion()
+    const reducedMotion = false // animations always on
 
     const iconSize = Math.max(1, Math.round(iconSizeProp ?? sizeProp ?? 50))
 

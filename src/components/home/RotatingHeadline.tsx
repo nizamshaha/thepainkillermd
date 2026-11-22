@@ -16,17 +16,14 @@ const HOLD_MS = 3000;
 
 export default function RotatingHeadline({ className = "" }: { className?: string }) {
   const [i, setI] = useState(0);
-  const [paused, setPaused] = useState(false);
-
+  // Always rotating. Choosing a language jumps to it, then rotation carries on from there.
   useEffect(() => {
-    if (paused) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setI((n) => (n + 1) % LINES.length), HOLD_MS);
-    return () => window.clearInterval(id);
-  }, [paused]);
+    const id = window.setTimeout(() => setI((n) => (n + 1) % LINES.length), HOLD_MS);
+    return () => window.clearTimeout(id);
+  }, [i]);
 
   return (
-    <div className={className} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div className={className}>
       {/* Screen readers get the English headline once, not a moving target */}
       <h1 className="sr-only">{LINES[0].text.join(" ")}</h1>
 
@@ -56,13 +53,13 @@ export default function RotatingHeadline({ className = "" }: { className?: strin
             type="button"
             role="tab"
             aria-selected={n === i}
-            onClick={() => { setI(n); setPaused(true); }}
+            onClick={() => setI(n)}
             className={`relative h-8 px-3 rounded-full text-[13px] font-medium overflow-hidden transition-colors ${
               n === i ? "text-white bg-[var(--purple)]" : "text-[var(--grey)] bg-[var(--mist)] hover:text-[var(--ink)]"
             }`}
           >
             {l.label}
-            {n === i && !paused && <span key={`p-${i}`} className="lang-progress absolute left-0 bottom-0 h-[2px] bg-white/70" aria-hidden="true" />}
+            {n === i && <span key={`p-${i}`} className="lang-progress absolute left-0 bottom-0 h-[2px] bg-white/70" aria-hidden="true" />}
           </button>
         ))}
       </div>
