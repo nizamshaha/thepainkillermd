@@ -2,6 +2,7 @@
 
 import Logo from "@/components/ui/Logo";
 import Flag from "@/components/ui/Flag";
+import VisitorCount from "@/components/ui/VisitorCount";
 import { useT } from "@/lib/useT";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { PhoneIcon, WhatsAppIcon, CalendarIcon } from "@/components/ui/Icons";
@@ -100,9 +101,12 @@ export default function Footer() {
               <strong className="text-white/60">Medical Disclaimer:</strong>{" "}
               {t("footer.disclaimer").replace("Medical Disclaimer: ", "")}
             </p>
-            <p className="text-[13px] text-white/35 mt-4">
-              © {new Date().getFullYear()} THE PAINKILLER MD. All rights reserved.
-            </p>
+            <div className="mt-4 pb-40 md:pb-0 flex flex-wrap items-center justify-between gap-4">
+              <p className="text-[13px] text-white/35">
+                © {new Date().getFullYear()} THE PAINKILLER MD. All rights reserved.
+              </p>
+              <VisitorCount />
+            </div>
           </div>
         </div>
       </footer>
