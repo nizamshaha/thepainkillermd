@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState, useCallback } from "react";
 import { wizardSteps, evaluateWizardAnswers } from "@/data/wizard";
 import type { WizardResult, WizardStep } from "@/lib/types";
@@ -109,7 +110,7 @@ function MultiSelectStep({
               <div className="flex items-center gap-2.5 min-w-0">
                 {opt.icon && (
                   <span className="text-xl flex-shrink-0" role="img" aria-hidden="true">
-                    {opt.icon}
+                    <Glyph e={opt.icon} id={opt.value} />
                   </span>
                 )}
                 <div className="min-w-0">
@@ -200,7 +201,7 @@ function SelectStep({
           >
             {opt.icon && (
               <span className="text-xl block mb-1.5" role="img" aria-hidden="true">
-                {opt.icon}
+                <Glyph e={opt.icon} id={opt.value} />
               </span>
             )}
             <span className="font-bold text-sm text-[var(--color-text-primary)] block">

@@ -250,26 +250,26 @@ export function evaluateWizardAnswers(
   for (const flag of redFlagItems) {
     switch (flag) {
       case "saddle":
-        activeRedFlags.push("⚠️ Saddle anesthesia: This is a RED FLAG for Cauda Equina Syndrome — requires URGENT emergency evaluation.");
+        activeRedFlags.push("Saddle anesthesia: This is a RED FLAG for Cauda Equina Syndrome — requires URGENT emergency evaluation.");
         break;
       case "bladder":
-        activeRedFlags.push("⚠️ Bladder/bowel changes: This is a RED FLAG — requires urgent neurological assessment.");
+        activeRedFlags.push("Bladder/bowel changes: This is a RED FLAG — requires urgent neurological assessment.");
         break;
       case "progressive":
-        activeRedFlags.push("⚠️ Progressive motor weakness: Requires urgent imaging and clinical evaluation.");
+        activeRedFlags.push("Progressive motor weakness: Requires urgent imaging and clinical evaluation.");
         break;
       case "trauma":
-        activeRedFlags.push("⚠️ Recent trauma: Requires urgent imaging to rule out fracture or structural injury.");
+        activeRedFlags.push("Recent trauma: Requires urgent imaging to rule out fracture or structural injury.");
         break;
       case "fever":
-        activeRedFlags.push("⚠️ Fever/weight loss: Requires urgent evaluation to rule out infection or malignancy.");
+        activeRedFlags.push("Fever/weight loss: Requires urgent evaluation to rule out infection or malignancy.");
         break;
     }
   }
 
   if (activeRedFlags.length > 0) {
     recommendations.unshift(
-      "🚨 RED FLAG(S) DETECTED: Please seek immediate medical attention. These symptoms may indicate a serious underlying condition requiring urgent intervention."
+      "RED FLAG(S) DETECTED: Please seek immediate medical attention. These symptoms may indicate a serious underlying condition requiring urgent intervention."
     );
   }
 

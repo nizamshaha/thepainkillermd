@@ -475,3 +475,7 @@ svg [role="button"]:focus-visible > circle:last-child { stroke: var(--purple); s
 .diagram-card:hover .hv-throb, .diagram-card.is-on .hv-throb { animation-duration: 1.1s; }
 /* slipped-disc steps: hovering any card plays its animation too */
 .anim-step:hover svg * { animation-play-state: running; }
+
+/* Body-area glyphs glow when their option is hovered or chosen */
+.glyph-glow { transform-box: fill-box; transform-origin: center; opacity: .55; transition: opacity .3s; }
+:is(button, a, label):hover .glyph-glow, [aria-checked="true"] .glyph-glow, [aria-pressed="true"] .glyph-glow { opacity: 1; animation: throb 1.4s ease-in-out infinite; }

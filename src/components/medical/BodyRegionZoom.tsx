@@ -1,4 +1,5 @@
 "use client";
+import Glyph from "@/components/ui/Glyph";
 
 import { useState, useCallback, useRef } from "react";
 import { REGION_DETAILS, type RegionPin } from "@/data/bodyRegionDetails";
@@ -175,7 +176,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
                         fontWeight="bold"
                         className="pointer-events-none"
                       >
-                        ✓
+                        <Glyph e="✓" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />
                       </text>
                     )}
 
@@ -233,7 +234,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
                       fontWeight="bold"
                       className="pointer-events-none"
                     >
-                      ✕
+                      <Glyph e="✕" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />
                     </text>
                   </g>
                 ))}
@@ -255,7 +256,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
                   : "bg-white text-[var(--purple-deep)] ring-1 ring-[var(--hairline)] hover:ring-[var(--lilac)]"
               }`}
             >
-              {customPinMode ? `✕ ${t("zoom.cancel")}` : t("zoom.customPin")}
+              {customPinMode ? `${t("zoom.cancel")}` : t("zoom.customPin")}
             </button>
           </div>
 
@@ -275,7 +276,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
                         : "bg-white text-[var(--grey)] border-[var(--hairline)] hover:text-[var(--ink)] hover:border-[var(--lilac)]"
                     }`}
                   >
-                    {isPinned && "✓ "}
+                    {isPinned && ""}
                     {anchor.label}
                   </button>
                 );

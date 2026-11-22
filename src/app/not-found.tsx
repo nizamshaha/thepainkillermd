@@ -1,3 +1,4 @@
+import Glyph from "@/components/ui/Glyph";
 import Link from "next/link";
 import Logo from "@/components/ui/Logo";
 
@@ -26,42 +27,42 @@ export default function NotFound() {
             href="/"
             className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
-            <span className="text-2xl block mb-1">🏠</span>
+            <span className="text-2xl block mb-1"><Glyph e="🏠" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Home</span>
           </Link>
           <Link
             href="/pain-navigator"
             className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
-            <span className="text-2xl block mb-1">🗺️</span>
+            <span className="text-2xl block mb-1"><Glyph e="🗺️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Pain Navigator</span>
           </Link>
           <Link
             href="/conditions"
             className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
-            <span className="text-2xl block mb-1">📋</span>
+            <span className="text-2xl block mb-1"><Glyph e="📋" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Conditions</span>
           </Link>
           <Link
             href="/procedures"
             className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
-            <span className="text-2xl block mb-1">💉</span>
+            <span className="text-2xl block mb-1"><Glyph e="💉" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Procedures</span>
           </Link>
           <Link
             href="/doctor"
             className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
-            <span className="text-2xl block mb-1">👨‍⚕️</span>
+            <span className="text-2xl block mb-1"><Glyph e="👨‍⚕️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Dr. Shah</span>
           </Link>
           <Link
             href="/clinic"
             className="p-4 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white hover:border-[var(--color-clinical-300)] transition-all text-center reveal lift"
           >
-            <span className="text-2xl block mb-1">🏥</span>
+            <span className="text-2xl block mb-1"><Glyph e="🏥" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">Clinic</span>
           </Link>
         </div>

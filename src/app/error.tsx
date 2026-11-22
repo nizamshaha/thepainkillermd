@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useEffect } from "react";
 import Link from "next/link";
 
@@ -18,7 +19,7 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
     <div className="min-h-[60vh] flex items-center justify-center px-4 py-16">
       <div className="max-w-md w-full text-center p-8 rounded-2xl bg-white border border-[var(--color-surface-200)] shadow-lg">
         <div className="w-16 h-16 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4 text-2xl">
-          ⚠️
+          <Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" />
         </div>
         <h2 className="text-2xl text-[var(--color-text-primary)] mb-2">
           Something went wrong

@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { use } from "react";
 import { notFound } from "next/navigation";
 import { allPainAreas } from "@/data/painAreasFull";
@@ -53,7 +54,7 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
 
       <section className="page-stage text-white pt-16 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <span className="text-4xl mb-3 block">{area.icon}</span>
+          <span className="mb-3 block"><Glyph id={area.id} e={area.icon} body="w-20 h-20" className="w-10 h-10" /></span>
           <h1 className="mb-3">{area.name}</h1>
           <p className="text-lg text-white/80">{area.description}</p>
         </div>
@@ -98,11 +99,11 @@ export default function PainAreaPage({ params }: { params: Promise<{ slug: strin
         </section>
 
         <section className="mb-10 p-5 rounded-xl bg-red-50 border-2 border-red-200">
-          <h2 className="text-xl text-[var(--color-alert-critical)] mb-3">🚨 {t("condition.redFlags")}</h2>
+          <h2 className="text-xl text-[var(--color-alert-critical)] mb-3"><Glyph e="🚨" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {t("condition.redFlags")}</h2>
           <ul className="space-y-1.5">
             {area.redFlags.map((rf, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-red-800 font-medium">
-                <span>⚠️</span> {rf}
+                <span><Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span> {rf}
               </li>
             ))}
           </ul>

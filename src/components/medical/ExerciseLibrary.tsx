@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState, useMemo } from "react";
 import { getExercisesForArea, type Exercise } from "@/data/exercises";
 
@@ -25,7 +26,7 @@ export default function ExerciseLibrary({ areaId, areaName }: Props) {
     <section className="py-8">
       <div className="text-center mb-6">
         <p className="text-sm font-semibold text-[var(--color-clinical-600)] uppercase tracking-wider mb-2">
-          🏋️ Exercises & Rehabilitation
+          <Glyph e="🏋️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> Exercises & Rehabilitation
         </p>
         <h3 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">
           Recommended Exercises
@@ -154,7 +155,7 @@ function ExerciseCard({
         </p>
         {exercise.precautions && (
           <p className="text-[11px] text-amber-600 bg-amber-50 rounded-lg px-3 py-2 mt-2">
-            ⚠️ {exercise.precautions}
+            <Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {exercise.precautions}
           </p>
         )}
       </div>

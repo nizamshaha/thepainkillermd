@@ -1,3 +1,4 @@
+import Glyph from "@/components/ui/Glyph";
 export default function RFAFlow() {
   const stages = [
     {
@@ -73,9 +74,7 @@ export default function RFAFlow() {
               </g>
 
               {/* Icon */}
-              <text x="80" y="55" textAnchor="middle" fontSize="28">
-                {stage.icon}
-              </text>
+              <g transform="translate(66 28)" color={stage.color}><Glyph e={stage.icon} className="w-7 h-7" /></g>
 
               {/* Title */}
               <text x="80" y="85" textAnchor="middle" fill={stage.color} fontSize="12" fontWeight="700">

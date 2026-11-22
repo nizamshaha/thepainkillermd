@@ -1,4 +1,5 @@
 "use client";
+import Glyph from "@/components/ui/Glyph";
 
 import React, { useState, useMemo, useCallback } from "react";
 import type { WizardResult } from "@/lib/types";
@@ -188,8 +189,8 @@ export default function AssessmentReport({
       if (translated && translated !== key) return translated;
       const optKey = `assessment.options.redFlags.${id}`;
       const optTranslated = t(optKey);
-      if (optTranslated && optTranslated !== optKey) return `⚠️ ${optTranslated}`;
-      return `⚠️ ${id}`;
+      if (optTranslated && optTranslated !== optKey) return `${optTranslated}`;
+      return `${id}`;
     });
   }, [answers, t]);
 
@@ -241,20 +242,20 @@ export default function AssessmentReport({
 
     return (
       `${patientHeader}\n\n` +
-      `🏥 ${t("assessment.title").toUpperCase()} — ${t("assessment.report.badge").toUpperCase()}\n` +
+      `${t("assessment.title").toUpperCase()} — ${t("assessment.report.badge").toUpperCase()}\n` +
       `Dr. Shahnawaz F Shah (Surat, Gujarat)\n` +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `📋 ${t("assessment.report.summaryHeading")}:\n${localizedSummary}\n\n` +
-      `📍 ${t("assessment.report.regionsHeading")}: ${regionNames}\n` +
-      `⚡ ${t("assessment.report.qualitiesHeading")}: ${qualityNames}\n` +
+      `${t("assessment.report.summaryHeading")}:\n${localizedSummary}\n\n` +
+      `${t("assessment.report.regionsHeading")}: ${regionNames}\n` +
+      `${t("assessment.report.qualitiesHeading")}: ${qualityNames}\n` +
       `⏱️ ${t("assessment.report.durationHeading")}: ${durationLabel}\n` +
-      `📊 ${t("assessment.report.intensityHeading")}: ${intensity}/10 (${getIntensityLabel(intensity)})\n` +
-      `🔄 ${t("assessment.report.radiationHeading")}: ${radiationText}\n` +
-      `⚠️ ${t("assessment.report.aggravatingHeading")}: ${aggravatingText}\n` +
-      `🔬 ${t("assessment.report.sensoryHeading")}: ${sensoryText}\n` +
-      `💪 ${t("assessment.report.motorHeading")}: ${motorText}\n` +
-      `🧬 ${t("assessment.report.pathwaysHeading")}: ${pathwaysText}\n` +
-      (redFlagsList.length > 0 ? `\n🚨 ${t("assessment.report.safetyAlert")}:\n${redFlagsList.join("\n")}\n` : "") +
+      `${t("assessment.report.intensityHeading")}: ${intensity}/10 (${getIntensityLabel(intensity)})\n` +
+      `${t("assessment.report.radiationHeading")}: ${radiationText}\n` +
+      `${t("assessment.report.aggravatingHeading")}: ${aggravatingText}\n` +
+      `${t("assessment.report.sensoryHeading")}: ${sensoryText}\n` +
+      `${t("assessment.report.motorHeading")}: ${motorText}\n` +
+      `${t("assessment.report.pathwaysHeading")}: ${pathwaysText}\n` +
+      (redFlagsList.length > 0 ? `\n${t("assessment.report.safetyAlert")}:\n${redFlagsList.join("\n")}\n` : "") +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
       `${assuranceMessage}\n\n` +
       `*${t("assessment.report.disclaimer")}*\n` +
@@ -349,7 +350,7 @@ export default function AssessmentReport({
       {redFlagsList.length > 0 && (
         <div className="p-5 rounded-[1.5rem] bg-red-50 border-2 border-[var(--color-alert-critical)]/40 shadow-sm">
           <h3 className="text-base font-bold text-[var(--color-alert-critical)] mb-2 flex items-center gap-2">
-            🚨 {t("assessment.report.safetyAlert")}
+            <Glyph e="🚨" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />{t("assessment.report.safetyAlert")}
           </h3>
           <ul className="space-y-1.5">
             {redFlagsList.map((flag, idx) => (
@@ -366,7 +367,7 @@ export default function AssessmentReport({
         {/* Pain Regions */}
         <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
           <p className="text-xs font-semibold text-[var(--color-clinical-600)] mb-2">
-            📍 {t("assessment.report.regionsHeading")}
+            <Glyph e="📍" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />{t("assessment.report.regionsHeading")}
           </p>
           <div className="flex flex-wrap gap-2">
             {locations.map((loc) => (
@@ -374,7 +375,7 @@ export default function AssessmentReport({
                 key={loc}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[1.5rem] bg-[var(--color-surface-100)] text-sm font-semibold text-[var(--color-text-primary)] border border-[var(--color-surface-300)]"
               >
-                <span>{REGION_ICONS[loc] || "🦴"}</span>
+                <Glyph id={loc} e={REGION_ICONS[loc]} body="w-7 h-7" />
                 {getRegionName(loc)}
               </span>
             ))}
@@ -384,7 +385,7 @@ export default function AssessmentReport({
         {/* Pain Sensations */}
         <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
           <p className="text-xs font-semibold text-[var(--color-clinical-600)] mb-2">
-            ⚡ {t("assessment.report.qualitiesHeading")}
+            <Glyph e="⚡" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />{t("assessment.report.qualitiesHeading")}
           </p>
           <div className="flex flex-wrap gap-2">
             {qualities.map((qual) => (
@@ -392,7 +393,7 @@ export default function AssessmentReport({
                 key={qual}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[1.5rem] bg-[var(--color-surface-100)] text-sm font-semibold text-[var(--color-text-primary)] border border-[var(--color-surface-300)]"
               >
-                <span>{QUALITY_ICONS[qual] || "📌"}</span>
+                <Glyph e={QUALITY_ICONS[qual] || ""} className="w-4 h-4 text-[var(--purple)]" />
                 {getQualityName(qual)}
               </span>
             ))}
@@ -416,7 +417,7 @@ export default function AssessmentReport({
         <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
           <div className="flex justify-between items-center mb-1">
             <p className="text-xs font-semibold text-[var(--color-clinical-600)]">
-              📊 {t("assessment.report.intensityHeading")}
+              <Glyph e="📊" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />{t("assessment.report.intensityHeading")}
             </p>
             <span className="text-lg font-bold text-[var(--color-clinical-600)]">
               {intensity}<span className="text-xs text-[var(--color-text-muted)] font-normal">/10</span>
@@ -440,7 +441,7 @@ export default function AssessmentReport({
       {/* Pathways Identified */}
       <div className="p-5 rounded-[1.5rem] bg-white ring-1 ring-[var(--hairline)] shadow-sm">
         <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-3">
-          🔬 {t("assessment.report.pathwaysHeading")}
+          <Glyph e="🔬" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />{t("assessment.report.pathwaysHeading")}
         </h3>
         <div className="flex flex-wrap gap-2">
           {result.possiblePathways.map((p) => (
@@ -458,7 +459,7 @@ export default function AssessmentReport({
       {localizedRecommendations.length > 0 && (
         <div className="p-5 rounded-[1.5rem] bg-[var(--mist)] ring-1 ring-[var(--hairline)]">
           <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-2">
-            🩺 {t("assessment.report.recommendationsHeading")}
+            <Glyph e="🩺" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />{t("assessment.report.recommendationsHeading")}
           </h3>
           <ul className="space-y-2">
             {localizedRecommendations.map((rec, idx) => (
@@ -475,7 +476,7 @@ export default function AssessmentReport({
       <div className="p-6 rounded-[1.5rem] bg-white border border-[var(--color-surface-300)] shadow-sm space-y-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-[var(--lavender)] text-[var(--purple)] flex items-center justify-center text-xl flex-shrink-0">
-            👤
+            <Glyph e="👤" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />
           </div>
           <div>
             <h3 className="text-base font-bold text-[var(--color-text-primary)]">
@@ -556,7 +557,7 @@ export default function AssessmentReport({
         {/* Conditional rendering: locked indicator vs transitioned buttons */}
         {!isValid ? (
           <div className="py-4 px-5 rounded-[1.5rem] bg-white/80 border border-dashed border-[var(--color-clinical-300)] text-center max-w-md mx-auto animate-fade-in shadow-sm">
-            <div className="text-2xl mb-1">🔒</div>
+            <div className="text-2xl mb-1"><Glyph e="🔒" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" /></div>
             <p className="text-sm font-bold text-[var(--color-text-primary)]">
               {t("assessment.intake.lockedTitle")}
             </p>
@@ -583,7 +584,7 @@ export default function AssessmentReport({
                 disabled={!isValid}
               />
               <Button
-                label={copied ? `✅ ${t("assessment.report.copied")}` : `📋 ${t("assessment.report.copy")}`}
+                label={copied ? `${t("assessment.report.copied")}` : `${t("assessment.report.copy")}`}
                 variant="light"
                 size="md"
                 onClick={handleCopy}
@@ -601,7 +602,7 @@ export default function AssessmentReport({
           onClick={onStartOver}
           className="px-6 py-2.5 rounded-full text-sm font-semibold text-[var(--color-text-secondary)] bg-[var(--color-surface-100)] hover:bg-[var(--color-surface-200)] transition-colors"
         >
-          🔄 {t("assessment.startOver")}
+          <Glyph e="🔄" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />{t("assessment.startOver")}
         </button>
       </div>
 

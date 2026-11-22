@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState, useCallback } from "react";
 import { painSensations } from "@/data/sensations";
 import type { PainSensation } from "@/lib/types";
@@ -45,7 +46,7 @@ function SensationCard({
       aria-expanded={isSelected}
     >
       <span className="shrink-0 h-10 w-10 rounded-xl bg-[var(--panel)] flex items-center justify-center text-xl" role="img" aria-hidden="true">
-        {sensation.icon}
+        <Glyph e={sensation.icon} className="w-5 h-5 text-[var(--purple)]" />
       </span>
       <span className="min-w-0">
         <span className="block font-semibold text-[var(--ink)] leading-snug">{sensation.label}</span>
@@ -65,7 +66,7 @@ function SensationDetail({ sensation }: { sensation: PainSensation }) {
   return (
     <div className="animate-slide-up bg-white rounded-xl border border-[var(--color-surface-300)] p-6 shadow-lg">
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-3xl">{sensation.icon}</span>
+        <span className="h-12 w-12 rounded-2xl bg-[var(--lavender)] flex items-center justify-center"><Glyph e={sensation.icon} className="w-6 h-6 text-[var(--purple)]" /></span>
         <div>
           <h3 className="text-2xl font-bold text-[var(--color-text-primary)]">
             {sensation.label}

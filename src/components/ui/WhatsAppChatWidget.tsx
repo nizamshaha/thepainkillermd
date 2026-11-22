@@ -1,4 +1,5 @@
 "use client";
+import Glyph from "@/components/ui/Glyph";
 
 import { useState, useEffect, useRef } from "react";
 import { useT } from "@/lib/useT";
@@ -56,7 +57,7 @@ export default function WhatsAppChatWidget() {
           <div className="bg-[#075e54] text-white px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-lg"><span>{"🩺"}</span></div>
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-lg"><span>{""}</span></div>
                 <div>
                   <p className="font-semibold text-sm">Dr. Shahnawaz F Shah</p>
                   <div className="flex items-center gap-1.5">
@@ -76,7 +77,7 @@ export default function WhatsAppChatWidget() {
             <div className="flex flex-wrap gap-2 mb-3">
               {QUICK_ACTIONS.map((qa) => (
                 <button key={qa.key} onClick={() => handleQuick(qa.key)} className="bg-white rounded-full px-3 py-1.5 text-xs font-medium text-[#075e54] shadow-sm hover:shadow-md transition-all border border-gray-100">
-                  {qa.icon} {t(qa.labelKey) || (qa.key === "book" ? "Book Appointment" : qa.key === "ask" ? "Ask a Question" : "Send My Report")}
+                  <Glyph e={qa.icon} className="inline w-4 h-4 mr-1 align-[-3px]" /> {t(qa.labelKey) || (qa.key === "book" ? "Book Appointment" : qa.key === "ask" ? "Ask a Question" : "Send My Report")}
                 </button>
               ))}
             </div>

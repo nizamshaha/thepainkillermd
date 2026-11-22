@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import type { PainArea } from "@/data/painAreas";
 import { useT } from "@/lib/useT";
 
@@ -24,7 +25,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
         <div className="mb-4 flex flex-wrap gap-2">
           {areas.map((a) => (
             <span key={a.id} className="px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary-50)] text-[var(--color-primary-700)] border border-[var(--color-primary-200)]">
-              {a.icon} {a.name}
+              <Glyph id={a.id} e={a.icon} body="w-6 h-6" className="w-4 h-4" /> {a.name}
             </span>
           ))}
         </div>
@@ -32,7 +33,7 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
 
       {/* Title */}
       <div className="mb-8">
-        <span className="text-3xl mb-2 block">{area.icon}</span>
+        <span className="mb-2 block"><Glyph id={area.id} e={area.icon} body="w-16 h-16" className="w-8 h-8 text-[var(--purple)]" /></span>
         <h2 className="text-[var(--color-text-primary)] mb-2">{area.name}</h2>
         <p className="text-lg text-[var(--color-text-secondary)]">{area.description}</p>
       </div>
@@ -96,14 +97,14 @@ export default function PainDetailPanel({ areas, onBack, onStartQuestionnaire }:
 
       {/* Red Flags */}
       <div className="mb-8 p-5 rounded-xl bg-red-50 border-2 border-red-200">
-        <h3 className="text-lg font-bold text-[var(--color-alert-critical)] mb-3">🚨 Warning Signs</h3>
+        <h3 className="text-lg font-bold text-[var(--color-alert-critical)] mb-3"><Glyph e="🚨" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> Warning Signs</h3>
         <p className="text-sm text-[var(--color-text-secondary)] mb-2">
           Seek urgent medical evaluation if you experience any of the following:
         </p>
         <ul className="space-y-1.5">
           {area.redFlags.map((rf, i) => (
             <li key={i} className="flex items-start gap-2 text-sm font-medium text-red-800">
-              <span>⚠️</span> {rf}
+              <span><Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span> {rf}
             </li>
           ))}
         </ul>

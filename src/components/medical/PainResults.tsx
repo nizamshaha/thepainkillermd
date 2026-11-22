@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import type { PainArea } from "@/data/painAreas";
 import { useT } from "@/lib/useT";
 
@@ -97,7 +98,7 @@ export default function PainResults({ areas, answers, showRedFlags, onRestart }:
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">{t("result.painArea")}</p>
-            <p className="font-medium text-[var(--color-text-primary)]">{area.icon} {area.name}</p>
+            <p className="font-medium text-[var(--color-text-primary)]"><span className="inline-flex items-center gap-2"><Glyph id={area.id} e={area.icon} body="w-7 h-7" /> {area.name}</span></p>
           </div>
           <div>
             <p className="text-xs text-[var(--color-text-muted)] uppercase font-semibold mb-1">{t("result.duration")}</p>

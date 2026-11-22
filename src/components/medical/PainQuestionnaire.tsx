@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState, useCallback } from "react";
 import type { PainArea } from "@/data/painAreas";
 import { useT } from "@/lib/useT";
@@ -100,7 +101,7 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
         <div className="flex flex-wrap gap-1.5 mb-4">
           {allAreas.map((a) => (
             <span key={a.id} className="px-2 py-0.5 text-xs rounded-full bg-[var(--color-primary-50)] text-[var(--color-primary-700)]">
-              {a.icon} {a.name}
+              <Glyph id={a.id} e={a.icon} body="w-6 h-6" className="w-4 h-4" /> {a.name}
             </span>
           ))}
         </div>
@@ -153,7 +154,7 @@ export default function PainQuestionnaire({ area, allAreas, onComplete, onBack }
                 </div>
               <span className="font-medium text-[var(--color-text-primary)]">{trOpt(question.id, opt.value) || opt.label}</span>
               {opt.triggersRedFlag && (
-                  <span className="ml-auto px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-700 font-medium">⚠️</span>
+                  <span className="ml-auto px-2 py-0.5 text-xs rounded bg-amber-100 text-amber-700 font-medium"><Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
                 )}
               </button>
             );

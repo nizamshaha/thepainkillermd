@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { use } from "react";
 import { notFound } from "next/navigation";
 import { medications, getMedicationBySlug } from "@/data/medications";
@@ -74,7 +75,7 @@ export default function MedicationPage({ params }: { params: Promise<{ slug: str
         </section>
 
         <div className="p-5 rounded-xl bg-amber-50 border-2 border-amber-200">
-          <p className="text-sm font-semibold text-amber-800 mb-1">⚠️ {t("medication.precautions")}</p>
+          <p className="text-sm font-semibold text-amber-800 mb-1"><Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {t("medication.precautions")}</p>
           <p className="text-sm text-amber-700">{med.disclaimer}</p>
         </div>
 

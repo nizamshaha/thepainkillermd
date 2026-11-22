@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { getRemediesForArea, type Remedy } from "@/data/remedies";
 
 interface Props {
@@ -22,7 +23,7 @@ export default function HomeRemedies({ areaId, areaName }: Props) {
     <section className="py-8">
       <div className="text-center mb-6">
         <p className="text-sm font-semibold text-[var(--color-medical-600)] uppercase tracking-wider mb-2">
-          🏠 Home & Self-Care
+          <Glyph e="🏠" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> Home & Self-Care
         </p>
         <h3 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">
           What You Can Try at Home
@@ -58,7 +59,7 @@ export default function HomeRemedies({ areaId, areaName }: Props) {
               className="p-5 rounded-xl border border-[var(--color-surface-200)] bg-white hover:shadow-md transition-shadow"
             >
               <div className="flex items-start gap-3 mb-3">
-                <span className="text-2xl">{remedy.icon}</span>
+                <span className="h-10 w-10 shrink-0 rounded-full bg-[var(--lavender)] text-[var(--purple)] flex items-center justify-center"><Glyph e={remedy.icon} /></span>
                 <div className="flex-1">
                   <h4 className="font-bold text-[var(--color-text-primary)] text-sm mb-1">
                     {remedy.title}
@@ -73,7 +74,7 @@ export default function HomeRemedies({ areaId, areaName }: Props) {
               </p>
               {remedy.caution && (
                 <p className="mt-2 text-[11px] text-amber-600 bg-amber-50 rounded-lg px-3 py-2">
-                  ⚠️ {remedy.caution}
+                  <Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {remedy.caution}
                 </p>
               )}
             </div>
@@ -84,11 +85,11 @@ export default function HomeRemedies({ areaId, areaName }: Props) {
       {/* When to Avoid */}
       {data.whenToAvoid.length > 0 && (
         <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
-          <h4 className="font-bold text-amber-800 text-sm mb-2">⚠️ What to Avoid</h4>
+          <h4 className="font-bold text-amber-800 text-sm mb-2"><Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> What to Avoid</h4>
           <ul className="space-y-1">
             {data.whenToAvoid.map((item, i) => (
               <li key={i} className="text-xs text-amber-700 flex items-start gap-2">
-                <span className="text-amber-500">✕</span>
+                <span className="text-amber-500"><Glyph e="✕" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
                 {item}
               </li>
             ))}

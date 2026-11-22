@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { conditions } from "@/data/conditions";
 import { procedures } from "@/data/procedures";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -35,7 +36,7 @@ export default function EducationPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((cat) => (
               <div key={cat.name} className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-white transition-shadow reveal lift">
-                <span className="text-2xl block mb-2">{cat.icon}</span>
+                <span className="mb-3 h-11 w-11 rounded-full bg-[var(--lavender)] text-[var(--purple)] flex items-center justify-center"><Glyph e={cat.icon} /></span>
                 <h3 className="font-bold text-[var(--color-text-primary)] mb-1">{cat.name}</h3>
                 <p className="text-sm text-[var(--color-text-secondary)]">{cat.description}</p>
               </div>

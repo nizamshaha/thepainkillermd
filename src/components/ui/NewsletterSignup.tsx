@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState } from "react";
 import { useT } from "@/lib/useT";
 import { isValidEmail, sanitizeInput } from "@/lib/security";
@@ -36,7 +37,7 @@ export default function NewsletterSignup() {
     return (
       <div className="p-4 rounded-xl bg-green-50 border border-green-200 text-center">
         <p className="text-sm font-medium text-green-800">
-          ✅ {t("newsletter.success")}
+          <Glyph e="✅" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {t("newsletter.success")}
         </p>
       </div>
     );

@@ -1,4 +1,5 @@
 "use client";
+import Glyph from "@/components/ui/Glyph";
 
 import { useState, useMemo, useRef, useCallback } from "react";
 import { QRCodeSVG } from "qrcode.react";
@@ -104,7 +105,7 @@ export default function PainReport({ areas, answers, onBack, pins }: Props) {
     lines.push("");
 
     if (report.redFlags && report.redFlags !== "None") {
-      lines.push("─── ⚠️ RED FLAGS ───");
+      lines.push("─── RED FLAGS ───");
       lines.push(report.redFlags);
       lines.push("");
     }
@@ -156,7 +157,7 @@ export default function PainReport({ areas, answers, onBack, pins }: Props) {
       </button>
 
       <h2 className="text-2xl text-[var(--color-text-primary)] mb-2">
-        📋 Your Pain Report
+        <Glyph e="📋" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />Your Pain Report
       </h2>
       <p className="text-sm text-[var(--color-text-muted)] mb-8">
         Review, edit, and share this report with Dr. Shahnawaz F Shah before your visit.
@@ -189,7 +190,7 @@ export default function PainReport({ areas, answers, onBack, pins }: Props) {
                 onClick={() => setEditing(!editing)}
                 className="text-xs text-[var(--color-clinical-600)] font-medium hover:underline"
               >
-                {editing ? "Done" : "✏️ Edit"}
+                {editing ? "Done" : "Edit"}
               </button>
             </div>
 
@@ -286,7 +287,7 @@ export default function PainReport({ areas, answers, onBack, pins }: Props) {
           {/* Red Flags */}
           {report.redFlags && report.redFlags !== "None" && (
             <div className="p-4 rounded-xl bg-red-50 border border-red-200">
-              <h4 className="text-sm font-bold text-red-700 mb-1">⚠️ Red Flags Detected</h4>
+              <h4 className="text-sm font-bold text-red-700 mb-1"><Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em] mr-1" />Red Flags Detected</h4>
               <p className="text-sm text-red-600">{report.redFlags}</p>
             </div>
           )}

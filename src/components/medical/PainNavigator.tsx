@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState, useCallback, useMemo } from "react";
 import { allPainAreas } from "@/data/painAreasFull";
 import { searchPainAreas } from "@/data/painAreas";
@@ -115,7 +116,7 @@ export default function PainNavigator() {
               <div className="flex flex-wrap gap-2 mb-4">
                 {selectedAreas.map((area) => (
                   <span key={area.id} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-primary-50)] text-[var(--color-primary-700)] text-sm font-medium border border-[var(--color-primary-200)]">
-                    {area.icon} {area.name}
+                    <Glyph id={area.id} e={area.icon} body="w-6 h-6" className="w-4 h-4" /> {area.name}
                     <button onClick={() => removeArea(area.id)} className="ml-1 w-4 h-4 rounded-full bg-[var(--color-primary-200)] text-[var(--color-primary-700)] text-xs flex items-center justify-center hover:bg-[var(--color-primary-300)]" aria-label={`Remove ${area.name}`}>
                       ×
                     </button>

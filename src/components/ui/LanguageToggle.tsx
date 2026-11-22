@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocale } from "@/lib/LanguageContext";
 import { locales } from "@/data/translations";
@@ -142,7 +143,7 @@ export default function LanguageToggle() {
 
           {/* Footer note */}
           <div className="mt-2.5 pt-2 px-4 border-t border-[var(--color-surface-100)] flex items-center gap-2 text-[11px] text-[var(--color-text-muted)]">
-            <span>🏥</span>
+            <span><Glyph e="🏥" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
             <span>Multilingual spine & pain care across Gujarat, Maharashtra & India</span>
           </div>
         </div>

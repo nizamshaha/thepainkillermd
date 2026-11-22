@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { use } from "react";
 import { conditions, getConditionBySlug } from "@/data/conditions";
 import { procedures } from "@/data/procedures";
@@ -206,14 +207,14 @@ export default function ConditionPage({ params }: { params: Promise<{ slug: stri
         {/* Red Flags */}
         <section className="mb-10 reveal">
           <h2 className="text-2xl text-[var(--color-alert-critical)] mb-4 flex items-center gap-2">
-            <span>🚨</span> {t("condition.redFlags")}
+            <span><Glyph e="🚨" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span> {t("condition.redFlags")}
           </h2>
           <div className="p-5 rounded-xl bg-red-50 border-2 border-red-200">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3">{t("condition.redFlagsDesc")}</p>
             <ul className="space-y-2">
               {condition.redFlags.map((rf, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm font-medium text-red-800">
-                  <span className="mt-0.5">⚠️</span> {rf}
+                  <span className="mt-0.5"><Glyph e="⚠️" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span> {rf}
                 </li>
               ))}
             </ul>

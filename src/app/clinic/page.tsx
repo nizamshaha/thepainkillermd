@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Button from "@/components/ui/Button";
 import { useT } from "@/lib/useT";
@@ -47,17 +48,17 @@ export default function ClinicPage() {
 
         <section className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
-            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">📍 {t("clinic.location")}</h3>
+            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4"><Glyph e="📍" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {t("clinic.location")}</h3>
             <p className="text-[var(--color-text-secondary)]">Surat, Gujarat, India</p>
             <p className="text-sm text-[var(--color-text-muted)] mt-2">Detailed address to be provided by clinic owner.</p>
           </div>
           <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
-            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">🕐 {t("clinic.hours")}</h3>
+            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4"><Glyph e="🕐" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {t("clinic.hours")}</h3>
             <p className="text-[var(--color-text-secondary)]">Monday — Saturday: 10:00 AM — 6:00 PM</p>
             <p className="text-sm text-[var(--color-text-muted)] mt-2">Sunday &amp; Public Holidays: Closed</p>
           </div>
           <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
-            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">🏥 {t("clinic.facilities")}</h3>
+            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4"><Glyph e="🏥" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {t("clinic.facilities")}</h3>
             <ul className="space-y-1.5 text-sm text-[var(--color-text-secondary)]">
               <li>• Fluoroscopy-guided procedure suite</li>
               <li>• Ultrasound-guided injection capabilities</li>
@@ -66,13 +67,13 @@ export default function ClinicPage() {
             </ul>
           </div>
           <div className="p-6 rounded-[1.5rem] ring-1 ring-[var(--hairline)] bg-[var(--mist)] reveal">
-            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">📞 {t("clinic.contact")}</h3>
+            <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-4"><Glyph e="📞" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> {t("clinic.contact")}</h3>
             <div className="space-y-2">
               <a href="tel:+919769682366" className="flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] transition-colors">
-                📞 Phone: Available upon request
+                <Glyph e="📞" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> Phone: Available upon request
               </a>
               <a href="https://wa.me/919769682366" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-[var(--color-clinical-600)] transition-colors">
-                💬 WhatsApp: Available upon request
+                <Glyph e="💬" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /> WhatsApp: Available upon request
               </a>
             </div>
           </div>
@@ -85,13 +86,13 @@ export default function ClinicPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
-              label={`📞 ${t("cta.call")}`}
+              label={`<Glyph e="📞" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" />${t("cta.call")}`}
               href="tel:+919769682366"
               variant="light"
               size="lg"
             />
             <Button
-              label={`💬 ${t("cta.whatsapp")}`}
+              label={`<Glyph e="💬" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" />${t("cta.whatsapp")}`}
               href="https://wa.me/919769682366"
               variant="whatsapp"
               size="lg"

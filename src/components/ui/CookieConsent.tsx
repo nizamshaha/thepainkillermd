@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/ui/Glyph";
 import { useState, useEffect } from "react";
 import { t } from "@/data/translations";
 import { useLocale } from "@/lib/LanguageContext";
@@ -39,7 +40,7 @@ export default function CookieConsent() {
         <div className="flex flex-col sm:flex-row items-start gap-6">
           {/* Icon */}
           <div className="w-12 h-12 rounded-xl bg-[var(--color-primary-100)] flex items-center justify-center flex-shrink-0">
-            <span className="text-2xl">🍪</span>
+            <span className="text-2xl"><Glyph e="🍪" className="inline-block w-[1.1em] h-[1.1em] align-[-0.18em]" /></span>
           </div>
 
           {/* Content */}
