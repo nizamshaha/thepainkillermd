@@ -22,9 +22,18 @@ function load(): Promise<number | null> {
 export default function VisitorCount() {
   const [total, setTotal] = useState<number | null>(null);
   const [shown, setShown] = useState(0);
+  const from = useRef(0);
   const ref = useRef<HTMLParagraphElement>(null);
 
-  useEffect(() => { load().then((n) => { if (n !== null) setTotal(n); }); }, []);
+  useEffect(() => {
+    // Show the last known total straight away; the counting service can take a few seconds.
+    try { const c = Number(localStorage.getItem("tpm-visitors-last")); if (c > 0) setTotal(c); } catch {}
+    load().then((n) => {
+      if (n === null) return;
+      try { localStorage.setItem("tpm-visitors-last", String(n)); } catch {}
+      setTotal((prev) => (prev === null ? n : Math.max(prev, n)));
+    });
+  }, []);
 
   useEffect(() => {
     if (total === null || !ref.current) return;
@@ -33,10 +42,11 @@ export default function VisitorCount() {
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io.disconnect();
-      const t0 = performance.now(), dur = 1400;
+      const t0 = performance.now(), dur = 1400, start = from.current;
       const step = (t: number) => {
-        const p = Math.min(1, (t - t0) / dur), eased = 1 - Math.pow(1 - p, 3);
-        setShown(Math.round(total * eased));
+        const p = Math.min(1, Math.max(0, (t - t0) / dur)), eased = 1 - Math.pow(1 - p, 3);
+        const v = Math.round(start + (total - start) * eased);
+        from.current = v; setShown(v);
         if (p < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);

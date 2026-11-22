@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: Request) {
   const hit = new URL(req.url).searchParams.get("hit") === "1";
   try {
-    const r = await fetch(`${BASE}/${hit ? "hit" : "get"}/${KEY}`, { cache: "no-store", signal: AbortSignal.timeout(4000) });
+    const r = await fetch(`${BASE}/${hit ? "hit" : "get"}/${KEY}`, { cache: "no-store", signal: AbortSignal.timeout(9000) });
     if (r.status === 404 && !hit) return NextResponse.json({ count: 0 });
     if (!r.ok) throw new Error(String(r.status));
     const { value } = (await r.json()) as { value: number };

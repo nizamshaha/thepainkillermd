@@ -101,7 +101,7 @@ export default function Footer() {
               <strong className="text-white/60">Medical Disclaimer:</strong>{" "}
               {t("footer.disclaimer").replace("Medical Disclaimer: ", "")}
             </p>
-            <div className="mt-4 pb-40 md:pb-0 flex flex-wrap items-center justify-between gap-4">
+            <div className="mt-4 pb-40 md:pb-24 flex flex-wrap items-center gap-x-6 gap-y-4">
               <p className="text-[13px] text-white/35">
                 © {new Date().getFullYear()} THE PAINKILLER MD. All rights reserved.
               </p>
