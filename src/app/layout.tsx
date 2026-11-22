@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Footer from "@/components/navigation/Footer";
+import SoundFX from "@/components/ui/SoundFX";
 import Header from "@/components/navigation/Header";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import CookieConsent from "@/components/ui/CookieConsent";
@@ -197,6 +198,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
 
           <Footer />
+          <SoundFX />
 
           <CookieConsent />
           <WhatsAppChatWidget />
