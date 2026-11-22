@@ -1,7 +1,7 @@
 "use client";
 
 import Glyph from "@/components/ui/Glyph";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { wizardSteps, evaluateWizardAnswers } from "@/data/wizard";
 import type { WizardResult, WizardStep } from "@/lib/types";
 import { useT } from "@/lib/useT";
@@ -231,6 +231,7 @@ function RangeStep({
 }) {
   const t = useT();
   const current = value ?? 5;
+  const [touched, setTouched] = useState(false);
 
   const getIntensityLabel = (score: number) => {
     return t(`assessment.scale.${score}`) || `Intensity level ${score}`;
@@ -245,18 +246,28 @@ function RangeStep({
       <p className="text-lg font-bold text-[var(--color-text-primary)] mb-6">
         {getIntensityLabel(current)}
       </p>
+      <div className={`relative max-w-md mx-auto ${touched ? "" : "range-hint"}`}>
+      {!touched && (
+        <p className="range-hint-label mb-3 flex items-center justify-center gap-2 text-sm font-medium text-[var(--purple)]" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="w-4 h-4 hint-left" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
+          Slide to set your pain level
+          <svg viewBox="0 0 24 24" className="w-4 h-4 hint-right" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </p>
+      )}
       <input
         type="range"
         min={step.min ?? 0}
         max={step.max ?? 10}
         value={current}
-        onChange={(e) => onChange(parseInt(e.target.value, 10))}
-        className="w-full max-w-md mx-auto h-3 rounded-full appearance-none cursor-pointer"
+        onChange={(e) => { setTouched(true); onChange(parseInt(e.target.value, 10)); }}
+        onPointerDown={() => setTouched(true)}
+        className="pain-range w-full h-3 rounded-full appearance-none cursor-pointer"
         style={{
           background: `linear-gradient(to right, var(--color-medical-500) 0%, var(--color-alert-warning) 50%, var(--color-alert-critical) 100%)`,
         }}
         aria-label={`Pain intensity: ${current} out of 10`}
       />
+      </div>
       <div className="flex justify-between max-w-md mx-auto mt-3 text-xs font-semibold text-[var(--color-text-muted)]">
         <span>0 — {t("assessment.scale.0")}</span>
         <span>10 — {t("assessment.scale.10")}</span>
@@ -330,6 +341,31 @@ export default function PainWizard() {
     currentAnswer !== undefined &&
     currentAnswer !== "" &&
     (!Array.isArray(currentAnswer) || currentAnswer.length > 0);
+
+  // Range questions start at 5 and count as answered straight away
+  useEffect(() => {
+    if (step.type === "range" && answers[currentStep] === undefined) {
+      setAnswers((prev) => ({ ...prev, [currentStep]: 5 }));
+    }
+  }, [step.type, currentStep, answers]);
+
+  // If the patient pauses for 2 seconds, point them to what to do next
+  const [idle, setIdle] = useState(false);
+  useEffect(() => {
+    if (!isOpen || result) return;
+    let timer = window.setTimeout(() => setIdle(true), 2000);
+    const wake = () => {
+      setIdle(false);
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => setIdle(true), 2000);
+    };
+    const evs = ["pointerdown", "keydown", "input"] as const;
+    evs.forEach((e) => window.addEventListener(e, wake));
+    return () => {
+      window.clearTimeout(timer);
+      evs.forEach((e) => window.removeEventListener(e, wake));
+    };
+  }, [isOpen, result, currentStep]);
 
   const handleNext = useCallback(() => {
     if (currentStep < totalSteps) {
@@ -468,14 +504,25 @@ export default function PainWizard() {
               </div>
               <div className="flex justify-between items-center pt-2 border-t border-[var(--hairline)] mt-2 pt-6">
                 <Button type="button" onClick={handlePrev} disabled={currentStep === 1} label={t("assessment.previous")} variant="outline" size="md" />
-                <Button
-                  type="button"
-                  onClick={handleNext}
-                  disabled={!canAdvance}
-                  label={currentStep === totalSteps ? t("assessment.viewResults") : t("assessment.next")}
-                  variant="primary"
-                  size="md"
-                />
+                <div className="relative flex items-center gap-3">
+                  {idle && (
+                    <span className="hint-nudge absolute right-0 -top-7 sm:static whitespace-nowrap text-sm font-medium text-[var(--purple)] flex items-center gap-1" aria-live="polite">
+                      {canAdvance ? "Tap Next to continue" : "Choose an answer above"}
+                      {canAdvance && (
+                        <svg viewBox="0 0 24 24" className="w-4 h-4 hint-right" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                      )}
+                    </span>
+                  )}
+                  <Button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={!canAdvance}
+                    label={currentStep === totalSteps ? t("assessment.viewResults") : t("assessment.next")}
+                    variant="primary"
+                    size="md"
+                    className={idle && canAdvance ? "next-glow" : ""}
+                  />
+                </div>
               </div>
             </div>
           ) : (
