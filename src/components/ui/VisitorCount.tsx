@@ -21,6 +21,7 @@ function load(): Promise<number | null> {
 
 export default function VisitorCount() {
   const [total, setTotal] = useState<number | null>(null);
+  const [failed, setFailed] = useState(false);
   const [shown, setShown] = useState(0);
   const from = useRef(0);
   const ref = useRef<HTMLParagraphElement>(null);
@@ -29,7 +30,7 @@ export default function VisitorCount() {
     // Show the last known total straight away; the counting service can take a few seconds.
     try { const c = Number(localStorage.getItem("tpm-visitors-last")); if (c > 0) setTotal(c); } catch {}
     load().then((n) => {
-      if (n === null) return;
+      if (n === null) { setFailed(true); return; }
       try { localStorage.setItem("tpm-visitors-last", String(n)); } catch {}
       setTotal((prev) => (prev === null ? n : Math.max(prev, n)));
     });
@@ -55,14 +56,16 @@ export default function VisitorCount() {
     return () => io.disconnect();
   }, [total]);
 
-  if (total === null) return null;
+  if (total === null && failed) return null;
+  const loading = total === null;
   return (
-    <p ref={ref} className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-[13px] text-white/70 ring-1 ring-white/15 bg-white/[0.04]" aria-label={`${total.toLocaleString("en-IN")} visitors`}>
+    <p ref={ref} className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-[13px] text-white/70 ring-1 ring-white/15 bg-white/[0.04]" aria-live="polite" aria-label={loading ? "Loading visitor count" : `${total.toLocaleString("en-IN")} visitors`}>
       <span className="relative flex h-2 w-2" aria-hidden="true">
         <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--lilac)] opacity-60 motion-safe:animate-ping" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--lilac)]" />
       </span>
-      <span className="font-semibold text-white tabular-nums">{shown.toLocaleString("en-IN")}</span>
+      {loading ? <span className="inline-block h-3 w-10 rounded-full bg-white/15 motion-safe:animate-pulse" aria-hidden="true" /> : null}
+      {loading ? null : <span className="font-semibold text-white tabular-nums">{shown.toLocaleString("en-IN")}</span>}
       <span>visitors</span>
     </p>
   );
