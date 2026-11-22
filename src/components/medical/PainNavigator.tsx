@@ -8,7 +8,18 @@ import type { PainArea } from "@/data/painAreas";
 import { useT } from "@/lib/useT";
 import PainBody from "./PainBody";
 import PainDetailPanel from "./PainDetailPanel";
-import PainQuestionnaire from "./PainQuestionnaire";
+import PainWizard from "./PainWizard";
+
+// Pain Navigator zones -> assessment body areas
+const ZONE_TO_REGION: Record<string, string> = {
+  headache: "head", "face-pain": "head", "neck-cervical-pain": "neck", "shoulder-pain": "shoulder",
+  "arm-pain": "arm", "elbow-pain": "arm", "forearm-pain": "arm", "wrist-pain": "hand", "palm-pain": "hand",
+  "fingers-pain": "hand", "chest-pain": "chest", "upper-back-pain": "back", "midback-pain": "back",
+  "low-back-pain": "back", "tail-bone-pain": "back", "buttock-pain": "hip", "hip-pain": "hip",
+  "thigh-pain-anterior": "leg", "thigh-pain-posterior": "leg", "knee-pain": "knee", "leg-pain": "leg",
+  "ankle-pain": "foot", "foot-pain": "foot",
+};
+const toWizardRegions = (ids: string[]) => Array.from(new Set(ids.map((i) => ZONE_TO_REGION[i]).filter(Boolean)));
 import PainResults from "./PainResults";
 import PainReport from "./PainReport";
 import Button from "@/components/ui/Button";
@@ -149,12 +160,13 @@ export default function PainNavigator() {
 
       {/* Questionnaire */}
       {state === "questionnaire" && selectedAreas.length > 0 && (
-        <PainQuestionnaire
-          area={selectedAreas[0]}
-          allAreas={selectedAreas}
-          onComplete={showResults}
-          onBack={() => setState("explore")}
-        />
+        <div>
+          <button type="button" onClick={() => setState("explore")} className="mb-2 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--purple)] hover:underline">
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
+            Back to body map
+          </button>
+          <PainWizard embedded initialRegions={toWizardRegions(selectedAreas.map((a) => a.id))} />
+        </div>
       )}
 
       {/* Results */}

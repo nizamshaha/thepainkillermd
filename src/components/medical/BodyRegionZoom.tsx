@@ -316,8 +316,7 @@ export default function BodyRegionZoom({ regionId, onClose, onConfirm }: BodyReg
             )}
             <button
               onClick={() => onConfirm(regionId, pins)}
-              className="glass-btn glass-purple h-10 px-6 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={pins.length === 0}
+              className="glass-btn glass-purple h-10 px-6 text-sm"
             >
               {pins.length > 0 ? `${t("zoom.confirm")} (${pins.length})` : t("zoom.skipNoPins")}
             </button>

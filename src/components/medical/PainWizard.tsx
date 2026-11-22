@@ -326,12 +326,14 @@ function YesNoStep({
   );
 }
 
-export default function PainWizard() {
+export default function PainWizard({ initialRegions, embedded = false }: { initialRegions?: string[]; embedded?: boolean } = {}) {
   const t = useT();
-  const [currentStep, setCurrentStep] = useState(1);
-  const [answers, setAnswers] = useState<Record<number, string | string[] | number>>({});
+  const preset = initialRegions && initialRegions.length > 0;
+  // When opened from the Pain Navigator, the body areas are already chosen: start on question 2
+  const [currentStep, setCurrentStep] = useState(preset ? 2 : 1);
+  const [answers, setAnswers] = useState<Record<number, string | string[] | number>>(preset ? { 1: initialRegions! } : {});
   const [result, setResult] = useState<WizardResult | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(embedded);
 
   const step = wizardSteps.find((s) => s.id === currentStep) || wizardSteps[0];
   const totalSteps = wizardSteps.length;
@@ -383,10 +385,10 @@ export default function PainWizard() {
   }, [currentStep]);
 
   const handleReset = useCallback(() => {
-    setCurrentStep(1);
-    setAnswers({});
+    setCurrentStep(preset ? 2 : 1);
+    setAnswers(preset ? { 1: initialRegions! } : {});
     setResult(null);
-  }, []);
+  }, [preset, initialRegions]);
 
   const updateAnswer = (value: string | string[] | number) => {
     setAnswers((prev) => ({ ...prev, [currentStep]: value }));
